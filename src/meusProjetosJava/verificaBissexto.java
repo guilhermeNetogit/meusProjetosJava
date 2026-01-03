@@ -6,7 +6,7 @@ public class verificaBissexto {
 	
 	public static void main(String[] args) {
 	      try (Scanner teclado = new Scanner(System.in)) {
-			System.out.println("Digite um ano:");
+			System.out.println("Digite um ano para verificação:");
 			  	int ano = teclado.nextInt();
 				//int ano = localDate.getYear();
 				String mes[]={"Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"};
@@ -24,3 +24,4 @@ public class verificaBissexto {
 		  }
 	}
 }
+
