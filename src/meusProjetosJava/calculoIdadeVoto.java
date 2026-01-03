@@ -29,7 +29,7 @@ public class calculoIdadeVoto {  // mude para o nome que você deu na classe Gui
                     dataNascimento = null;
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Erro: Data inválida! Use formato dd/MM/yyyy\n");
+                System.out.println("Erro: Data inválida!! Use formato dd/MM/yyyy\n");
             }
         }
 
@@ -56,5 +56,6 @@ public class calculoIdadeVoto {  // mude para o nome que você deu na classe Gui
     }
 
 }
+
 
 
