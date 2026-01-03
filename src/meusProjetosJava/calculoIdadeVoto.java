@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class calculoIdadeVoto {  // mude para o nome que você deu na classe Guilherme passou aqui teste Duda passou aqui testeIII
+public class calculoIdadeVoto {  // Guilherme passou aqui teste Duda passou aqui testeIII
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class calculoIdadeVoto {  // mude para o nome que você deu na classe Gui
                     dataNascimento = null;
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Erro: Data inválida!! Use formato dd/MM/yyyy\n");
+                System.out.println("Erro: Data inválida! Use formato dd/MM/yyyy\n");
             }
         }
 
