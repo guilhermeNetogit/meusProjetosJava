@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class calculoIdadeVoto {  // mude para o nome que você deu na classe
+public class calculoIdadeVoto {  // mude para o nome que você deu na classe Guilherme passou aqui
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -14,7 +14,7 @@ public class calculoIdadeVoto {  // mude para o nome que você deu na classe
 
         System.out.println("=== Cálculo de Idade e Situação Eleitoral ===\n");
 
-        System.out.print("Digite seu nome: ");
+        System.out.print("Digite seu nome completo: ");
         String nome = teclado.nextLine().trim();
 
         LocalDate dataNascimento = null;
@@ -54,4 +54,5 @@ public class calculoIdadeVoto {  // mude para o nome que você deu na classe
 
         teclado.close();
     }
+
 }
