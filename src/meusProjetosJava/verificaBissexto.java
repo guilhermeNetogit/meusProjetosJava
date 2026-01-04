@@ -2,7 +2,7 @@ package meusProjetosJava;
 
 import java.util.Scanner;
 
-public class verificaBissexto {
+public class verificaBissexto { //Duda passou aqui também
 	
 	public static void main(String[] args) {
 	      try (Scanner teclado = new Scanner(System.in)) {
@@ -24,4 +24,5 @@ public class verificaBissexto {
 		  }
 	}
 }
+
 
