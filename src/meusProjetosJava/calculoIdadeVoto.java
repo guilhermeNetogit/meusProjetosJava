@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class calculoIdadeVoto {  // Github Guilherme passou aqui 04/01/26 19:55; Duda passou aqui 18:52
+public class calculoIdadeVoto {  // Eclipse Guilherme passou aqui 04/01/26 20:07; Duda passou aqui 18:52
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.println("=== Cálculo de Idade e Situação Eleitoral ===\n");
+        System.out.println("===== Cálculo de Idade e Situação Eleitoral =====\n");
 
         System.out.print("Digite seu nome completo: ");
         String nome = teclado.nextLine().trim();
