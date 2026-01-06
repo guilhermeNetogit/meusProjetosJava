@@ -2,11 +2,11 @@ package meusProjetosJava;
 
 import java.util.Scanner;
 
-public class verificaBissexto { //Duda passou aqui também
+public class verificaBissexto { // Eclipse @guilhermeNetoGit passou aqui em 05/01/26 22:14:30; Duda passou aqui também
 	
 	public static void main(String[] args) {
 	      try (Scanner teclado = new Scanner(System.in)) {
-			System.out.println("Digite um ano para verificação:");
+			System.out.println("Digite um ano:");
 			  	int ano = teclado.nextInt();
 				//int ano = localDate.getYear();
 				String mes[]={"Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"};
@@ -14,8 +14,8 @@ public class verificaBissexto { //Duda passou aqui também
 				String anobi;
 				int anodias;
 			  if ((ano %400 ==0) || ((ano % 4 == 0) && (ano % 100 != 0))){anobi = " é bissexto";}
-			  else {anobi = " não é bissexto";}
-			  if (anobi == " é bissexto"){dias[1]=29;anodias=366;}else{dias[1]=28;anodias=365;}
+			  else {anobi = " não é bissexto.";}
+			  if (anobi == " é bissexto."){dias[1]=29;anodias=366;}else{dias[1]=28;anodias=365;}
 			  System.out.println("O ano de " +ano + anobi +" e tem " + anodias + " dias."); 
 				//for (int c=0;c<=5;c++)
 				for (int c=0;c<mes.length;c++) {
