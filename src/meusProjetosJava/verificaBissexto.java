@@ -2,7 +2,7 @@ package meusProjetosJava;
 
 import java.util.Scanner;
 
-public class verificaBissexto { // Eclipse @guilhermeNetoGit passou aqui em 05/01/26 22:14:30; Duda passou aqui também
+public class verificaBissexto { // Eclipse @guilhermeNetoGit passou aqui em 05/01/26 22:14:30; Duda passou aqui também 06/01/2026 21:51
 	
 	public static void main(String[] args) {
 	      try (Scanner teclado = new Scanner(System.in)) {
@@ -24,5 +24,6 @@ public class verificaBissexto { // Eclipse @guilhermeNetoGit passou aqui em 05/0
 		  }
 	}
 }
+
 
 
