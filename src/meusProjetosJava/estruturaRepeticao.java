@@ -10,5 +10,4 @@ public class estruturaRepeticao {// @author user Eclipse -> Github @guilhermeNet
             System.out.println("Operação " + cc);
         }
     }
-
 }

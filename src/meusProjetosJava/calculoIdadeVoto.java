@@ -57,8 +57,3 @@ public class calculoIdadeVoto {// @author user Eclipse -> Github @guilhermeNetog
         teclado.close();
     }
 }
-
-
-
-
-
