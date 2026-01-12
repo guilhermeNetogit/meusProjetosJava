@@ -2,7 +2,7 @@ package meusProjetosJava;
 
 import java.util.Scanner;
 
-public class verificaBissexto { //Duda passou aqui também
+public class verificaBissexto {// @author user Eclipse -> Github @guilhermeNetogit passou aqui em 11/01/2026 21:01:54
 	
 	public static void main(String[] args) {
 	      try (Scanner teclado = new Scanner(System.in)) {
