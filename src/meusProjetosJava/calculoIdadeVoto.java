@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class calculoIdadeVoto {// @author user Eclipse -> Github @guilhermeNetogit passou aqui em 11/01/2026 21:01:05; Duda passou aqui 18:52
+public class calculoIdadeVoto {// Eclipse -> Github @guilhermeNetogit passou aqui em 16/01/2026 19:02:26
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -40,7 +40,7 @@ public class calculoIdadeVoto {// @author user Eclipse -> Github @guilhermeNetog
         } else if (idade == 16 || idade == 17 || idade > 70) {
             situacao = "Seu voto é OPCIONAL.";
         } else {
-            situacao = "Você é OBRIGADO a votar.";
+            situacao = "Você é OBRIGADO a votar!";
         }*/
         
         String situacao = idade < 16 ? "Você NÃO pode votar ainda..."
