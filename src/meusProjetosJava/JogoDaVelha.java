@@ -2,21 +2,63 @@ package meusProjetosJava;
 
 import java.util.*;
 
-public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 16/01/2026 20:45:20
+public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 17/01/2026 19:52:01
     private static char[][] tabuleiro = new char[3][3];
     private static char jogadorHumano = 'X';
     private static char jogadorComputador = 'O';
     private static char jogadorAtual = 'X';
     private static Scanner scanner = new Scanner(System.in);
     private static Random random = new Random();
+    private static int vitoriasHumano = 0;
+    private static int vitoriasComputador = 0;
+    private static int empates = 0;
     
     public static void main(String[] args) {
         System.out.println("=== JOGO DA VELHA ===");
         System.out.println("Você é o jogador X");
         System.out.println("Computador é o jogador O");
         
+        boolean jogarNovamente = true;
+        
+        while (jogarNovamente) {
+            jogarPartida();
+            
+            System.out.println("\n=== PLACAR ===");
+            System.out.println("Você: " + vitoriasHumano + " vitórias");
+            System.out.println("Computador: " + vitoriasComputador + " vitórias");
+            System.out.println("Empates: " + empates);
+            
+            System.out.print("\nDeseja jogar novamente? (S/N): ");
+            String resposta = scanner.next().toUpperCase();
+            
+            while (!resposta.equals("S") && !resposta.equals("N")) {
+                System.out.print("Resposta inválida! Digite S para Sim ou N para Não: ");
+                resposta = scanner.next().toUpperCase();
+            }
+            
+            jogarNovamente = resposta.equals("S");
+        }
+        
+        System.out.println("\nObrigado por jogar!");
+        System.out.println("Placar final:");
+        System.out.println("Você: " + vitoriasHumano + " vitórias");
+        System.out.println("Computador: " + vitoriasComputador + " vitórias");
+        System.out.println("Empates: " + empates);
+        
+        scanner.close();
+    }
+    
+    private static void jogarPartida() {
         inicializarTabuleiro();
         exibirTabuleiro();
+        
+        // Decide aleatoriamente quem começa (opcional)
+        jogadorAtual = random.nextBoolean() ? jogadorHumano : jogadorComputador;
+        if (jogadorAtual == jogadorComputador) {
+            System.out.println("O computador começa!");
+        } else {
+            System.out.println("Você começa!");
+        }
         
         // Loop principal do jogo
         while (true) {
@@ -33,8 +75,10 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 
             if (vencedor != ' ') {
                 if (vencedor == jogadorHumano) {
                     System.out.println("Parabéns! Você venceu!");
+                    vitoriasHumano++;
                 } else if (vencedor == jogadorComputador) {
                     System.out.println("O computador venceu!");
+                    vitoriasComputador++;
                 }
                 break;
             }
@@ -42,14 +86,13 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 
             // Verificar se o jogo empatou
             if (tabuleiroCheio()) {
                 System.out.println("O jogo empatou!");
+                empates++;
                 break;
             }
             
             // Alternar jogador
             jogadorAtual = (jogadorAtual == jogadorHumano) ? jogadorComputador : jogadorHumano;
         }
-        
-        scanner.close();
     }
     
     private static void inicializarTabuleiro() {
@@ -94,7 +137,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Use apenas números.");
-                scanner.next(); // Limpar buffer
+                scanner.nextLine(); // Limpar buffer
             }
         }
     }
