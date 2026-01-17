@@ -12,7 +12,7 @@ public class calculoIdadeVoto {// Eclipse -> Github @guilhermeNetogit passou aqu
         Scanner teclado = new Scanner(System.in);
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        System.out.println("===== Cálculo de Idade e Situação Eleitoral =====\n");
+        System.out.println("====== Cálculo de Idade e Situação Eleitoral ======\n");
         System.out.print("Digite seu nome completo: ");
         String nome = teclado.nextLine().trim();
 
@@ -56,4 +56,5 @@ public class calculoIdadeVoto {// Eclipse -> Github @guilhermeNetogit passou aqu
 
         teclado.close();
     }
+
 }
