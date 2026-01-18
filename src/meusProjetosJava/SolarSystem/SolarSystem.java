@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit passou aqui em 17/01/2026 21:12:33
 	private static final long serialVersionUID = 1L;
-    
+    private JPanel infoPanel;
     private List<CelestialBody> bodies = new ArrayList<>();
     private List<Point> stars = new ArrayList<>();
     private double speedMultiplier = 1.0;
@@ -18,18 +18,18 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
     
     // Distâncias reais em milhões de km e velocidades da luz
     private static final double[] DISTANCES_SOL = {
-        0,      // Sol
-        57.9,   // Mercúrio
-        108.2,  // Vênus
-        149.6,  // Terra
-        227.9,  // Marte
-        778.5,  // Júpiter
-        1433.5, // Saturno
-        2872.5, // Urano
-        4495.1  // Netuno
+        0,				// Sol
+        57.909227,		// Mercúrio
+        108.209475,		// Vênus
+        149.597871,		// Terra
+        227.936637,		// Marte
+        778.547200,		// Júpiter
+        1433.449370,	// Saturno
+        2870.658186,	// Urano
+        4498.396441		// Netuno
     };
     
-    // Velocidade da luz: 299,792 km/s 299.792.458 
+    // Velocidade da luz: 299792.458 km/s
     private static final double LIGHT_SPEED_KM_S = 299792.458;
     
     class CelestialBody {
@@ -169,13 +169,13 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
         // Painel de botões à esquerda
         JPanel buttonPanel = createButtonPanel();
         
-        // Painel de informações à direita
-        JPanel infoPanel = createInfoPanel();
+        // Painel de informações à direita (inicialmente invisível)
+        infoPanel = createInfoPanel();
         
         // Adicionar componentes
         add(buttonPanel, BorderLayout.WEST);
         add(solarPanel, BorderLayout.CENTER);
-        add(infoPanel, BorderLayout.EAST);
+        //add(infoPanel, BorderLayout.EAST);
         
         // Configurar teclado
         setupKeyboardControls(solarPanel);
@@ -192,6 +192,18 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
         setBackground(Color.BLACK);
     }
     
+    private void toggleInfoPanel(boolean show) {
+        if (show) {
+            if (infoPanel.getParent() == null) {
+                add(infoPanel, BorderLayout.EAST);
+            }
+        } else {
+            remove(infoPanel);
+        }
+        revalidate();
+        repaint();
+    }
+    
     private void initializeStars() {
         for (int i = 0; i < 300; i++) {
             stars.add(new Point(random.nextInt(1400), random.nextInt(800)));
@@ -205,18 +217,18 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         // Título
-        JLabel title = new JLabel("🌌 PLANETAS", SwingConstants.CENTER);
+        JLabel title = new JLabel("PLANETAS", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 18));
         title.setForeground(Color.CYAN);
         panel.add(title);
         
         // Botão para "Nenhum"
-        JButton noneButton = createPlanetButton("🌞 Nenhum", null);
+        JButton noneButton = createPlanetButton("[X] Nenhum", null);
         panel.add(noneButton);
         
         // Botões para cada planeta
-        String[] planetNames = {"☿ Mercúrio", "♀ Vênus", "🜨 Terra", "♂ Marte", 
-                                "♃ Júpiter", "♄ Saturno", "⛢ Urano", "♆ Netuno"};
+        String[] planetNames = {"[1] Mercúrio", "[2] Vênus", "[3] Terra", "[4] Marte", 
+                                "[5] Júpiter", "[6] Saturno", "[7] Urano", "[8] Netuno"};
         
         for (int i = 0; i < planetNames.length; i++) {
             final int index = i + 1; // +1 porque o Sol é index 0
@@ -228,20 +240,20 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
         JPanel speedPanel = new JPanel(new GridLayout(3, 2, 5, 5));
         speedPanel.setBackground(new Color(20, 20, 40));
         
-        JButton speedUp = createControlButton("⏩ +", e -> {
+        JButton speedUp = createControlButton("+", e -> {
             speedMultiplier *= 1.5;
             if (speedMultiplier > 20) speedMultiplier = 20;
         });
         
-        JButton speedDown = createControlButton("⏪ -", e -> {
+        JButton speedDown = createControlButton("-", e -> {
             speedMultiplier /= 1.5;
             if (speedMultiplier < 0.01) speedMultiplier = 0.01;
         });
         
-        JButton pauseButton = createControlButton("⏸️ Pausa", e -> speedMultiplier = 0);
-        JButton resetButton = createControlButton("↺ Reset", e -> speedMultiplier = 1.0);
-        JButton doubleButton = createControlButton("⚡ 2x", e -> speedMultiplier = 2.0);
-        JButton halfButton = createControlButton("🐌 0.5x", e -> speedMultiplier = 0.5);
+        JButton pauseButton = createControlButton("Pausa", e -> speedMultiplier = 0);
+        JButton resetButton = createControlButton("Reset", e -> speedMultiplier = 1.0);
+        JButton doubleButton = createControlButton("2x", e -> speedMultiplier = 2.0);
+        JButton halfButton = createControlButton("0.5x", e -> speedMultiplier = 0.5);
         
         speedPanel.add(speedUp);
         speedPanel.add(speedDown);
@@ -270,6 +282,8 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
         
         button.addActionListener(e -> {
             selectedPlanet = planet;
+            // Mostrar painel apenas se um planeta for selecionado
+            toggleInfoPanel(planet != null);
             repaint();
         });
         
@@ -306,7 +320,7 @@ public class SolarSystem extends JPanel { // Eclipse -> Github @guilhermeNetogit
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         // Título
-        JLabel title = new JLabel("📊 INFORMAÇÕES", SwingConstants.CENTER);
+        JLabel title = new JLabel("INFORMAÇÕES", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 18));
         title.setForeground(Color.GREEN);
         panel.add(title, BorderLayout.NORTH);
