@@ -135,7 +135,7 @@ Color.HSBtoRGB(hue, sat, bri) // Cores HSB
 5. Abra um Pull Request
 
 ## 📝 Licença
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.txt) para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ## 👨‍💻 Autor
 Guilherme Neto
