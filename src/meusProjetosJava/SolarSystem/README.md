@@ -1,9 +1,10 @@
 # 🌌 Sistema Solar Interativo em Java
 
-![Java](https://img.shields.io/badge/Java-17%2B-orange)
-![Swing](https://img.shields.io/badge/GUI-Swing-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
+![Java](https://img.shields.io/badge/Java-17%2B-007396?logo=java&logoColor=white)
+![Swing](https://img.shields.io/badge/GUI-Swing-4D4D4D?logo=swing&logoColor=white)
+![Graphics2D](https://img.shields.io/badge/Render-Graphics2D-6A0DAD?logo=opengl&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue)
+![Status](https://img.shields.io/badge/Status-Complete-success)
 
 ## ✨ Sobre o Projeto
 Um simulador visual interativo do Sistema Solar desenvolvido em Java Swing com física orbital realista, informações científicas detalhadas e interface gráfica intuitiva.
@@ -22,28 +23,28 @@ Um simulador visual interativo do Sistema Solar desenvolvido em Java Swing com f
 - Git (opcional)
 
 ### Compilação e Execução
-```bash
+```
 # 1. Clone o repositório:
 git clone https://github.com/seu-usuario/sistema-solar-java.git
 cd sistema-solar-java
-
 
 # 2. Compile o programa:
 javac SolarSystem.java
 
 # 3. Execute a aplicação:
 java SolarSystem
-
-## Executando no Eclipse
-
+```
+### Executando no Eclipse
+```
 # 1. Importe o projeto como "Java Project"
 
 # 2. Execute a classe SolarSystem.java
 
 # 3. Clique na janela para ativar controles
+```
+## 🎮 Como Usar
+Controles do Teclado:
 
-🎮 Como Usar
-Controles do Teclado
 ↑ (Seta Up): Aumenta velocidade (×1.5)
 
 ↓ (Seta Down): Diminui velocidade (÷1.5)
@@ -56,7 +57,7 @@ Espaço: Pausa/Continua
 
 R: Reset velocidade para 1x
 
-Interface Gráfica
+## 🖥️ Interface Gráfica
 Painel Esquerdo: Selecione planetas
 
 Painel Central: Visualização do sistema solar
@@ -65,24 +66,27 @@ Painel Direito: Informações científicas
 
 Botões: Controles de velocidade
 
-🏗️ Estrutura do Código
-text
+## 🏗️ Estrutura do Código
+```text
 SolarSystem/
-├── SolarSystem.java          # Classe principal
+├── SolarSystem.java            # Classe principal
 ├── CelestialBody (inner class) # Representa corpos celestes
-├── drawSolarSystem()         # Renderização gráfica
-├── createButtonPanel()       # Interface de controles
-├── createInfoPanel()         # Painel de informações
-├── initializeSolarSystem()   # Configuração inicial
-└── updateSolarSystem()       # Atualização da simulação
-
-🔧 Personalização
-Modificando Velocidades
+├── drawSolarSystem()           # Renderização gráfica
+├── createButtonPanel()         # Interface de controles
+├── createInfoPanel()           # Painel de informações
+├── initializeSolarSystem()     # Configuração inicial
+└── updateSolarSystem()         # Atualização da simulação
+```
+## 🔧 Personalização
+### Modificando Velocidades
+```
 java
 // Em initializeSolarSystem(), ajuste os baseSpeed:
 CelestialBody earth = new CelestialBody("Terra", 200, 10, Color.BLUE, 0.02);
-//                                                    Velocidade base ↑
-Adicionando Novos Planetas
+//Velocidade base ↑
+```
+### Adicionando Novos Planetas
+```
 java
 // Adicione após os planetas existentes:
 CelestialBody novoPlaneta = new CelestialBody(
@@ -93,30 +97,32 @@ CelestialBody novoPlaneta = new CelestialBody(
     0.002          // Velocidade
 );
 bodies.add(novoPlaneta);
-Alterando Cores
+```
+### Alterando Cores
+```
 java
 // Use qualquer cor do Java:
 new Color(R, G, B)           // RGB (0-255)
 new Color(R, G, B, alpha)    // RGBA com transparência
 Color.HSBtoRGB(hue, sat, bri) // Cores HSB
+```
+## 🚀 Recursos Futuros (To-Do)
+- [ ] Adicionar modo noturno/galáxia
 
-🚀 Recursos Futuros (To-Do)
--[]Adicionar modo noturno/galáxia
+- [ ] Implementar órbitas elípticas
 
--[]Implementar órbitas elípticas
+- [ ] Adicionar cometas com caudas
 
--[]Adicionar cometas com caudas
+- [ ] Criar sistema de zoom
 
--[]Criar sistema de zoom
+- [ ] Adicionar constelações
 
--[]Adicionar constelações
+- [ ] Exportar imagens do sistema
 
--[]Exportar imagens do sistema
+- [ ] Suporte a múltiplos sistemas solares
 
--[]Suporte a múltiplos sistemas solares
-
-🤝 Contribuindo
-Contribuições são bem-vindas! Siga estes passos:
+## 🤝 Contribuindo
+### Contribuições são bem-vindas! Siga estes passos:
 
 1. Fork o projeto
 
@@ -128,16 +134,16 @@ Contribuições são bem-vindas! Siga estes passos:
 
 5. Abra um Pull Request
 
-📝 Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
+## 📝 Licença
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.txt) para detalhes.
 
-👨‍💻 Autor
-Seu Nome
+## 👨‍💻 Autor
+Guilherme Neto
 
-GitHub: @guilhermeNetogit
-LinkedIn: Seu Perfil
+GitHub: [@guilhermeNetogit](https://github.com/guilhermeNetogit)  
+LinkedIn: [Guilherme Neto](https://www.linkedin.com/in/guilherme-roberto-neto-bbb305164/)
 
-📞 Suporte
+## 📞 Suporte
 Encontrou um bug ou tem uma sugestão? Abra uma issue no GitHub.
 
-⭐ Se você gostou deste projeto, dê uma estrela no GitHub! ⭐
+##⭐ Se você gostou deste projeto, dê uma estrela no GitHub! ⭐
