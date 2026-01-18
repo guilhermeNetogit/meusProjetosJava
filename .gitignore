@@ -1,0 +1,35 @@
+# ========== SISTEMA SOLAR JAVA ==========
+# Criado por: [GUilherme Neto] [guilhermeNetoGit]
+# Data: 18/01/2026
+
+# 1. COMPILADOS JAVA (NUNCA COMMITAR!)
+*.class
+
+# 2. ECLIPSE OUTPUT
+bin/
+.metadata/
+.recommenders/
+*.launch
+
+# 3. ARQUIVOS DE PROJETO (versionar para facilitar)
+ .classpath    ← COMENTADO para versionar
+ .project      ← COMENTADO para versionar
+.settings/      ← IGNORAR (configs pessoais)
+
+# 4. SISTEMA OPERACIONAL
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 5. TEMPORÁRIOS E LOGS
+*.tmp
+*.bak
+*.swp
+*~
+*.log
+logs/
+
+# 6. BUILD TOOLS (futuro)
+target/
+build/
+out/
