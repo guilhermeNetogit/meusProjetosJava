@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class calculoIdadeVoto {// Eclipse -> Github @guilhermeNetogit passou aqui em 16/01/2026 19:02:26
+public class calculoIdadeVoto {// Eclipse <- Github @guilhermeNetogit passou aqui em 20/01/2026 20:42:26
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
@@ -47,7 +47,7 @@ public class calculoIdadeVoto {// Eclipse -> Github @guilhermeNetogit passou aqu
                 : (idade == 16 || idade == 17 || idade > 70) ? "Seu voto é OPCIONAL..."
                 : "Você é OBRIGADO a votar...";
 
-        System.out.println("\n----- Resultado -----");
+        System.out.println("\n------ Resultado ------");
         System.out.println("Data atual: " + hoje.format(fmt));
         System.out.println("Nome: " + nome);
         System.out.println("Data de nascimento: " + dataNascimento.format(fmt));
@@ -56,5 +56,4 @@ public class calculoIdadeVoto {// Eclipse -> Github @guilhermeNetogit passou aqu
 
         teclado.close();
     }
-
 }
