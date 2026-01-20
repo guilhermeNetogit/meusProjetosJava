@@ -2,7 +2,7 @@ package meusProjetosJava;
 
 import java.util.*;
 
-public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 18/01/2026 19:43:30
+public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 20/01/2026 20:21:55
     private static char[][] tabuleiro = new char[3][3];
     private static char jogadorHumano = 'X';
     private static char jogadorComputador = 'O';
@@ -14,7 +14,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 
     private static int empates = 0;
     
     public static void main(String[] args) {
-        System.out.println("===== JOGO DA VELHA =====");
+        System.out.println("======= JOGO DA VELHA =======");
         System.out.println("Você é o jogador X");
         System.out.println("Computador é o jogador O");
         
@@ -23,7 +23,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 
         while (jogarNovamente) {
             jogarPartida();
             
-            System.out.println("\n=== PLACAR ===");
+            System.out.println("\n======= PLACAR =======");
             System.out.println("Você: " + vitoriasHumano + " vitórias");
             System.out.println("Computador: " + vitoriasComputador + " vitórias");
             System.out.println("Empates: " + empates);
