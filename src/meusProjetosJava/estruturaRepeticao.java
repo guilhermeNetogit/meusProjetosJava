@@ -1,6 +1,6 @@
 package meusProjetosJava;
 
-public class estruturaRepeticao {// Eclipse <- Github @guilhermeNetogit passou aqui em 16/01/2026 19:14:32; Duda 04/01/26 19:16
+public class estruturaRepeticao {// Eclipse -> Github @guilhermeNetogit passou aqui em 20/01/2026 21:56:32; Duda 04/01/26 19:16
 
     public static void main(String[] args) {
         // Laço for: inicialização ; condição ; incremento
