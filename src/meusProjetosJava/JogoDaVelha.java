@@ -2,7 +2,7 @@ package meusProjetosJava;
 
 import java.util.*;
 
-public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 20/01/2026 20:21:55
+public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit passou aqui em 20/01/2026 21:56:55
     private static char[][] tabuleiro = new char[3][3];
     private static char jogadorHumano = 'X';
     private static char jogadorComputador = 'O';

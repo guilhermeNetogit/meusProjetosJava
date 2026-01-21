@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class calculoIdadeVoto {// Eclipse <- Github @guilhermeNetogit passou aqui em 20/01/2026 20:42:26
+public class calculoIdadeVoto {// Eclipse <- Github @guilhermeNetogit passou aqui em 20/01/2026 20:56:26
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
