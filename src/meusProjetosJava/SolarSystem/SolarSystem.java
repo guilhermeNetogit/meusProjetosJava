@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.*;
 
-public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit passou aqui em 18/01/2026 19:25:49
+public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit passou aqui em 23/01/2026 20:11:37
 	private static final long serialVersionUID = 1L;
     private JPanel infoPanel;
     private List<CelestialBody> bodies = new ArrayList<>();
