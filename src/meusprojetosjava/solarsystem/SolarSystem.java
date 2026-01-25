@@ -1,4 +1,4 @@
-package meusProjetosJava.SolarSystem;
+package meusprojetosjava.solarsystem;
 
 import java.awt.*;
 import java.awt.event.*;
