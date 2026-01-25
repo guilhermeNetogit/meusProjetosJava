@@ -1,8 +1,8 @@
-package meusProjetosJava;
+package meusprojetosjava;
 
 import java.util.Scanner;
 
-public class verificaBissexto {// Eclipse -> Github @arauj0duy passou aqui em 16/01/2026 21:26:54; @guilhermeNetogit 20/01/2026 21:56:29
+public class VerificaBissexto {// Eclipse -> Github @arauj0duy passou aqui em 16/01/2026 21:26:54; @guilhermeNetogit 20/01/2026 21:56:29
 	
 	public static void main(String[] args) {
 	      try (Scanner teclado = new Scanner(System.in)) {
