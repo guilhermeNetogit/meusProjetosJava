@@ -168,7 +168,7 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 ## 👨‍💻 Autor
 Guilherme Neto
 
-![GitHUb](https://img.shields.io/badge/GitHub-100000?logo=github&logoColor=white&link=https%3A%2F%2Fgithub.com%2FguilhermeNetogit)
+[![GitHUb](https://img.shields.io/badge/GitHub-100000?logo=github&logoColor=white)](https://www.github.com/guilhermeNetogit/)
 ![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)
 
 ## 📞 Suporte
