@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.*;
 
-public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit passou aqui em 23/01/2026 20:11:37
+public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 14/02/2026 11:11:50
 	private static final long serialVersionUID = 1L;
     private JPanel infoPanel;
     private List<CelestialBody> bodies = new ArrayList<>();
@@ -192,6 +192,29 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
         setBackground(Color.BLACK);
     }
     
+    private String getTemperatureInfo(String planetName) {
+        switch (planetName) {
+            case "Mercúrio":
+                return "Dia (máx): +430 °C\nNoite (mín): -180 °C";
+            case "Vênus":
+                return "Superfície constante: ~ +464 °C (dia e noite iguais)";
+            case "Terra":
+                return "Dia (máx típico): +58 °C\nNoite (mín típico): -89 °C";
+            case "Marte":
+                return "Dia (máx): +30 °C\nNoite (mín): -140 °C";
+            case "Júpiter":
+                return "Nuvens superiores: ~ -110 °C (quase constante)";
+            case "Saturno":
+                return "Nuvens superiores: ~ -140 °C (quase constante)";
+            case "Urano":
+                return "Nuvens superiores: ~ -224 °C (o mais frio, quase constante)";
+            case "Netuno":
+                return "Nuvens superiores: ~ -218 °C (quase constante)";
+            default:
+                return "Não aplicável";
+        }
+    }
+    
     private void toggleInfoPanel(boolean show) {
         if (show) {
             if (infoPanel.getParent() == null) {
@@ -334,9 +357,15 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
             }
         };
         infoContent.setOpaque(false);
-        infoContent.setPreferredSize(new Dimension(250, 0));
+        infoContent.setPreferredSize(new Dimension(280, 0));
         
-        panel.add(infoContent, BorderLayout.CENTER);
+        JScrollPane scroll = new JScrollPane(infoContent,
+        	    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        	    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        	scroll.setOpaque(false);
+        	scroll.getViewport().setOpaque(false);
+        	scroll.setBorder(null);
+        	panel.add(scroll, BorderLayout.CENTER);
         
         return panel;
     }
@@ -344,18 +373,32 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
     private void drawPlanetInfo(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        int y = 40;
-        
+
+        int y = 45;                // Começa um pouco mais baixo
+        int indentTitle = 20;
+        int indentValue = 45;
+        int lineHeight = 22;       // Espaço entre linhas
+        int sectionGap = 50;       // Espaço entre seções completas
+
+        // Fundo sutil para o painel (opcional, melhora legibilidade)
+        // g2d.setColor(new Color(30, 30, 50, 80));
+        // g2d.fillRect(0, 0, getWidth(), getHeight());
+
         if (selectedPlanet == null) {
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Arial", Font.ITALIC, 14));
-            g2d.drawString("Selecione um planeta", 20, y);
-            g2d.drawString("para ver informações", 20, y + 25);
+            g2d.drawString("Selecione um planeta", indentTitle, y);
+            g2d.drawString("para ver informações", indentTitle, y + lineHeight);
             return;
         }
-        
-        // Encontrar índice do planeta
+
+        // Título do planeta
+        g2d.setColor(selectedPlanet.color);
+        g2d.setFont(new Font("Arial", Font.BOLD, 22));
+        g2d.drawString(selectedPlanet.name, indentTitle, y);
+        y += sectionGap;
+
+        // Índice do planeta
         int planetIndex = -1;
         for (int i = 0; i < bodies.size(); i++) {
             if (bodies.get(i) == selectedPlanet) {
@@ -363,81 +406,101 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
                 break;
             }
         }
-        
-        if (planetIndex > 0) { // Não é o Sol
-            double distance = DISTANCES_SOL[planetIndex];
-            double lightTime = (distance * 1000000) / LIGHT_SPEED_KM_S; // em segundos
-            
-            g2d.setColor(selectedPlanet.color);
-            g2d.setFont(new Font("Arial", Font.BOLD, 20));
-            g2d.drawString(selectedPlanet.name, 20, y);
-            
+
+        if (planetIndex <= 0) {
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Arial", Font.PLAIN, 14));
-            y += 40;
-            
-            // Distância até o Sol
-            g2d.drawString("🌞 Distância do Sol:", 20, y);
-            g2d.setColor(Color.YELLOW);
-            g2d.drawString(String.format("  %.1f milhões de km", distance), 20, y + 20);
-            g2d.drawString(String.format("  %.2f UA", distance / 149.6), 20, y + 40);
-            y += 70;
-            
-            // Tempo da luz
-            g2d.setColor(Color.WHITE);
-            g2d.drawString("⚡ Tempo da luz solar:", 20, y);
-            g2d.setColor(new Color(255, 255, 150));
-            
-            if (lightTime < 60) {
-                g2d.drawString(String.format("  %.2f segundos", lightTime), 20, y + 20);
-            } else if (lightTime < 3600) {
-                g2d.drawString(String.format("  %.2f minutos", lightTime / 60), 20, y + 20);
-            } else {
-                g2d.drawString(String.format("  %.2f horas", lightTime / 3600), 20, y + 20);
-            }
-            
-            y += 60;
-            
-            // Velocidade orbital
-            double circumference = 2 * Math.PI * distance;
-            double orbitalPeriodDays = getOrbitalPeriod(planetIndex);
-            double orbitalSpeed = circumference / (orbitalPeriodDays * 24 * 3600);
-            
-            g2d.setColor(Color.WHITE);
-            g2d.drawString("🔄 Velocidade orbital:", 20, y);
-            g2d.setColor(Color.CYAN);
-            g2d.drawString(String.format("  %.1f km/s", orbitalSpeed), 20, y + 20);
-            y += 50;
-            
-            // Período orbital
-            g2d.setColor(Color.WHITE);
-            g2d.drawString("📅 Período orbital:", 20, y);
-            g2d.setColor(Color.PINK);
-            
-            if (orbitalPeriodDays < 365) {
-                g2d.drawString(String.format("  %.1f dias terrestres", orbitalPeriodDays), 20, y + 20);
-            } else {
-                g2d.drawString(String.format("  %.1f anos terrestres", orbitalPeriodDays / 365), 20, y + 20);
-            }
-            y += 50;
-            
-            // Luas
-            g2d.setColor(Color.WHITE);
-            g2d.drawString("🌙 Luas naturais:", 20, y);
-            g2d.setColor(Color.LIGHT_GRAY);
-            if (selectedPlanet.moons.isEmpty()) {
-                g2d.drawString("  Nenhuma", 20, y + 20);
-            } else {
-                g2d.drawString("  " + selectedPlanet.moons.size() + " luas", 20, y + 20);
-                int moonY = y + 40;
-                for (CelestialBody moon : selectedPlanet.moons) {
-                    if (moonY < getHeight() - 30) {
-                        g2d.drawString("  • " + moon.name, 30, moonY);
-                        moonY += 20;
-                    }
+            g2d.drawString("Estrela central – não orbita", indentTitle, y);
+            return;
+        }
+
+        // Dados reais
+        double distance = DISTANCES_SOL[planetIndex];
+        double lightTime = (distance * 1_000_000) / LIGHT_SPEED_KM_S;
+        double orbitalPeriodDays = getOrbitalPeriod(planetIndex);
+        double realDistanceKm = distance * 1_000_000.0;
+        double circumference = 2 * Math.PI * realDistanceKm;
+        double orbitalSpeed = circumference / (orbitalPeriodDays * 24 * 3600);
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // Distância
+        g2d.drawString("☀️ Distância do Sol:", indentTitle, y);
+        g2d.setColor(Color.YELLOW);
+        g2d.drawString(String.format("%.1f milhões de km", distance), indentValue, y + lineHeight);
+        g2d.drawString(String.format("%.2f UA", distance / 149.6), indentValue, y + lineHeight * 2);
+        y += sectionGap + lineHeight;
+
+        // Tempo da luz
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("□ Tempo da luz solar:", indentTitle, y);
+        g2d.setColor(new Color(255, 220, 120));
+        String lightStr = (lightTime < 60) ? String.format("%.2f s", lightTime)
+                          : (lightTime < 3600) ? String.format("%.2f min", lightTime / 60)
+                          : String.format("%.2f h", lightTime / 3600);
+        g2d.drawString(lightStr, indentValue, y + lineHeight);
+        y += sectionGap;
+
+        // Velocidade orbital
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("□ Velocidade orbital:", indentTitle, y);
+        g2d.setColor(Color.CYAN);
+        g2d.drawString(String.format("%.1f km/s", orbitalSpeed), indentValue, y + lineHeight);
+        y += sectionGap;
+
+        // Período orbital
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("□ Período orbital:", indentTitle, y);
+        g2d.setColor(Color.PINK);
+        String periodStr = (orbitalPeriodDays < 365)
+                ? String.format("%.1f dias terrestres", orbitalPeriodDays)
+                : String.format("%.2f anos terrestres", orbitalPeriodDays / 365.25);
+        g2d.drawString(periodStr, indentValue, y + lineHeight);
+        y += sectionGap;
+
+        // Luas
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("□ Luas naturais:", indentTitle, y);
+        g2d.setColor(Color.LIGHT_GRAY);
+        if (selectedPlanet.moons.isEmpty()) {
+            g2d.drawString("Nenhuma", indentValue, y + lineHeight);
+            y += sectionGap;
+        } else {
+            g2d.drawString(selectedPlanet.moons.size() + " luas", indentValue, y + lineHeight);
+            int moonY = y + lineHeight * 2;
+            for (CelestialBody moon : selectedPlanet.moons) {
+                if (moonY < getHeight() - 60) {
+                    g2d.drawString("• " + moon.name, indentValue + 10, moonY);
+                    moonY += lineHeight;
                 }
             }
+            y = moonY + sectionGap - lineHeight;
         }
+
+        // Temperaturas
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("□ Temperaturas (dia/noite):", indentTitle, y);
+        g2d.setColor(new Color(255, 180, 100));
+
+        String tempInfo = getTemperatureInfo(selectedPlanet.name);
+        String[] tempLines = tempInfo.split("\n");
+        for (int i = 0; i < tempLines.length; i++) {
+            // Quebra manual se linha for muito longa (para evitar corte)
+            String line = tempLines[i];
+            int maxChars = 35;
+            if (line.length() > maxChars) {
+                // Simples quebra em duas linhas se necessário
+                int split = line.lastIndexOf(' ', maxChars);
+                if (split > 0) {
+                    g2d.drawString(line.substring(0, split), indentValue, y + lineHeight + (i * lineHeight));
+                    g2d.drawString(line.substring(split + 1), indentValue + 10, y + lineHeight * 2 + (i * lineHeight));
+                    continue;
+                }
+            }
+            g2d.drawString(line, indentValue, y + lineHeight + (i * lineHeight));
+        }
+        y += sectionGap + (tempLines.length * lineHeight);
     }
     
     private double getOrbitalPeriod(int planetIndex) {
