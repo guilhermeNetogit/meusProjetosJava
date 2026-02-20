@@ -9,17 +9,23 @@
 <p align="center"> <img src="https://media.giphy.com/media/26gR2qGRnxxXAvhBu/giphy.gif" alt="Snake Game Demo" width="400"/> </p>
 
 ## ✨ Sobre o Projeto
-Uma implementação clássica e totalmente funcional do Jogo da Cobrinha (Snake) desenvolvida em Java com Swing. O jogo apresenta física suave, controles responsivos, sistema de pontuação e efeitos visuais detalhados como olhos direcionais e escamas na cobra.
+Uma implementação clássica e totalmente funcional do Jogo da Cobrinha (Snake) desenvolvida em Java com Swing. O jogo apresenta física suave, controles responsivos, sistema de pontuação e efeitos visuais detalhados como olhos direcionais e escamas na cobra, além de um completo sistema de ranking com recordes pessoais!
 
 ## 🚀 Funcionalidades
 - **Cobra animada** com olhos que seguem a direção do movimento;
 - **Sistema de pontuação** em tempo real;
-- **Velocidade progressiva**, o jogo fica mais rápido a cada 5 maçãs
-- **Maçãs vermelhas** geradas aleatoriamente
-- **Detecção de colisão** com paredes e com o próprio corpo
-- **Reinício rápido** com a barra de espaço
-- **Controles alternativos** (Setas ou WASD)
-- **Grid opcional** para visualização das unidades
+- **Velocidade progressiva**, o jogo fica mais rápido a cada 5 maçãs;
+- **Maçãs vermelhas** geradas aleatoriamente;
+- **Detecção de colisão** com paredes e com o próprio corpo;
+- **Menu principal interativo** com entrada do nome do jogador;
+- **Sistema de Ranking TOP 10** com persistência em arquivo;
+- **Recorde pessoal** - cada jogador aparece apenas uma vez no ranking com sua melhor pontuação;
+- **Tela de ranking** com cores especiais (ouro, prata, bronze);
+- **Opção de resetar o ranking** com confirmação em duas etapas;
+- **Controles alternativos** (Setas ou WASD);
+- **Tela de Game Over** com feedback sobre recordes;
+- **Grid opcional** para visualização das unidades;
+- **Tela em (800x800)** com textos grandes e melhor legibilidade.
 
 ## 🎮 Como Executar
 
@@ -35,7 +41,7 @@ git clone https://github.com/seu-usuario/snake-game-java.git
 cd snake-game-java
 
 # 2. Compile o programa
-javac SnakeGame.java GamePanel.java
+javac SnakeGame.java GamePanel.java ScoreManager.java
 
 # 3. Execute a aplicação
 java SnakeGame
@@ -44,54 +50,134 @@ java SnakeGame
 ```
 text
 # 1. Importe o projeto como "Java Project"
-# 2. Compile as classes SnakeGame.java e GamePanel.java
+# 2. Compile as classes SnakeGame.java, GamePanel.java e ScoreManager.java
 # 3. Execute a classe SnakeGame.java
-# 4. Pressione qualquer seta para começar!
+# 4. Digite seu nome e pressione ENTER para começar!
 ```
 ## 🎮 Como Usar
-Controles do Teclado:
-Tecla	Ação
-← → ↑ ↓	Move a cobra
-A / W / S / D	Movimento alternativo
-Espaço	Reinicia o jogo
-ESC	Fecha o jogo
+Menu Principal
+| **Tecla**      | **Ação**                              |
+|:---------------|:--------------------------------------|
+| Letras/Números | Digitar nome do jogador               |
+| ENTER          | Começar o jogo (após digitar o nome)  |
+| R              | Ver o ranking                         |
+| ESC            | Sair do jogo                          |
 
-Regras:
+Controles do Jogo
+| **Tecla**      | **Ação**                              |
+|:---------------|:--------------------------------------|
+| ← → ↑ ↓        | Move a cobra                          |
+| A / W / S / D  | Movimento alternativo                 |
+| ESC            | Voltar ao menu principal              |
+
+Tela de Ranking
+| **Tecla**      | **Ação**                              |
+|:---------------|:--------------------------------------|
+| R              | Resetar o ranking (com confirmação)   |
+| M              | Voltar ao menu principal              |
+| ENTER          | Confirmar reset do ranking            |
+| ESC            | Cancelar reset do ranking             |
+
+### Regras:
 🍎 Coma a maçã vermelha para crescer e ganhar 1 ponto
 
 💥 Não bata na parede ou no próprio corpo
 
 ⚡ A cada 5 maçãs, a velocidade aumenta
 
+🏆 Apenas sua melhor pontuação é registrada no ranking
+
+📊 Para entrar no TOP 10, você precisa superar a 10ª colocação
+
 ## 🖥️ Interface Gráfica
+Menu Principal
+
 ```text
 ┌─────────────────────────────────────────────────┐
-│  Pontuação: 42                                  │
+│                                                 │
+│            JOGO DA COBRINHA                     │
+│                                                 │
+│    Use as setas ou WASD para mover              │
+│    Coma as maçãs para crescer e ganhar pontos   │
+│    Não bata nas paredes ou no próprio corpo     │
+│                                                 │
+│         Digite seu nome: Neto_                  │
+│         Pressione ENTER para começar            │
+│                                                 │
+│    Pressione R para ver o Ranking               │
+│    Pressione ESC para sair                      │
+└─────────────────────────────────────────────────┘
+```
+Tela de Ranking
+
+```text
+┌─────────────────────────────────────────────────┐
+│                                                 │
+│              TOP 10 PONTUAÇÕES                  │
+│                                                 │
+│  Pos.  Jogador     Pontos  Data                 │
+│  ─────────────────────────────────────────────  │
+│  1°    Neto        42      19/02/2026 20:38     │
+│  2°    Ana         35      19/02/2026 19:22     │
+│  3°    João        28      19/02/2026 18:15     │
+│  4°    Maria       22      19/02/2026 17:30     │
+│                                                 │
+│  Total de jogadores no ranking: 4               │
+│                                                 │
+│  Pressione R para resetar o ranking             │
+│  Pressione M para voltar ao menu                │
+└─────────────────────────────────────────────────┘
+```
+Durante o Jogo
+
+```text
+┌─────────────────────────────────────────────────┐
+│  Pontuação: 42              Mínimo Top 10: 35   │
 │                                                 │
 │                    🟩                          │
 │                    🟩🍎                        │
 │                    🟩🟩🟩                     │
 │                                                 │
-│  ┌─────────────────────────────────────────┐    │
-│  │                                         │    │
-│  │         🐍 COMENDO 🍎                  │    │
-│  │                                         │    │
-│  └─────────────────────────────────────────┘    │
+│              🐍 COMENDO 🍎                     │
+│                                                 │
+└─────────────────────────────────────────────────┘
+```
+Game Over
+
+```text
+┌─────────────────────────────────────────────────┐
+│                                                 │
+│              Pontuação: 42                      │
+│                                                 │
+│         🏆 NOVO RECORDE PESSOAL! 🏆            │
+│         Recorde anterior: 35                    │
+│                                                 │
+│                 GAME OVER                       │
+│                                                 │
+│    Pressione M para voltar ao menu              │
+│    Pressione R para ver o ranking               │
 └─────────────────────────────────────────────────┘
 ```
 ## 🏗️ Estrutura do Código
 ```text
 SnakeGame/
-├── SnakeGame.java          # Classe principal (JFrame)
-├── GamePanel.java          # Lógica do jogo e renderização
+├── SnakeGame.java         # Classe principal (JFrame)
+├── GamePanel.java         # Lógica do jogo e renderização
 │   ├── initUI()           # Configuração da janela
 │   ├── startGame()        # Inicializa o timer
 │   ├── draw()             # Renderização gráfica
+│   ├── drawMenu()         # Menu principal
+│   ├── drawRanking()      # Tela de ranking
+│   ├── gameOver()         # Tela de fim de jogo
 │   ├── move()             # Movimentação da cobra
 │   ├── checkApple()       # Colisão com maçã
 │   ├── checkCollisions()  # Colisões com paredes/corpo
-│   ├── gameOver()         # Tela de fim de jogo
 │   └── MyKeyAdapter()     # Controles do teclado
+├── ScoreManager.java      # Gerenciamento do ranking
+│   ├── addScore()         # Adiciona/atualiza pontuação
+│   ├── resetRanking()     # Reseta o ranking
+│   ├── isNewRecord()      # Verifica se é novo recorde
+│   └── Score (inner class)# Representa uma pontuação
 └── README.md              # Documentação
 ```
 ## 🔧 Personalização
@@ -104,9 +190,9 @@ java
 private static final int DELAY = 100;  // Quanto menor, mais rápido
 
 // Altere o tamanho da cobra e do grid
-private static final int UNIT_SIZE = 25;  // Tamanho de cada quadrado
-private static final int BOARD_WIDTH = 600;  // Largura do tabuleiro
-private static final int BOARD_HEIGHT = 600; // Altura do tabuleiro
+private static final int UNIT_SIZE = 25;     // Tamanho de cada quadrado
+private static final int BOARD_WIDTH = 800;  // Largura do tabuleiro
+private static final int BOARD_HEIGHT = 800; // Altura do tabuleiro
 
 java
 // Alterando Cores
@@ -144,7 +230,7 @@ for (int i = 0; i < bodyParts; i++) {
 - [ ] Paredes internas (obstáculos fixos)
 - [ ] Maçãs especiais que valem mais pontos
 - [ ] Modo infinito (atravessa paredes)
-- [ ] High scores persistentes com arquivo
+- [x] High scores persistentes com arquivo
 - [ ] Efeitos sonoros (comer, colidir, vencer)
 - [ ] Animações de explosão ao morrer
 - [ ] Temas de cores (claro/escuro/neon)
