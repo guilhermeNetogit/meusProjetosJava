@@ -2,7 +2,7 @@ package meusprojetosjava;
 
 import java.util.*;
 
-public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:20:54
+public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 23/02/2026 20:35:42
     private static char[][] tabuleiro = new char[3][3];
     private static char jogadorHumano = 'X';
     private static char jogadorComputador = 'O';
@@ -106,8 +106,8 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
     }
     
     private static void inicializarTabuleiro() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < tabuleiro.length/*3*/; i++) {
+            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
                 tabuleiro[i][j] = ' ';
             }
         }
@@ -115,9 +115,9 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
     
     private static void exibirTabuleiro() {
         System.out.println("\n  0   1   2");
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
             System.out.print(i + " ");
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
                 System.out.print(tabuleiro[i][j]);
                 if (j < 2) System.out.print(" | ");
             }
@@ -202,8 +202,8 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
         // 5. Jogar em qualquer posição vazia
         List<int[]> posicoesVazias = new ArrayList<>();
         
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
+            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
                 if (tabuleiro[i][j] == ' ') {
                     posicoesVazias.add(new int[]{i, j});
                 }
@@ -218,11 +218,11 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
     
     private static int[] encontrarJogadaVencedora(char jogador) {
         // Verificar linhas
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
             int count = 0;
             int posVazia = -1;
             
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
                 if (tabuleiro[i][j] == jogador) {
                     count++;
                 } else if (tabuleiro[i][j] == ' ') {
@@ -236,11 +236,11 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
         }
         
         // Verificar colunas
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < tabuleiro.length /*3*/; j++) {
             int count = 0;
             int posVazia = -1;
             
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < tabuleiro.length /*3*/; i++) {
                 if (tabuleiro[i][j] == jogador) {
                     count++;
                 } else if (tabuleiro[i][j] == ' ') {
@@ -256,7 +256,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
         // Verificar diagonal principal
         int count = 0;
         int posVazia = -1;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
             if (tabuleiro[i][i] == jogador) {
                 count++;
             } else if (tabuleiro[i][i] == ' ') {
@@ -271,7 +271,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
         // Verificar diagonal secundária
         count = 0;
         posVazia = -1;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
             if (tabuleiro[i][2 - i] == jogador) {
                 count++;
             } else if (tabuleiro[i][2 - i] == ' ') {
@@ -288,7 +288,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
     
     private static char verificarVencedor() {
         // Verificar linhas
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
             if (tabuleiro[i][0] != ' ' && 
                 tabuleiro[i][0] == tabuleiro[i][1] && 
                 tabuleiro[i][1] == tabuleiro[i][2]) {
@@ -297,7 +297,7 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
         }
         
         // Verificar colunas
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < tabuleiro.length /*3*/; j++) {
             if (tabuleiro[0][j] != ' ' && 
                 tabuleiro[0][j] == tabuleiro[1][j] && 
                 tabuleiro[1][j] == tabuleiro[2][j]) {
@@ -322,8 +322,8 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 03/02/2026 20:2
     }
     
     private static boolean tabuleiroCheio() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
+            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
                 if (tabuleiro[i][j] == ' ') {
                     return false;
                 }
