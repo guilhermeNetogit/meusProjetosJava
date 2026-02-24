@@ -1,6 +1,8 @@
 package meusprojetosjava.Veiculos;
 
-public class Veiculos {// Eclipse -> Github @guilhermeNetogit 24/02/2026 13:20:49
+import java.text.DecimalFormat;
+
+public class Veiculos {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:19:15
 
 	String marca;
 	String modelo;
@@ -8,7 +10,12 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 24/02/2026 13:20:4
 	int numPassageiros;
 	double capTanqComb;
 	double consumoCombustivel;
-	double valor;
+	double valor;	
+	
+	private static final DecimalFormat df = new DecimalFormat("#.##");
+		static {
+			df.setDecimalSeparatorAlwaysShown(false);
+		}
 
 	void exibirAutonomia() {
 		System.out.println("A autonomia do veículo (via void) é: " + capTanqComb * consumoCombustivel + " km");
@@ -19,14 +26,19 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 24/02/2026 13:20:4
 		return capTanqComb * consumoCombustivel;
 	}
 
+	double calcularCombustivel(double km) {
+		return km/consumoCombustivel;
+	}
+	
 	// Array fixo (catálogo de combustíveis possíveis)
-	public static final String[] Tipo_Comb = { "Gasolina", // [0]
-			"Álcool", // [1]
+	public static final String[] Tipo_Comb = { 
+			"Gasolina",				  // [0]
+			"Álcool", 				  // [1]
 			"Flex (Gasolina/Álcool)", // [2]
-			"Diesel", // [3]
-			"Elétrico", // [4]
-			"Híbrido", // [5]
-			"Gás" // [6]
+			"Diesel", 				  // [3]
+			"Elétrico", 			  // [4]
+			"Híbrido", 				  // [5]
+			"Gás" 		       		  // [6]
 	};
 
 	// Array que guarda os combustíveis do carro específico
