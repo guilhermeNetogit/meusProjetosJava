@@ -2,16 +2,72 @@ package meusprojetosjava.Veiculos2;
 
 import java.text.DecimalFormat;
 
-public class Veiculos2 {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:19:15
+public class Veiculos2 {// Eclipse -> Github @guilhermeNetogit 03/03/2026 22:24:06
 
-	String marca;
-	String modelo;
-	int ano;
+	private String marca;
+	private String modelo;
+	private int ano;
 	int numPassageiros;
-	double capTanqComb;
-	double consumoCombustivel;
-	double valor;	
-	
+	private double capTanqComb;
+	private double consumoCombustivel;
+	private double valor;
+		
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public int getNumPassageiros() {
+		return numPassageiros;
+	}
+
+	public void setNumPassageiros(int numPassageiros) {
+		this.numPassageiros = numPassageiros;
+	}
+
+	public double getCapTanqComb() {
+		return capTanqComb;
+	}
+
+	public void setCapTanqComb(double capTanqComb) {
+		this.capTanqComb = capTanqComb;
+	}
+
+	public double getConsumoCombustivel() {
+		return consumoCombustivel;
+	}
+
+	public void setConsumoCombustivel(double consumoCombustivel) {
+		this.consumoCombustivel = consumoCombustivel;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
 	public Veiculos2() {
 		System.out.println("Teste instancia Classe Veiculos2");
 		numPassageiros = 23  ;
@@ -75,4 +131,5 @@ public class Veiculos2 {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:19:
 				+ String.format("R$ %,.2f", valor);
 
 	}
+
 }

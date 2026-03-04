@@ -1,12 +1,29 @@
 package meusprojetosjava.Veiculos2;
 
-class TesteVeiculos2 {
+public class TesteVeiculos2 {// Eclipse -> Github @guilhermeNetogit 03/03/2026 22:24:59
 
 	public static void main(String[] args) {
 
-		Veiculos2 onix2 = new Veiculos2();
+		// ===================== SAVEIRO =====================
+		Veiculos2 saveiro = new Veiculos2();
+		saveiro.setMarca("Volkswagen");
+		saveiro.setModelo("Saveiro Surf 1.8");
+		saveiro.setAno(2008);
+		//saveiro.setNumPassageiros(2); // comentado para usar o parâmetro da instância;
+		saveiro.tipoComb = new String[] {Veiculos2.Tipo_Comb[2]};
+		saveiro.setCapTanqComb(53);
+		saveiro.setConsumoCombustivel(9.5);
+		saveiro.setValor(21924);
 
-		System.out.println(onix2.numPassageiros);
+		System.out.println(saveiro.getNumPassageiros() + " - R$" + saveiro.getValor());
+		System.out.println();
+		
+		System.out.println("Utilizando exemplo de Encapsulamento");
+		System.out.println(saveiro);
+		saveiro.exibirAutonomia();
+		double autonomiaSaveiro = saveiro.obterAutonomia();
+		System.out.println("A autonomia do veículo (via return) é: " + autonomiaSaveiro + " km");
+
 		System.out.println();
 
 		// ===================== ONIX =====================
