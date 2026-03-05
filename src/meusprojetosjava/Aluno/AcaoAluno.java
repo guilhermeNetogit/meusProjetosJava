@@ -41,27 +41,39 @@ public class AcaoAluno {// Eclipse -> Github @guilhermeNetogit 24/02/2026 20:39:
 		        do {
 		            aluno.nomeDisciplinas[i] = scan.nextLine();
 		            if (aluno.nomeDisciplinas[i].trim().isEmpty()) {
-		                System.out.println("Matrícula não pode ser vazia. Digite novamente:");
+		                System.out.println("Disciplina não pode ser vazia. Digite novamente:");
 		            }
 		        } while (aluno.nomeDisciplinas[i].trim().isEmpty());
 	            //aluno.nomeDisciplinas[i] = scan.nextLine();
 	        }
 	        
 	        System.out.println();
-	        for (int i=0; i<aluno.notasDisciplinas.length; i++){
+	        for (int i = 0; i < aluno.notasDisciplinas.length; i++) {
 	            System.out.println("Obtendo notas da disciplina " + aluno.nomeDisciplinas[i]);
-	            for (int j=0; j<aluno.notasDisciplinas[i].length; j++){
-	            	double nota;
-	            	do {
-	            	    System.out.println("Entre com a nota " + (j+1));
-	            	    nota = scan.nextDouble();
-	            	    
-	            	    if (nota < 0 || nota > 10) {
-	            	        System.out.println("Nota inválida. Digite entre 0 e 10.");
-	            	    }
-	            	} while (nota < 0 || nota > 10);
-
-	            	aluno.notasDisciplinas[i][j] = nota;
+	            for (int j = 0; j < aluno.notasDisciplinas[i].length; j++) {
+	                double nota = -1;
+	                boolean entradaValida = false;
+	                
+	                while (!entradaValida) {
+	                    System.out.println("Entre com a nota " + (j + 1));
+	                    String entrada = scan.nextLine().trim();
+	                    
+	                    // Substitui vírgula por ponto (se existir)
+	                    entrada = entrada.replace(',', '.');
+	                    
+	                    try {
+	                        nota = Double.parseDouble(entrada);
+	                        if (nota >= 0 && nota <= 10) {
+	                            entradaValida = true;
+	                        } else {
+	                            System.out.println("Nota inválida. Digite entre 0 e 10.");
+	                        }
+	                    } catch (NumberFormatException e) {
+	                        System.out.println("Entrada inválida. Use apenas números e separador . ou ,");
+	                    }
+	                }
+	                
+	                aluno.notasDisciplinas[i][j] = nota;
 	            }
 	        }
 	        
