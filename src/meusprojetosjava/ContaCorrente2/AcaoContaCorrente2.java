@@ -8,19 +8,19 @@ public class AcaoContaCorrente2 {// VSCode -> Github @guilhermeNetogit 04/03/202
 
         Scanner scanner = new Scanner(System.in);
 
-        ContaCorrente2 conta = new ContaCorrente2();
-        conta.numero = "123456";
+        ContaCorrente2 conta = new ContaCorrente2("123456", "0123", true, 500, 0, 10);
+        /*conta.numero = "123456";
         conta.agencia = "0123";
         conta.especial = true;
         conta.limiteEspecial = 500;
         conta.valorEspecialUsado = 0;
-        conta.saldo = 10;
+        conta.saldo = 10;*/
 
         int opcao;
 
         do {
             System.out.println("======= MENU =======");
-            System.out.println("Conta: " + conta.numero);
+            System.out.println("Conta: " + conta.getNumero());
             System.out.println("[1] Sacar");
             System.out.println("[2] Depositar");
             System.out.println("[3] Consultar saldo");
@@ -58,7 +58,7 @@ public class AcaoContaCorrente2 {// VSCode -> Github @guilhermeNetogit 04/03/202
                     conta.consultarSaldo();
                     
                     if (conta.verificarUsoChequeEspecial()) {
-                    	double valorUsado = conta.saldo* -1;
+                    	double valorUsado = conta.getSaldo()* -1;
                         System.out.println("A conta está utilizando " + valorUsado + " do cheque especial.\n");
                     } else {
                         System.out.println("A conta NÃO está utilizando cheque especial.\n");
