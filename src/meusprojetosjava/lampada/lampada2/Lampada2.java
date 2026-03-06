@@ -1,4 +1,4 @@
-package meusprojetosjava.Lampada2;
+package meusprojetosjava.lampada.lampada2;
 
 public class Lampada2 {// VSCode -> Github @guilhermeNetogit 04/03/2026 19:58:36
     

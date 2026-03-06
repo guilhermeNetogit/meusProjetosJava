@@ -1,4 +1,4 @@
-package meusprojetosjava.Veiculos2;
+package meusprojetosjava.veiculos.veiculos2;
 
 import java.text.DecimalFormat;
 

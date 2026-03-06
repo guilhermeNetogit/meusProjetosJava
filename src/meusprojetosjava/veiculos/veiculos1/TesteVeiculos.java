@@ -1,4 +1,4 @@
-package meusprojetosjava.Veiculos;
+package meusprojetosjava.veiculos.veiculos1;
 
 import java.util.Scanner;
 

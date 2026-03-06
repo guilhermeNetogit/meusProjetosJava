@@ -1,4 +1,4 @@
-package meusprojetosjava.Aluno;
+package meusprojetosjava.notaaluno.aluno;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package meusprojetosjava.Aluno2;
+package meusprojetosjava.notaaluno.aluno2;
 
 public class Aluno2 {// Eclipse -> Github @guilhermeNetogit 05/03/2026 17:34:34
 	

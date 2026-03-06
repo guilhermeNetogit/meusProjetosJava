@@ -1,4 +1,4 @@
-package meusprojetosjava.Veiculos2;
+package meusprojetosjava.veiculos.veiculos2;
 
 public class TesteVeiculos2 {// Eclipse -> Github @guilhermeNetogit 03/03/2026 22:24:59
 
