@@ -1,8 +1,9 @@
-package meusprojetosjava.Calculadora;
+package meusprojetosjava.calculadora.calculadora1;
 
 public class TesteCalculadora {
     public static void main(String[] args) {
-        Calculadora calc = new Calculadora();
+    	
+        Calculadora calc = new Calculadora(); 
 
         calc.soma(5,3);
         calc.soma(5.0,3.0);
@@ -16,7 +17,7 @@ public class TesteCalculadora {
 
         System.out.println("Soma: " + calc.soma(5, 3, 2));
 
-        System.out.println("Soma: " + calc.soma(numeros));
+        System.out.println("Soma: [" + calc.soma(numeros) + "]");
 
     }
     

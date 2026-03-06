@@ -1,4 +1,4 @@
-package meusprojetosjava.Calculadora;
+package meusprojetosjava.calculadora.calculadora1;
 
 public class Calculadora {
     public int soma(int numA, int numB) {
