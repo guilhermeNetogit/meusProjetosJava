@@ -1,4 +1,4 @@
-package meusprojetosjava.ContaCorrente2;
+package meusprojetosjava.contacorrente.contacorrente2;
 
 public class ContaCorrente2 {// Eclipse -> Github @guilhermeNetogit 05/03/2026 15:23:10
 

@@ -1,12 +1,12 @@
-package meusprojetosjava.Lampada;
+package meusprojetosjava.lampada.lampada2;
 
 import java.util.Scanner;
 
-public class AcaoLampada {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:54:29
+public class AcaoLampada2 {// VSCode -> Github @guilhermeNetogit 04/03/2026 19:58:36
     public static void main(String[] args){
         
     	Scanner scanner = new Scanner(System.in);
-        Lampada lampada = new Lampada();
+        Lampada2 lampada = new Lampada2();
         
         // Liga a lâmpada inicialmente
         lampada.ligar();

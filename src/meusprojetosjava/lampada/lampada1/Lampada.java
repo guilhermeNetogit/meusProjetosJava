@@ -1,4 +1,4 @@
-package meusprojetosjava.Lampada;
+package meusprojetosjava.lampada.lampada1;
 
 public class Lampada {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:54:36
         

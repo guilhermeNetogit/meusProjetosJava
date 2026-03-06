@@ -1,4 +1,4 @@
-package meusprojetosjava;
+package meusprojetosjava.jogodavelha.jogodavelha1;
 
 import java.util.*;
 
