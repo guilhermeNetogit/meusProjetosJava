@@ -20,7 +20,7 @@ public class TesteFatorial {// Eclipse -> Github @guilhermeNetogit 07/03/2026 16
 		// BigInteger arbitrario numMax = ilimitado (depende da memmória da JVM)
 		// maxFatorial = 3248 (testado)
 
-		int fatorialR = Fatorial.fatorialRecursivo(1);
+		int fatorialR = Fatorial.fatorialRecursivo(6);
 		System.out.println(Integer.toUnsignedLong(fatorialR));
 
 	}
