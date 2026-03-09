@@ -6,6 +6,7 @@ public class TesteContatos {// Eclipse -> Github @guilhermeNetogit 08/03/2026 22
 
 		Contatos contato = new Contatos();
 		contato.setNome("Luciano Andrade");
+		contato.setEmail("teste@email.com");
 		// contato.setEndereco("Avenida Leopoldino de Oliveira, 5652 - Centro - 38066340, Uberaba/MG");
 		// contato.setTelefone("34999867574");
 		
@@ -65,5 +66,6 @@ public class TesteContatos {// Eclipse -> Github @guilhermeNetogit 08/03/2026 22
 				);
 			}
 		}
+		System.out.println("Email: " + contato.getEmail());
 	}
 }
