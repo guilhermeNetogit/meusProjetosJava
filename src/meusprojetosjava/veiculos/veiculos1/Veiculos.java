@@ -1,44 +1,50 @@
 package meusprojetosjava.veiculos.veiculos1;
 
-import java.text.DecimalFormat;
-
-public class Veiculos {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:19:15
+public class Veiculos {// Eclipse -> Github @guilhermeNetogit 10/03/2026 23:18:17
 
 	String marca;
 	String modelo;
 	int ano;
 	int numPassageiros;
 	double capTanqComb;
-	double consumoCombustivel;
-	double valor;	
-	
-	private static final DecimalFormat df = new DecimalFormat("#.##");
-		static {
-			df.setDecimalSeparatorAlwaysShown(false);
+	double consumoCombustivelCid;
+	double consumoCombustivelEst;
+	double valor;
+	private boolean msgAutonomiaExibir = false;
+
+	void exibirAutonomia(String tipoRodagem, double consumo) {
+		System.out.println(
+				"A autonomia do veículo na " + tipoRodagem + " (via void) é: " + (capTanqComb * consumo) + " km");
+	}
+
+	double obterAutonomia(double consumo) {
+		if (!msgAutonomiaExibir) {
+			System.out.println("Método obterAutonomia foi chamado.");
+			msgAutonomiaExibir = true;
 		}
-
-	void exibirAutonomia() {
-		System.out.println("A autonomia do veículo (via void) é: " + capTanqComb * consumoCombustivel + " km");
+		return capTanqComb * consumo;
 	}
 
-	double obterAutonomia() {
-		System.out.println("Método obterAutonomia foi chamado.");
-		return capTanqComb * consumoCombustivel;
+	double calcularCombustivel(double km, double consumo) {
+		return km / consumo;
 	}
 
-	double calcularCombustivel(double km) {
-		return km/consumoCombustivel;
+	double calcularQtdTanques(double combustivelNecessario) {
+		return combustivelNecessario / capTanqComb;
 	}
-	
+
+	double calcularCustoCombustivel(double litros, double valor) {
+		return litros * valor;
+	}
+
 	// Array fixo (catálogo de combustíveis possíveis)
-	public static final String[] Tipo_Comb = { 
-			"Gasolina",				  // [0]
-			"Álcool", 				  // [1]
+	public static final String[] TIPO_COMB = { "Gasolina", // [0]
+			"Álcool", // [1]
 			"Flex (Gasolina/Álcool)", // [2]
-			"Diesel", 				  // [3]
-			"Elétrico", 			  // [4]
-			"Híbrido", 				  // [5]
-			"Gás" 		       		  // [6]
+			"Diesel", // [3]
+			"Elétrico", // [4]
+			"Híbrido", // [5]
+			"Gás" // [6]
 	};
 
 	// Array que guarda os combustíveis do carro específico
@@ -49,10 +55,11 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 24/02/2026 16:19:1
 
 		String combustiveis = (tipoComb != null) ? String.join(", ", tipoComb) : "Não informado";
 
-		return "Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nPassageiros: " + numPassageiros
-				+ "\nTipo de Combustivel: " + combustiveis + "\nCap. Tanque Comb.: " + capTanqComb + " lts"
-				+ "\nConsumo médio de Combustível: " + consumoCombustivel + " km/l" + "\nValor, segundo a tabela FIPE: "
-				+ String.format("R$ %,.2f", valor);
+		return "Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nValor (tabela FIPE): "
+				+ String.format("R$ %,.2f", valor) + "\nPassageiros: " + numPassageiros + "\nTipo de Combustivel: "
+				+ combustiveis + "\nCap. Tanque Comb.: " + capTanqComb + " lts"
+				+ "\nConsumo Médio de Combustível na Cidade: " + consumoCombustivelCid + " km/l"
+				+ "\nConsumo Médio de Combustível na Estrada: " + consumoCombustivelEst + " km/l";
 
 	}
 }
