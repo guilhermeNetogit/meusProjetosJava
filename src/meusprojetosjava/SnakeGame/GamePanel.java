@@ -9,11 +9,13 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Random;
 
-public class GamePanel extends JPanel implements ActionListener {// Eclipse -> Github @guilhermeNetogit 09/03/2026
-																	// 18:36:31
+public class GamePanel extends JPanel implements ActionListener {// Eclipse -> Github @guilhermeNetogit 11/03/2026 18:13:58
+
 	private boolean awaitingResetConfirmation = false;
 	private static final long serialVersionUID = 1L;
-	private static String RESET_PASSWORD = "reset"; // Senha para resetar o ranking
+	private static final char[] RESET_CHARS = { 's', 'r', 't', 'e', 'e' };
+	private static final String RESET_PASSWORD = "" + RESET_CHARS[1] + RESET_CHARS[3] + RESET_CHARS[0] + RESET_CHARS[4]
+			+ RESET_CHARS[2];// Senha para resetar o ranking
 
 	// Configurações do jogo
 	private static final int BOARD_WIDTH = 800; // Era 600
