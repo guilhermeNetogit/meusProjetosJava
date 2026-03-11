@@ -1,6 +1,6 @@
 package meusprojetosjava.veiculos.veiculos1;
 
-public class Veiculos {// Eclipse -> Github @guilhermeNetogit 10/03/2026 23:18:17
+public class Veiculos {// Eclipse -> Github @guilhermeNetogit 11/03/2026 13:38:16
 
 	String marca;
 	String modelo;
@@ -13,8 +13,8 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 10/03/2026 23:18:1
 	private boolean msgAutonomiaExibir = false;
 
 	void exibirAutonomia(String tipoRodagem, double consumo) {
-		System.out.println(
-				"A autonomia do veículo na " + tipoRodagem + " (via void) é: " + (capTanqComb * consumo) + " km");
+		System.out.printf(
+				"A autonomia do veículo na %s (via void) é: %.2f km\n", tipoRodagem, (capTanqComb * consumo));
 	}
 
 	double obterAutonomia(double consumo) {
