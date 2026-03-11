@@ -18,15 +18,16 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
     
     // Distâncias reais em milhões de km e velocidades da luz
     private static final double[] DISTANCES_SOL = {
-        0,				// Sol
-        57.909227,		// Mercúrio
-        108.209475,		// Vênus
-        149.597871,		// Terra
-        227.936637,		// Marte
-        778.547200,		// Júpiter
-        1433.449370,	// Saturno
-        2870.658186,	// Urano
-        4498.396441		// Netuno
+        0,				// Sol		0,00 UA
+        57.909227,		// Mercúrio 0,39 UA
+        108.209475,		// Vênus	0,72 UA
+        149.597871,		// Terra	1,00 UA
+        227.936637,		// Marte	1,52 UA
+        778.547200,		// Júpiter	5,20 UA
+        1433.449370,	// Saturno	9,58 UA
+        2870.658186,	// Urano	19,19 UA
+        4498.396441		// Netuno	30,07 UA
+        //5909.115904	  	// Plutão   39,5 UA
     };
     
     // Velocidade da luz: 299792.458 km/s
@@ -203,13 +204,13 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
             case "Marte":
                 return "Dia (máx): +30 °C\nNoite (mín): -140 °C";
             case "Júpiter":
-                return "Nuvens superiores: ~ -110 °C (quase constante)";
+                return "Nuvens superiores: ~ -110 °C \n(quase constante)";
             case "Saturno":
-                return "Nuvens superiores: ~ -140 °C (quase constante)";
+                return "Nuvens superiores: ~ -140 °C \n(quase constante)";
             case "Urano":
                 return "Nuvens superiores: ~ -224 °C (o mais frio, quase constante)";
             case "Netuno":
-                return "Nuvens superiores: ~ -218 °C (quase constante)";
+                return "Nuvens superiores: ~ -218 °C \n(quase constante)";
             default:
                 return "Não aplicável";
         }
@@ -505,7 +506,7 @@ public class SolarSystem extends JPanel {// Eclipse -> Github @guilhermeNetogit 
     
     private double getOrbitalPeriod(int planetIndex) {
         // Períodos orbitais aproximados em dias terrestres
-        double[] periods = {0, 88, 225, 365, 687, 4333, 10759, 30687, 60190};
+        double[] periods = {0, 88, 225, 365, 687, 4333, 10759, 30687, 60190, 90560};
         return periods[planetIndex];
     }
     
