@@ -1,4 +1,4 @@
-package meusprojetosjava.herenca;
+package meusprojetosjava.heranca;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

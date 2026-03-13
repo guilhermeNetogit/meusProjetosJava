@@ -1,4 +1,4 @@
-package meusprojetosjava.herenca;
+package meusprojetosjava.heranca;
 
 public class Professor extends Pessoa {
 
