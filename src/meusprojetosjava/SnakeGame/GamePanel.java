@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {// Eclipse -> Github @guilhermeNetogit 11/03/2026 18:13:58
 
+	private int gameOverAlpha = 0;
 	private boolean awaitingResetConfirmation = false;
 	private static final long serialVersionUID = 1L;
 	private static final char[] RESET_CHARS = { 's', 'r', 't', 'e', 'e' };
@@ -80,11 +81,19 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 
 		if (showingMenu) {
 			drawMenu(g);
+			
 		} else if (showingRanking) {
 			drawRanking(g);
+			
 		} else if (running) {
 			draw(g);
+			
 		} else {
+			draw(g);
+			
+			g.setColor(new Color(0, 0, 0, gameOverAlpha)); // 80 -> leve, 120 -> medio, 150 -> forte
+	        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+			
 			gameOver(g);
 		}
 	}
@@ -117,7 +126,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 			g.setColor(Color.YELLOW);
 			g.setFont(new Font("Arial", Font.BOLD, 30)); // Era 24
 
-			String namePrompt = "Digite seu nome: " + playerName + (System.currentTimeMillis() % 1000 < 500 ? "_" : "");
+			String namePrompt = "Digite seu nome: " + playerName;// + (System.currentTimeMillis() % 1000 < 500 ? "_" : "");
 			FontMetrics fm = getFontMetrics(g.getFont());
 			g.drawString(namePrompt, (BOARD_WIDTH - fm.stringWidth(namePrompt)) / 2, 450); // Posição ajustada
 
@@ -448,7 +457,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 		 */ // remova este comentario para voltar com a colisão nas bordas
 
 		if (!running) {
-			timer.stop();
+			//timer.stop();
 		}
 	}
 
@@ -456,6 +465,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 		bodyParts = 3;
 		applesEaten = 0;
 		direction = 'R';
+		gameOverAlpha = 0;
 
 		for (int i = 0; i < bodyParts; i++) {
 			x[i] = 0;
@@ -477,6 +487,13 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 			move();
 			checkApple();
 			checkCollisions();
+
+		} else {
+
+			// permite animar o fade após game over
+			if (gameOverAlpha < 220) {
+				gameOverAlpha += 5;
+			}
 		}
 		repaint();
 	}
