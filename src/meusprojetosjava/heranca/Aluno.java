@@ -1,4 +1,4 @@
-package meusprojetosjava.herenca;
+package meusprojetosjava.heranca;
 
 import java.util.Date;
 
