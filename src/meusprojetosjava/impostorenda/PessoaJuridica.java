@@ -38,7 +38,7 @@ public class PessoaJuridica extends Contribuinte {// Eclipse -> Github @guilherm
 
 	// Método especial para gerar a explicação do cálculo
 	public String gerarRelatorio() {
-		
+
 		calcularIR();
 
 		StringBuilder sb = new StringBuilder();
@@ -55,8 +55,7 @@ public class PessoaJuridica extends Contribuinte {// Eclipse -> Github @guilherm
 			double excessoValor = rendaBruta - tetoMensal;
 			sb.append(String.format("Imposto a pagar: R$ %,.2f%n", impostoTotal));
 			sb.append("Detalhamento: \n");
-			sb.append(String.format("- 15%% sobre o total de %,.2f (%,.2f)\n", getRendaBruta(),
-					impostoBase));
+			sb.append(String.format("- 15%% sobre o total de %,.2f (%,.2f)\n", getRendaBruta(), impostoBase));
 			sb.append(String.format("- 10%% sobre o adicional de %.2f (%,.2f)", excessoValor, impostoAdicional));
 		}
 		return sb.toString();
