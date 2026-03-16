@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
-public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/2026 22:31:30// Eclipse -> Github @guilhermeNetogit 15/03/2026 13:30:14
+public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/2026 20:43:34
 
 	public static void main(String[] args) {
 
@@ -154,7 +154,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/20
 				System.out.print("Digite a renda bruta para " + original.getNome()
 						+ " (ou Enter para usar a renda cadastrada): R$ ");
 				String entradaRenda = scanner.nextLine();
-				
+
 				if (entradaRenda.trim().isEmpty()) {
 					renda = original.getRendaBruta();
 					break;
@@ -166,29 +166,29 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/20
 					System.out.println("Valor inválido. Digite um número ou pressione Enter.");
 				}
 			}
-			
+
 			// Solicita a quantidade de dependentes
 			int dependentes = 0;
-			
+
 			while (true) {
-	            System.out.print("Quantidade de dependentes (máx. 12): ");
-	            String entradaDep = scanner.nextLine();
-	            
-	            if (entradaDep.trim().isEmpty()) {
-	                dependentes = 0;
-	                break;
-	            }
-	            try {
-	                dependentes = Integer.parseInt(entradaDep);
-	                if (dependentes < 0 || dependentes > 12) {
-	                    System.out.println("O máximo permitido é 12 dependentes.");
-	                    continue;
-	                }
-	                break;
-	            } catch (NumberFormatException e) {
-	                System.out.println("Entrada inválida. Digite um número inteiro de 0 a 12.");
-	            }
-	        }
+				System.out.print("Quantidade de dependentes (máx. 12): ");
+				String entradaDep = scanner.nextLine();
+
+				if (entradaDep.trim().isEmpty()) {
+					dependentes = 0;
+					break;
+				}
+				try {
+					dependentes = Integer.parseInt(entradaDep);
+					if (dependentes < 0 || dependentes > 12) {
+						System.out.println("O máximo permitido é 12 dependentes.");
+						continue;
+					}
+					break;
+				} catch (NumberFormatException e) {
+					System.out.println("Entrada inválida. Digite um número inteiro de 0 a 12.");
+				}
+			}
 
 			// Cria um novo objeto com os mesmos dados, mas com a renda informada
 			PessoaFisica2 nova = new PessoaFisica2();
@@ -196,7 +196,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/20
 			nova.setCpf(original.getCpf());
 			nova.setRendaBruta(renda);
 			nova.setQtdDependentes(dependentes);
-			
+
 			return nova;
 		}
 	}
@@ -232,29 +232,21 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/20
 
 			PessoaJuridica2 original = lista.get(codigo - 1);
 
-			double renda;
-			while (true) {
-				System.out.print("Digite a renda bruta para " + original.getNome()
-						+ " (ou Enter para usar a renda cadastrada): R$ ");
-				String entradaRenda = scanner.nextLine();
-				if (entradaRenda.trim().isEmpty()) {
-					renda = original.getRendaBruta();
-					break;
-				}
-				try {
-					renda = Double.parseDouble(entradaRenda.replace(",", "."));
-					break;
-				} catch (NumberFormatException e) {
-					System.out.println("Valor inválido. Digite um número ou pressione Enter.\n");
-				}
-			}
+			// 1. SOLICITA O FATURAMENTO
+			System.out.print(
+					"Digite o faturamento bruto para " + original.getNome() + " (ou Enter para o original): R$ ");
+			String entradaFat = scanner.nextLine();
+			double faturamento = entradaFat.trim().isEmpty() ? original.getRendaBruta()
+					: Double.parseDouble(entradaFat.replace(",", "."));
 
-			PessoaJuridica2 nova = new PessoaJuridica2();
-			nova.setNome(original.getNome());
-			nova.setCnpj(original.getCnpj());
-			nova.setRendaBruta(renda);
-			return nova;
-		}
+			// Cria o novo objeto PJ com os dados informados
+	        PessoaJuridica2 nova = new PessoaJuridica2();
+	        nova.setNome(original.getNome());
+	        nova.setCnpj(original.getCnpj());
+	        nova.setRendaBruta(faturamento);
+
+	        return nova;
+	    }
 	}
 
 	/*
