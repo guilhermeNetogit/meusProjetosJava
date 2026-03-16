@@ -1,4 +1,4 @@
-package meusprojetosjava.impostorenda;
+package meusprojetosjava.impostoderenda.impostorenda1;
 
 public class PessoaFisica extends Contribuinte {// Eclipse -> Github @guilhermeNetogit 14/03/2026 19:07:01
 
@@ -28,7 +28,7 @@ public class PessoaFisica extends Contribuinte {// Eclipse -> Github @guilhermeN
 		double renda = this.getRendaBruta();
 
 		if (renda <= 2428.80) {
-			this.faixa = "Isento";
+			this.faixa = "Isenção";
 			this.impostoCalculado = 0;
 		} else if (renda <= 2826.65) {
 			this.faixa = "7,5%";
