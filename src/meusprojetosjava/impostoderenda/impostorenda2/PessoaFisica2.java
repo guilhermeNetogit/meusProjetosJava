@@ -1,6 +1,6 @@
 package meusprojetosjava.impostoderenda.impostorenda2;
 
-public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilhermeNetogit 15/03/2026 22:31:09
+public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilhermeNetogit 16/03/2026 20:43:58
 
 	private String cpf;
 	private String faixaInss;
