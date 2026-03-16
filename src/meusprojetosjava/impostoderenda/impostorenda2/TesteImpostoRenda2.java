@@ -235,7 +235,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/20
 			double renda;
 			while (true) {
 				System.out.print("Digite a renda bruta para " + original.getNome()
-						+ " (ou Enter para usar a renda cadastrada:) R$ ");
+						+ " (ou Enter para usar a renda cadastrada): R$ ");
 				String entradaRenda = scanner.nextLine();
 				if (entradaRenda.trim().isEmpty()) {
 					renda = original.getRendaBruta();
@@ -296,7 +296,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 15/03/20
 	 * return nova; }
 	 */
 	private static void pausar(Scanner scanner) {
-		System.out.println("\nPressione Enter para continuar...");
+		System.out.println("Pressione Enter para continuar...");
 		scanner.nextLine();
 	}
 }
