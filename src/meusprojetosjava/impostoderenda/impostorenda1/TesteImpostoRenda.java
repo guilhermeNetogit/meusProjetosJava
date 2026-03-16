@@ -1,4 +1,4 @@
-package meusprojetosjava.impostorenda;
+package meusprojetosjava.impostoderenda.impostorenda1;
 
 public class TesteImpostoRenda {// Eclipse -> Github @guilhermeNetogit 14/03/2026 19:06:41
 
