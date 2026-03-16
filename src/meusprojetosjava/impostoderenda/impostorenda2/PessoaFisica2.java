@@ -34,7 +34,7 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 	}
 
 	public void setFaixaInss(String faixaInss) {
-		this.faixaInss = faixaIr;
+		this.faixaInss = faixaInss;
 	}
 
 	public String getFaixaIr() {
@@ -42,7 +42,7 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 	}
 
 	public void setFaixaIr(String faixaIr) {
-		this.faixaInss = faixaIr;
+		this.faixaIr = faixaIr;
 	}
 	
 	public String getTipoDescontoIr() {
@@ -59,15 +59,16 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 		
 		if (renda < 1621.00 && renda > 0) {
 
-        this.faixaInss = "Isento (abaixo do mínimo)";
-        this.inssCalculado = 0;
-        return 0;
+        this.faixaInss = "7,5% (abaixo do mínimo)";
+        this.inssCalculado = renda * 0.075;
+        return inssCalculado;
     }
 		
 		// 1. Limita a renda ao teto máximo (ninguém contribui sobre mais que isso)
-		double baseCalculoInss = Math.min(renda, 8475.55);
+		double baseCalculoInss = Math.min(renda, 8475.55); //2026
+		//double baseCalculoInss = Math.min(renda, 8157.41); //2025
 
-		// 2. O cálculo agora usa a base filtrada
+		// 2. O cálculo agora usa a base filtrada Tabela INSS 2026
 		if (baseCalculoInss <= 1621.00) {
 			this.faixaInss = "7,5%";
 			this.inssCalculado = (baseCalculoInss * 0.075);
@@ -85,7 +86,26 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 
 		return this.inssCalculado;
 	}
+/*
+		// Tabela INSS 2025
+		if (baseCalculoInss <= 1518.00) {
+			this.faixaInss = "7,5%";
+			this.inssCalculado = (baseCalculoInss * 0.075);
+		} else if (baseCalculoInss <= 2793.88) {
+			this.faixaInss = "9%";
+			this.inssCalculado = (baseCalculoInss * 0.09) - 22.77;
+		} else if (baseCalculoInss <= 4190.83) {
+			this.faixaInss = "12%";
+			this.inssCalculado = (baseCalculoInss * 0.12) - 106.59;
+		} else {
+			// if (rendaBruta >= 8157.41)
+			this.faixaInss = "14%";
+			this.inssCalculado = (baseCalculoInss * 0.14) - 190.40;
+		}
 
+		return this.inssCalculado;
+	}
+	*/
 	@Override
 	public double calcularIR() {
 
@@ -93,25 +113,30 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 		double inss = this.calcularInss();
 		double totalDep = qtdDependentes * DEDUCAO_DEPENDENTE;
 
-		double baseLegal = renda - (inss + totalDep);
+		double descontoLegal = inss + totalDep;
+		double baseLegal = renda - descontoLegal;
+		double baseLegalRelatorio = Math.max(0, baseLegal);
 		double impostoLegal = calcularIrTabela2026(baseLegal);
 		String faixaLegal = faixaIr;
 		
-		double baseSimplificada = renda - DESCONTO_SIMPLIFICADO_PADRAO;
+		double descontoSimplificado = DESCONTO_SIMPLIFICADO_PADRAO;
+		double baseSimplificada = renda - descontoSimplificado;
+		double baseSimplificadaRelatorio = Math.max(0, baseSimplificada);
 		double impostoSimplificado = calcularIrTabela2026(baseSimplificada);
-		String faixaSimplificadaString = faixaIr;
+		String faixaSimplificada = faixaIr;
 		
-		if (impostoLegal <= impostoSimplificado) {
-			baseUtilizada = baseLegal;
+		if (impostoLegal < impostoSimplificado || 
+				(impostoLegal == impostoSimplificado && descontoLegal > descontoSimplificado)) {
+			baseUtilizada = baseLegalRelatorio;
 			faixaIr = faixaLegal;
-			tipoDescontoIr = String.format("\n- Dedução calculada (INSS: R$ %,.2f + Dep.: R$ %,.2f): totalizando R$ %,.2f",
-						inss, totalDep, (inss + totalDep));
+			tipoDescontoIr = String.format("Dedução calculada (INSS: R$ %,.2f + Dep.: R$ %,.2f): totalizando R$ %,.2f",
+						inss, totalDep, descontoLegal);
 			irCalculado = Math.max(0, impostoLegal);
 			
 		} else {
-			baseUtilizada = baseSimplificada;
-			faixaIr = faixaSimplificadaString;
-			tipoDescontoIr = "Desconto Simplificado R$ " + DESCONTO_SIMPLIFICADO_PADRAO;
+			baseUtilizada = baseSimplificadaRelatorio;
+			faixaIr = faixaSimplificada;
+			tipoDescontoIr = String.format("Desconto Simplificado R$ %,.2f", descontoSimplificado);
 			irCalculado = Math.max(0, impostoSimplificado);
 		}
 		
@@ -157,19 +182,23 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 		sb.append("-----------------------------------------------------------------------------------\n");
 		sb.append("Pessoa Física\n\n");
 		sb.append("Contribuinte\n");
-		sb.append(super.toString()).append("\n");
-		sb.append(String.format("CPF: %s\n", getCpf()));
-		sb.append(String.format("Dependentes: %s\n", getQtdDependentes()));
-		sb.append(String.format("Renda Bruta: R$ %,.2f%n", getRendaBruta()));
-		sb.append(String.format("Desconto INSS: R$ %,.2f%n", inssCalculado));
-		sb.append(String.format("Base INSS: R$ %,.2f%n", getRendaBruta()));
-		sb.append(String.format("Base IRPF: R$ %,.2f%n", baseUtilizada));
-		sb.append(String.format("Desconto aplicado no IRPF: %s\n", tipoDescontoIr));
-		sb.append(String.format("Imposto de Renda pagar: R$ %.2f\n", irCalculado));
-		sb.append(String.format("Detalhamento: \n"));
-		sb.append(String.format("- faixa INSS: %s, alíquota efetiva é de %.2f%%\n", faixaInss,
+		sb.append(String.format("%-20s %s\n", "Nome:", super.toString()));
+		//sb.append(super.toString()).append("%-20s\n");
+		sb.append(String.format("%-20s %s\n", "CPF:", getCpf()));
+		sb.append(String.format("%-20s %s\n", "Dependentes:", getQtdDependentes()));
+		sb.append(String.format("%-20s R$ %,.2f\n", "Renda Bruta:", getRendaBruta()));
+		
+		sb.append("\nResumo Financeiro\n");
+		sb.append(String.format("%-20s R$ %,.2f\n", "Desconto INSS:", inssCalculado));
+		sb.append(String.format("%-20s %s\n", "Desconto IRPF:", tipoDescontoIr));
+		sb.append(String.format("%-20s R$ %,.2f\n", "Imposto de Renda pagar:", irCalculado));
+		
+		sb.append(String.format("\nDetalhamento: \n"));
+		sb.append(String.format("  🔵 Base INSS: R$ %,.2f%n", getRendaBruta()));
+		sb.append(String.format("    ◦ faixa INSS: %s, alíquota efetiva é de %.2f%%\n", faixaInss,
 				getAliquotaEfetivaInss()));
-		sb.append(String.format("- faixa IRPF: %s, alíquota efetiva é de %.2f%%", faixaIr,
+		sb.append(String.format("  🔵 Base IRPF: R$ %,.2f%n", baseUtilizada));
+		sb.append(String.format("    ◦ faixa IRPF: %s, alíquota efetiva é de %.2f%%", faixaIr,
 				getAliquotaEfetivaIr()));
 
 		return sb.toString();

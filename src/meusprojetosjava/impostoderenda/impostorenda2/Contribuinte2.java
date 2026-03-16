@@ -27,7 +27,7 @@ public abstract class Contribuinte2 {// Eclipse -> Github @guilhermeNetogit 15/0
 
 	@Override
 	public String toString() {
-		return String.format("Nome: %s", nome);
+		return String.format(nome);
 
 	}
 

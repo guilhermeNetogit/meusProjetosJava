@@ -45,19 +45,19 @@ public class PessoaJuridica2 extends Contribuinte2 {// Eclipse -> Github @guilhe
 		sb.append("-----------------------------------------------------------------------------------\n");
 		sb.append("Pessoa Juridica\n\n");
 		sb.append("Contribuinte\n");
-		sb.append(super.toString()).append("\n");
-		sb.append(String.format("CNPJ: %s\n", getCnpj()));
-		sb.append(String.format("Renda Bruta: R$ %,.2f%n", getRendaBruta()));
-		sb.append(String.format("Teto Mensal: R$ %,.2f%n\n", tetoMensal));
+		sb.append(String.format("%-20s %s\n", "Nome:", super.toString()));
+		sb.append(String.format("%-20s %s\n", "CNPJ:", getCnpj()));
+		sb.append(String.format("%-20s R$ %,.2f\n", "Renda Bruta:", getRendaBruta()));
+		sb.append(String.format("%-20s R$ %,.2f\n", "Teto Mensal:", tetoMensal));
 
 		if (getRendaBruta() <= tetoMensal) {
-			sb.append(String.format("Imposto a pagar: R$ %.2f (15%% sobre o total)", impostoTotal));
+			sb.append(String.format("%-20s R$ %,.2f (15%% sobre o total)", "Imposto a pagar:", impostoTotal));
 		} else {
 			double excessoValor = rendaBruta - tetoMensal;
-			sb.append(String.format("Imposto a pagar: R$ %,.2f%n", impostoTotal));
+			sb.append(String.format("%-20s R$ %,.2f\n", "Imposto a pagar:", impostoTotal));
 			sb.append("Detalhamento: \n");
-			sb.append(String.format("- 15%% sobre o total de %,.2f (%,.2f)\n", getRendaBruta(), impostoBase));
-			sb.append(String.format("- 10%% sobre o adicional de %.2f (%,.2f)", excessoValor, impostoAdicional));
+			sb.append(String.format(" ◦ 15%% sobre o total de %,.2f (%,.2f)\n", getRendaBruta(), impostoBase));
+			sb.append(String.format(" ◦ 10%% sobre o adicional de %.2f (%,.2f)", excessoValor, impostoAdicional));
 		}
 		return sb.toString();
 	}
