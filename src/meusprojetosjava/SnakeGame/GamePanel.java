@@ -9,7 +9,8 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.Random;
 
-public class GamePanel extends JPanel implements ActionListener {// Eclipse -> Github @guilhermeNetogit 11/03/2026 18:13:58
+public class GamePanel extends JPanel implements ActionListener {// Eclipse -> Github @guilhermeNetogit 17/03/2026
+																	// 14:45:10
 
 	private int gameOverAlpha = 0;
 	private boolean awaitingResetConfirmation = false;
@@ -23,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 	private static final int BOARD_HEIGHT = 800; // Era 600
 	private static final int UNIT_SIZE = 25; // Mantido 25 (bom tamanho)
 	private static final int GAME_UNITS = (BOARD_WIDTH * BOARD_HEIGHT) / UNIT_SIZE;
-	private static final int DELAY = 100;
+	private int currentDelay = 100;
 
 	// Controle da cobra
 	private final int[] x = new int[GAME_UNITS];
@@ -66,12 +67,21 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 	}
 
 	public void startGame() {
+
+		currentDelay = 100;
+
+		if (timer != null) {
+			timer.stop();
+		}
+
 		showingMenu = false;
 		showingRanking = false;
 		enteringName = false;
+
 		newApple();
 		running = true;
-		timer = new Timer(DELAY, this);
+
+		timer = new Timer(currentDelay, this);
 		timer.start();
 	}
 
@@ -81,19 +91,19 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 
 		if (showingMenu) {
 			drawMenu(g);
-			
+
 		} else if (showingRanking) {
 			drawRanking(g);
-			
+
 		} else if (running) {
 			draw(g);
-			
+
 		} else {
 			draw(g);
-			
+
 			g.setColor(new Color(0, 0, 0, gameOverAlpha)); // 80 -> leve, 120 -> medio, 150 -> forte
-	        g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
-			
+			g.fillRect(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+
 			gameOver(g);
 		}
 	}
@@ -126,7 +136,8 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 			g.setColor(Color.YELLOW);
 			g.setFont(new Font("Arial", Font.BOLD, 30)); // Era 24
 
-			String namePrompt = "Digite seu nome: " + playerName;// + (System.currentTimeMillis() % 1000 < 500 ? "_" : "");
+			String namePrompt = "Digite seu nome: " + playerName;// + (System.currentTimeMillis() % 1000 < 500 ? "_" :
+																	// "");
 			FontMetrics fm = getFontMetrics(g.getFont());
 			g.drawString(namePrompt, (BOARD_WIDTH - fm.stringWidth(namePrompt)) / 2, 450); // Posição ajustada
 
@@ -374,7 +385,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 		// Instruções - MAIORES
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 24)); // Era 20
-		String[] gameOverOptions = { "Pressione M para voltar ao menu", "Pressione R para ver o ranking" };
+		String[] gameOverOptions = { "Pressione M para voltar ao menu", "Pressione F1 para ver o ranking" };
 
 		int y = BOARD_HEIGHT / 2 + 70;
 		for (String option : gameOverOptions) {
@@ -438,8 +449,9 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 			applesEaten++;
 			newApple();
 
-			if (applesEaten % 5 == 0 && DELAY > 50) {
-				timer.setDelay(DELAY - 5);
+			if (applesEaten % 5 == 0 && currentDelay > 50) {
+				currentDelay -= 5;
+				timer.setDelay(currentDelay);
 			}
 		}
 	}
@@ -457,7 +469,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 		 */ // remova este comentario para voltar com a colisão nas bordas
 
 		if (!running) {
-			//timer.stop();
+			// timer.stop();
 		}
 	}
 
@@ -473,7 +485,8 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 		}
 
 		if (timer != null) {
-			timer.setDelay(DELAY);
+			currentDelay = 100;
+			timer.setDelay(currentDelay);
 		}
 
 		showingMenu = true;
@@ -591,7 +604,7 @@ public class GamePanel extends JPanel implements ActionListener {// Eclipse -> G
 				// Tela de game over
 				if (e.getKeyCode() == KeyEvent.VK_M) {
 					restartGame();
-				} else if (e.getKeyCode() == KeyEvent.VK_R) {
+				} else if (e.getKeyCode() == KeyEvent.VK_F1) {
 					showingRanking = true;
 					showingMenu = false;
 				}
