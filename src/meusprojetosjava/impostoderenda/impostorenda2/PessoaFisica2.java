@@ -179,7 +179,7 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 		calcularIR();
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("-----------------------------------------------------------------------------------\n");
+		sb.append("--------------------------------------------------------------------\n");
 		sb.append("Pessoa Física\n\n");
 		sb.append("Contribuinte\n");
 		sb.append(String.format("%-20s %s\n", "Nome:", super.toString()));
@@ -194,13 +194,14 @@ public class PessoaFisica2 extends Contribuinte2 {// Eclipse -> Github @guilherm
 		sb.append(String.format("%-20s R$ %,.2f\n", "Imposto de Renda pagar:", irCalculado));
 		
 		sb.append(String.format("\nDetalhamento: \n"));
-		sb.append(String.format("  🔵 Base INSS: R$ %,.2f%n", getRendaBruta()));
-		sb.append(String.format("    ◦ faixa INSS: %s, alíquota efetiva é de %.2f%%\n", faixaInss,
+		sb.append(String.format("  ◦ Base INSS: R$ %,.2f%n", getRendaBruta()));
+		sb.append(String.format("    -> faixa INSS: %s, alíquota efetiva é de %.2f%%\n", faixaInss,
 				getAliquotaEfetivaInss()));
-		sb.append(String.format("  🔵 Base IRPF: R$ %,.2f%n", baseUtilizada));
-		sb.append(String.format("    ◦ faixa IRPF: %s, alíquota efetiva é de %.2f%%", faixaIr,
+		sb.append(String.format("  ◦ Base IRPF: R$ %,.2f%n", baseUtilizada));
+		sb.append(String.format("    -> faixa IRPF: %s, alíquota efetiva é de %.2f%%\n", faixaIr,
 				getAliquotaEfetivaIr()));
-
+		sb.append(String.format("--------------------------------------------------------------------"));
+		
 		return sb.toString();
 	}
 }
