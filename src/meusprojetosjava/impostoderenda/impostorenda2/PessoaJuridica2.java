@@ -92,7 +92,7 @@ public class PessoaJuridica2 extends Contribuinte2 {// Eclipse -> Github @guilhe
 		String veredito = vencedor.toUpperCase();
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n==========================================================\n");
+		sb.append("==========================================================\n");
 		sb.append("      COMPARATIVO DE PLANEJAMENTO TRIBUTARIO (PJ)\n");
 		sb.append("==========================================================\n");
 		sb.append("Empresa: ").append(getNome()).append("\n");
@@ -126,6 +126,7 @@ public class PessoaJuridica2 extends Contribuinte2 {// Eclipse -> Github @guilhe
 			sb.append(String.format(" - Guia Unica (DAS): R$ %,.2f\n", irpjBase));
 		}
 		sb.append(String.format("TOTAL A PAGAR: R$ %,.2f\n", totalEscolhido));
+		sb.append(String.format("----------------------------------------------------------"));
 
 		return sb.toString();
 	}

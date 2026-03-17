@@ -1,5 +1,11 @@
 package meusprojetosjava.impostoderenda.impostorenda2;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
@@ -76,9 +82,9 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 
 		do {
 			// Menu de seleção de tipo de pessoa
-			System.out.println("══════════════════════════════════════════");
-			System.out.println("             Imposto de Renda");
-			System.out.println("══════════════════════════════════════════");
+			System.out.println("════════════════════════════════════════════════════════════════════");
+			System.out.println("                          Imposto de Renda");
+			System.out.println("════════════════════════════════════════════════════════════════════");
 			System.out.println("Selecione o tipo de pessoa:\n");
 			System.out.println("[1] Imposto de Renda Pessoa Física (IRPF)");
 			System.out.println("[2] Imposto de Renda Pessoa Jurídica (IRPJ)");
@@ -105,9 +111,17 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 
 			if (contribuinteSelecionado != null) {
 
-				System.out.println(contribuinteSelecionado.gerarRelatorio());
-				System.out
-						.println("-----------------------------------------------------------------------------------");
+				String relatorio = contribuinteSelecionado.gerarRelatorio();
+				System.out.println(relatorio);
+
+				// NOVO: Pergunta se deseja salvar
+				System.out.print("Deseja salvar este relatório em arquivo? (S/N): ");
+				String salvar = scanner.nextLine().trim().toUpperCase();
+
+				if (salvar.equals("S")) {
+					salvarRelatorioArquivo(relatorio, contribuinteSelecionado.getNome());
+				}
+
 				pausar(scanner);
 			}
 		} while (opcaoTipoPessoa != 0);
@@ -152,7 +166,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 			double renda;
 			while (true) {
 				System.out.print("Digite a renda bruta para " + original.getNome()
-						+ " (ou Enter para usar a renda cadastrada): R$ ");
+						+ "\n(ou Enter para usar a renda cadastrada): R$ ");
 				String entradaRenda = scanner.nextLine();
 
 				if (entradaRenda.trim().isEmpty()) {
@@ -234,19 +248,19 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 
 			// 1. SOLICITA O FATURAMENTO
 			System.out.print(
-					"Digite o faturamento bruto para " + original.getNome() + " (ou Enter para o original): R$ ");
+					"Digite o faturamento bruto para " + original.getNome() + "\n(ou Enter para o original): R$ ");
 			String entradaFat = scanner.nextLine();
 			double faturamento = entradaFat.trim().isEmpty() ? original.getRendaBruta()
 					: Double.parseDouble(entradaFat.replace(",", "."));
 
 			// Cria o novo objeto PJ com os dados informados
-	        PessoaJuridica2 nova = new PessoaJuridica2();
-	        nova.setNome(original.getNome());
-	        nova.setCnpj(original.getCnpj());
-	        nova.setRendaBruta(faturamento);
+			PessoaJuridica2 nova = new PessoaJuridica2();
+			nova.setNome(original.getNome());
+			nova.setCnpj(original.getCnpj());
+			nova.setRendaBruta(faturamento);
 
-	        return nova;
-	    }
+			return nova;
+		}
 	}
 
 	/*
@@ -287,8 +301,34 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 	 * 
 	 * return nova; }
 	 */
+
 	private static void pausar(Scanner scanner) {
 		System.out.println("Pressione Enter para continuar...");
 		scanner.nextLine();
 	}
+
+	private static void salvarRelatorioArquivo(String conteudoRelatorio, String nomeContribuinte) {
+		// Cria um nome de arquivo único com data e hora para não sobrescrever
+		LocalDateTime agora = LocalDateTime.now();
+		String timestamp = agora.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+		String dataFormatada = agora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+		String nomeArquivo = "Relatorio_" + nomeContribuinte.replace(" ", "_") + "_" + timestamp + ".txt";
+
+		File arquivo = new File(nomeArquivo);
+
+		try (FileWriter fw = new FileWriter(nomeArquivo); PrintWriter pw = new PrintWriter(fw)) {
+
+			pw.println("====================================================================");
+			pw.println("             RELATORIO DE SIMULACAO DE IMPOSTO DE RENDA");
+			pw.println("                   Gerado em: " + dataFormatada);
+			pw.println("====================================================================\n");
+			pw.println(conteudoRelatorio);
+			System.out.println("\n✅ Relatório salvo com sucesso: " + nomeArquivo);
+			System.out.println("📍 Local do arquivo: " + arquivo.getAbsolutePath());
+
+		} catch (IOException e) {
+			System.err.println("❌ Erro ao salvar o arquivo: " + e.getMessage());
+		}
+	}
+
 }
