@@ -1,6 +1,6 @@
-package meusprojetosjava;
+package meusprojetosjava.patterns.triangule;
 
-public class TriangulePatterns {//VS Code -> GitHub @guilhermeNetogit 22:00:13
+public class Triangule {//VS Code -> GitHub @guilhermeNetogit 22:00:13
 
     public static void main(String[] args) {
         RightTriangulePattern(7);
