@@ -2,7 +2,7 @@ package meusprojetosjava.notaaluno.aluno;
 
 import java.util.Scanner;
 
-public class AcaoAluno {// Eclipse -> Github @guilhermeNetogit 24/02/2026 20:39:39
+public class TesteAluno {// Eclipse -> Github @guilhermeNetogit 24/02/2026 20:39:39
     
 	  public static void main(String[] args){
 	        
