@@ -1,4 +1,4 @@
-package meusprojetosjava;
+package meusprojetosjava.matrizes.matrizrandom2;
 
 import java.util.ArrayList;
 import java.util.Collections;

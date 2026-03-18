@@ -1,4 +1,4 @@
-package meusprojetosjava;
+package meusprojetosjava.matrizes.matriz;
 
 import java.text.DecimalFormat;
 
