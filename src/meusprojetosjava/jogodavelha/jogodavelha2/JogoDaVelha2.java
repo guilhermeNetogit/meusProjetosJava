@@ -2,7 +2,29 @@ package meusprojetosjava.jogodavelha.jogodavelha2;
 
 import java.util.Random;
 
-public class JogoDaVelha2 {
+/**
+ * Classe que representa a lógica de um jogo da velha desacoplado da interface.
+ *
+ * <p>
+ * <b>Características:</b>
+ * </p>
+ * <ul>
+ * <li>Separação entre lógica e interface (boa prática OO)</li>
+ * <li>IA baseada em regras simples (busca heurística)</li>
+ * <li>Controle de estado do jogo</li>
+ * </ul>
+ *
+ * <p>
+ * <b>Inteligência Artificial:</b>
+ * </p>
+ * <ul>
+ * <li>Tenta vencer</li>
+ * <li>Tenta bloquear o adversário</li>
+ * <li>Caso contrário, joga aleatoriamente</li>
+ * </ul>
+ */
+
+public class JogoDaVelha2 {// Eclipse -> Github @guilhermeNetogit 19/03/2026 14:21:02
 
 	private char[][] tabuleiro;
 	private char jogadorHumano;
@@ -55,6 +77,9 @@ public class JogoDaVelha2 {
 		return true;
 	}
 
+	/**
+	 * Executa jogada do computador. Utiliza heurística simples.
+	 */
 	// Executa a jogada do computador (automática, seguindo a lógica original)
 	public void fazerJogadaComputador() {
 		if (jogadorAtual != jogadorComputador) {
@@ -226,7 +251,8 @@ public class JogoDaVelha2 {
 		empates++;
 	}
 
-	// Retorna uma cópia do tabuleiro para que o frontend possa exibi-lo sem modificá-lo
+	// Retorna uma cópia do tabuleiro para que o frontend possa exibi-lo sem
+	// modificá-lo
 	public char[][] getTabuleiro() {
 		char[][] copia = new char[3][3];
 		for (int i = 0; i < 3; i++) {
