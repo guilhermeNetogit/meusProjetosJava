@@ -26,7 +26,7 @@ import java.util.*;
  * </p>
  */
 
-public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 23/02/2026 20:35:42
+public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 19/03/2026 14:20:09
 	private static char[][] tabuleiro = new char[3][3];
 	private static char jogadorHumano = 'X';
 	private static char jogadorComputador = 'O';

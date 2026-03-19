@@ -1,6 +1,6 @@
 package meusprojetosjava.trycatch.multiploscatch;
 
-public class MultiplosCatch {// Eclipse -> Github @guilhermeNetogit 19/03/2026 12:44:02
+public class MultiplosCatch {// Eclipse -> Github @guilhermeNetogit 19/03/2026 14:20:46
 
 	public static void main(String[] args) {
 

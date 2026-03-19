@@ -1,6 +1,6 @@
 package meusprojetosjava.trycatch.testefinally;
 
-public class TesteFinally {// Eclipse -> Github @guilhermeNetogit 19/03/2026 13:17:21
+public class TesteFinally {// Eclipse -> Github @guilhermeNetogit 19/03/2026 14:20:32
 
 	public static void main(String[] args) {
 

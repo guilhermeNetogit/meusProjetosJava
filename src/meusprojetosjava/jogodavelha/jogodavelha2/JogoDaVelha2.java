@@ -24,7 +24,7 @@ import java.util.Random;
  * </ul>
  */
 
-public class JogoDaVelha2 {
+public class JogoDaVelha2 {// Eclipse -> Github @guilhermeNetogit 19/03/2026 14:21:02
 
 	private char[][] tabuleiro;
 	private char jogadorHumano;
