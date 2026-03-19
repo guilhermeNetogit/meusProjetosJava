@@ -163,128 +163,63 @@ public class JogoDaVelha {// Eclipse -> Github @guilhermeNetogit 23/02/2026 20:3
         }
         
         // Estratégia da IA:
-        // 1. Tentar vencer na próxima jogada
-        int[] jogadaVencedora = encontrarJogadaVencedora(jogadorComputador);
-        if (jogadaVencedora != null) {
-            tabuleiro[jogadaVencedora[0]][jogadaVencedora[1]] = jogadorComputador;
-            return;
-        }
-        
-        // 2. Bloquear jogada vencedora do humano
-        int[] jogadaBloqueio = encontrarJogadaVencedora(jogadorHumano);
-        if (jogadaBloqueio != null) {
-            tabuleiro[jogadaBloqueio[0]][jogadaBloqueio[1]] = jogadorComputador;
-            return;
-        }
-        
-        // 3. Se o centro estiver livre, jogar nele
-        if (tabuleiro[1][1] == ' ') {
-            tabuleiro[1][1] = jogadorComputador;
-            return;
-        }
-        
-        // 4. Jogar em um canto vazio
-        int[][] cantos = {{0, 0}, {0, 2}, {2, 0}, {2, 2}};
-        List<int[]> cantosVazios = new ArrayList<>();
-        
-        for (int[] canto : cantos) {
-            if (tabuleiro[canto[0]][canto[1]] == ' ') {
-                cantosVazios.add(canto);
+        int melhorPontuacao = Integer.MIN_VALUE;
+    int[] melhorJogada = null;
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (tabuleiro[i][j] == ' ') {
+                tabuleiro[i][j] = jogadorComputador;
+                int pontuacao = minimax(false, 0);
+                tabuleiro[i][j] = ' '; // desfaz jogada
+
+                if (pontuacao > melhorPontuacao) {
+                    melhorPontuacao = pontuacao;
+                    melhorJogada = new int[]{i, j};
+                }
             }
         }
-        
-        if (!cantosVazios.isEmpty()) {
-            int[] cantoEscolhido = cantosVazios.get(random.nextInt(cantosVazios.size()));
-            tabuleiro[cantoEscolhido[0]][cantoEscolhido[1]] = jogadorComputador;
-            return;
-        }
-        
-        // 5. Jogar em qualquer posição vazia
-        List<int[]> posicoesVazias = new ArrayList<>();
-        
-        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
-            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
+    }
+
+    if (melhorJogada != null) {
+        tabuleiro[melhorJogada[0]][melhorJogada[1]] = jogadorComputador;
+    }
+}
+
+private static int minimax(boolean maximizando, int profundidade) {
+    char vencedor = verificarVencedor();
+
+    // Pontuação com penalidade por profundidade — IA prefere vencer rápido
+    if (vencedor == jogadorComputador) return 10 - profundidade;
+    if (vencedor == jogadorHumano)    return profundidade - 10;
+    if (tabuleiroCheio())             return 0;
+
+    if (maximizando) {
+        int melhor = Integer.MIN_VALUE;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 if (tabuleiro[i][j] == ' ') {
-                    posicoesVazias.add(new int[]{i, j});
+                    tabuleiro[i][j] = jogadorComputador;
+                    melhor = Math.max(melhor, minimax(false, profundidade + 1));
+                    tabuleiro[i][j] = ' ';
                 }
             }
         }
-        
-        if (!posicoesVazias.isEmpty()) {
-            int[] posicaoEscolhida = posicoesVazias.get(random.nextInt(posicoesVazias.size()));
-            tabuleiro[posicaoEscolhida[0]][posicaoEscolhida[1]] = jogadorComputador;
+        return melhor;
+    } else {
+        int melhor = Integer.MAX_VALUE;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tabuleiro[i][j] == ' ') {
+                    tabuleiro[i][j] = jogadorHumano;
+                    melhor = Math.min(melhor, minimax(true, profundidade + 1));
+                    tabuleiro[i][j] = ' ';
+                }
+            }
         }
+        return melhor;
     }
-    
-    private static int[] encontrarJogadaVencedora(char jogador) {
-        // Verificar linhas
-        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
-            int count = 0;
-            int posVazia = -1;
-            
-            for (int j = 0; j < tabuleiro.length /*3*/; j++) {
-                if (tabuleiro[i][j] == jogador) {
-                    count++;
-                } else if (tabuleiro[i][j] == ' ') {
-                    posVazia = j;
-                }
-            }
-            
-            if (count == 2 && posVazia != -1) {
-                return new int[]{i, posVazia};
-            }
-        }
-        
-        // Verificar colunas
-        for (int j = 0; j < tabuleiro.length /*3*/; j++) {
-            int count = 0;
-            int posVazia = -1;
-            
-            for (int i = 0; i < tabuleiro.length /*3*/; i++) {
-                if (tabuleiro[i][j] == jogador) {
-                    count++;
-                } else if (tabuleiro[i][j] == ' ') {
-                    posVazia = i;
-                }
-            }
-            
-            if (count == 2 && posVazia != -1) {
-                return new int[]{posVazia, j};
-            }
-        }
-        
-        // Verificar diagonal principal
-        int count = 0;
-        int posVazia = -1;
-        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
-            if (tabuleiro[i][i] == jogador) {
-                count++;
-            } else if (tabuleiro[i][i] == ' ') {
-                posVazia = i;
-            }
-        }
-        
-        if (count == 2 && posVazia != -1) {
-            return new int[]{posVazia, posVazia};
-        }
-        
-        // Verificar diagonal secundária
-        count = 0;
-        posVazia = -1;
-        for (int i = 0; i < tabuleiro.length /*3*/; i++) {
-            if (tabuleiro[i][2 - i] == jogador) {
-                count++;
-            } else if (tabuleiro[i][2 - i] == ' ') {
-                posVazia = i;
-            }
-        }
-        
-        if (count == 2 && posVazia != -1) {
-            return new int[]{posVazia, 2 - posVazia};
-        }
-        
-        return null;
-    }
+}
     
     private static char verificarVencedor() {
         // Verificar linhas
