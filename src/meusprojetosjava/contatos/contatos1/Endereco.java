@@ -1,4 +1,4 @@
-package meusprojetosjava.contatos;
+package meusprojetosjava.contatos.contatos1;
 
 public class Endereco {// Eclipse -> Github @guilhermeNetogit 08/03/2026 22:20:41
 	
