@@ -1,6 +1,6 @@
 package meusprojetosjava.veiculos.veiculos1;
 
-public class Veiculos {// Eclipse -> Github @guilhermeNetogit 11/03/2026 13:38:16
+public class Veiculos {// Eclipse -> Github @guilhermeNetogit 22/03/2026 10:43:04
 
 	String marca;
 	String modelo;
@@ -13,8 +13,7 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 11/03/2026 13:38:1
 	private boolean msgAutonomiaExibir = false;
 
 	void exibirAutonomia(String tipoRodagem, double consumo) {
-		System.out.printf(
-				"A autonomia do veículo na %s (via void) é: %.2f km\n", tipoRodagem, (capTanqComb * consumo));
+		System.out.printf("A autonomia do veículo na %s (via void) é: %.2f km\n", tipoRodagem, (capTanqComb * consumo));
 	}
 
 	double obterAutonomia(double consumo) {
@@ -55,7 +54,7 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 11/03/2026 13:38:1
 
 		String combustiveis = (tipoComb != null) ? String.join(", ", tipoComb) : "Não informado";
 
-		return "Marca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nValor (tabela FIPE): "
+		return "\nMarca: " + marca + "\nModelo: " + modelo + "\nAno: " + ano + "\nValor (tabela FIPE): "
 				+ String.format("R$ %,.2f", valor) + "\nPassageiros: " + numPassageiros + "\nTipo de Combustivel: "
 				+ combustiveis + "\nCap. Tanque Comb.: " + capTanqComb + " lts"
 				+ "\nConsumo Médio de Combustível na Cidade: " + consumoCombustivelCid + " km/l"
