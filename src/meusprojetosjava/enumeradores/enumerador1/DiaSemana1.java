@@ -1,8 +1,8 @@
-package meusprojetosjava;
+package meusprojetosjava.enumeradores.enumerador1;
 
 import java.util.Scanner;
 
-public class Enumerador {// Eclipse -> Github @guilhermeNetogit 17/02/2026 20:09:23
+public class DiaSemana1 {// Eclipse -> Github @guilhermeNetogit 17/02/2026 20:09:23
 
 	// Enum já com nome formatado
 	enum DiaSemana {
@@ -54,13 +54,14 @@ public class Enumerador {// Eclipse -> Github @guilhermeNetogit 17/02/2026 20:09
 			// ================================
 
 			/*
-			 * switch(numero) { case 1: System.out.println("Domingo"); break; case 2:
-			 * System.out.println("Segunda-feira"); break; case 3:
-			 * System.out.println("Terça-feira"); break; case 4:
-			 * System.out.println("Quarta-feira"); break; case 5:
-			 * System.out.println("Quinta-feira"); break; case 6:
-			 * System.out.println("Sexta-feira"); break; case 7:
-			 * System.out.println("Sábado"); break; }
+			 * switch(numero) { 
+			 * case 1: System.out.println("Domingo"); break; 
+			 * case 2: System.out.println("Segunda-feira"); break; 
+			 * case 3: System.out.println("Terça-feira"); break; 
+			 * case 4: System.out.println("Quarta-feira"); break; 
+			 * case 5: System.out.println("Quinta-feira"); break; 
+			 * case 6: System.out.println("Sexta-feira"); break; 
+			 * case 7: System.out.println("Sábado"); break; }
 			 */
 
 			System.out.print("\nDeseja consultar outro número? (s/n) ");
