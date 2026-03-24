@@ -4,107 +4,77 @@ import java.util.Scanner;
 
 public class TesteVeiculos {
 
-	public static void main(String[] args) {// Eclipse -> Github @guilhermeNetogit 22/03/2026 10:42:11
+	public static void main(String[] args) {// Eclipse -> Github @guilhermeNetogit 23/03/2026 21:25:07
 
 		Scanner scanner = new Scanner(System.in);
 
-		Veiculos onix = new Veiculos();
-		onix.marca = "Chevrolet";
-		onix.modelo = "Onix Joy";
-		onix.ano = 2019;
-		onix.numPassageiros = 5;
-		onix.tipoComb = new String[] { Veiculos.TIPO_COMB[2] };
-		onix.capTanqComb = 54;
-		onix.consumoCombustivelCid = 12.9;
-		onix.consumoCombustivelEst = 15;
-		onix.valor = 50000;
+		// ========== Cadastros dos Veículos ==========
+		Veiculos onix = criarVeiculo("Chevrolet", "Onix Joy 1.0", 2019, 5, new String[] { Veiculos.TIPO_COMB[2] }, 54,
+				12.9, 15, 8.9, 10.8, 50000);
 
-		Veiculos fusca = new Veiculos();
-		fusca.marca = "Volkswagen";
-		fusca.modelo = "Fusca 1300";
-		fusca.ano = 1970;
-		fusca.numPassageiros = 5;
-		fusca.tipoComb = new String[] { Veiculos.TIPO_COMB[0] };
-		fusca.capTanqComb = 41;
-		fusca.consumoCombustivelCid = 8;
-		fusca.consumoCombustivelEst = 11.5;
-		fusca.valor = 32000;
+		Veiculos fusca = criarVeiculo("Volkswagen", "Fusca 1300", 1970, 5, new String[] { Veiculos.TIPO_COMB[0] }, 41,
+				8, 11.5, 0, 0, 32000);
 
-		Veiculos uno = new Veiculos();
-		uno.marca = "Fiat";
-		uno.modelo = "Uno Eletronic 1.0";
-		uno.ano = 1994;
-		uno.numPassageiros = 5;
-		uno.tipoComb = new String[] { Veiculos.TIPO_COMB[0] };
-		uno.capTanqComb = 50;
-		uno.consumoCombustivelCid = 9.8;
-		uno.consumoCombustivelEst = 13.2;
-		uno.valor = 8000;
+		Veiculos uno = criarVeiculo("Fiat", "Uno Eletronic 1.0", 1994, 5, new String[] { Veiculos.TIPO_COMB[0] }, 50,
+				9.8, 13.2, 0, 0, 8000);
 
-		Veiculos saveiro = new Veiculos();
-		saveiro.marca = "Volkswagen";
-		saveiro.modelo = "Saveiro Surf 1.8";
-		saveiro.ano = 2008;
-		saveiro.numPassageiros = 2;
-		saveiro.tipoComb = new String[] { Veiculos.TIPO_COMB[2] };
-		saveiro.capTanqComb = 53;
-		saveiro.consumoCombustivelCid = 12;
-		saveiro.consumoCombustivelEst = 14.2;
-		saveiro.valor = 43226;
+		Veiculos saveiro = criarVeiculo("Volkswagen", "Saveiro Surf 1.8", 2008, 2,
+				new String[] { Veiculos.TIPO_COMB[2] }, 53, 10, 13, 7, 9, 43226);
 
-		Veiculos opala = new Veiculos();
-		opala.marca = "Chevrolet";
-		opala.modelo = "Opala Comodoro";
-		opala.ano = 1975;
-		opala.numPassageiros = 5;
-		opala.tipoComb = new String[] { Veiculos.TIPO_COMB[0] };
-		opala.capTanqComb = 60;
-		opala.consumoCombustivelCid = 5;
-		opala.consumoCombustivelEst = 7;
-		opala.valor = 58000;
+		Veiculos civic = criarVeiculo("Honda", "Civic EXL 2.0", 2021, 5, new String[] { Veiculos.TIPO_COMB[2] }, 56,
+				10.2, 12.8, 7.2, 8.9, 115000);
 
-		Veiculos landau = new Veiculos();
-		landau.marca = "Ford";
-		landau.modelo = "Landau/Galaxie V8";
-		landau.ano = 1978;
-		landau.numPassageiros = 5;
-		landau.tipoComb = new String[] { Veiculos.TIPO_COMB[0] };
-		landau.capTanqComb = 107;
-		landau.consumoCombustivelCid = 3.5;
-		landau.consumoCombustivelEst = 5.5;
-		landau.valor = 120000;
+		Veiculos corolla = criarVeiculo("Toyota", "Corolla XEi 2.0", 2023, 5, new String[] { Veiculos.TIPO_COMB[2] },
+				50, 11.9, 14.2, 8.3, 9.8, 140000);
+
+		Veiculos fox = criarVeiculo("Volkswagen", "Fox Connect 1.6", 2021, 5, new String[] { Veiculos.TIPO_COMB[2] },
+				50, 10.6, 12.1, 7.4, 8.2, 58000);
+
+		Veiculos opala = criarVeiculo("Chevrolet", "Opala Comodoro", 1975, 5, new String[] { Veiculos.TIPO_COMB[0] },
+				60, 5, 7, 0, 0, 58000);
+
+		Veiculos landau = criarVeiculo("Ford", "Landau/Galaxie V8", 1978, 5, new String[] { Veiculos.TIPO_COMB[0] },
+				107, 3.5, 5.5, 0, 0, 120000);
 
 		// Array com todos os veículos
-		Veiculos[] veiculos = { onix, fusca, uno, saveiro, opala, landau };
+		Veiculos[] veiculos = { onix, fusca, uno, saveiro, civic, corolla, fox, opala, landau };
 
 		System.out.print("Quantos km você pretende rodar? ");
 		double kmDesejado = scanner.nextDouble();
 
-		System.out.print("Qual o valor atual da gasolina (em R$)? ");
+		System.out.print("Qual o valor atual da gasolina (R$)? ");
 		double valorGasolina = scanner.nextDouble();
+
+		System.out.print("Qual o valor atual do álcool (R$)? ");
+		double valorAlcool = scanner.nextDouble();
 
 		System.out.println();
 
 		int opcao;
 
+		// Menu
 		do {
-			// Menu
-			System.out.println("=== MENU DE VEÍCULOS ===");
+			System.out.println("╔══════════════════════════════════╗");
+			System.out.println("║      🚗 Menu de Veículos         ║");
+			System.out.println("╠══════════════════════════════════╣");
 			for (int i = 0; i < veiculos.length; i++) {
-				System.out.printf("[%d] %s\n", i + 1, veiculos[i].modelo);
+				System.out.printf("║ [%d] %-28s ║\n", i + 1, veiculos[i].modelo);
 			}
-			System.out.printf("[%d] Ver todos\n", veiculos.length + 1);
-			System.out.printf("[%d] Alterar km e valor da gasolina\n", veiculos.length + 2);
-			System.out.println("[0] Sair");
+			System.out.printf("║ [%d] %-27s ║\n", veiculos.length + 1, "Ver todos");
+			System.out.printf("║ [%d] %-27s ║\n", veiculos.length + 2, "Alterar valores");
+            System.out.println("║ [0] Sair                         ║");
+            System.out.println("╚══════════════════════════════════╝");
 			System.out.print("Escolha uma opção: ");
 			opcao = scanner.nextInt();
 
 			if (opcao >= 1 && opcao <= veiculos.length) {
-				exibirDetalhesVeiculo(veiculos[opcao - 1], kmDesejado, valorGasolina);
+				exibirDetalhesVeiculo(veiculos[opcao - 1], kmDesejado, valorGasolina, valorAlcool);
 			} else if (opcao == veiculos.length + 1) {
 				for (Veiculos v : veiculos) {
-					exibirDetalhesVeiculo(v, kmDesejado, valorGasolina);
-					System.out.println();
+					exibirDetalhesVeiculo(v, kmDesejado, valorGasolina, valorAlcool);
+					System.out.println("\nPressione ENTER para continuar...");
+					scanner.nextLine();
+					scanner.nextLine();
 				}
 			} else if (opcao == veiculos.length + 2) {
 				// Opção para alterar os valores de km e preço da gasolina
@@ -112,43 +82,96 @@ public class TesteVeiculos {
 				kmDesejado = scanner.nextDouble();
 				System.out.print("Digite o novo valor da gasolina (R$): ");
 				valorGasolina = scanner.nextDouble();
-				System.out.println("\nValores atualizados com sucesso!");
+				System.out.print("Digite o novo valor da álcool (R$): ");
+				valorAlcool = scanner.nextDouble();
+				System.out.println("\n✅ Valores atualizados com sucesso!");
 			} else if (opcao != 0) {
-				System.out.println("Opção inválida! Tente novamente.");
+				System.out.println("❌ Opção inválida! Tente novamente.");
 			}
 		} while (opcao != 0);
 
 		scanner.close();
-		System.out.println("Programa encerrado.");
+		System.out.println("\n🏁 Programa encerrado.");
 	}
 
-	private static void exibirDetalhesVeiculo(Veiculos v, double kmDesejado, double valorGasolina) {
+	// ========== Métodos Auxiliares ==========
+
+	private static Veiculos criarVeiculo(String marca, String modelo, int ano, int numPassageiros, String[] tipoComb,
+			double capTanq, double gasCid, double gasEst, double alcCid, double alcEst, double valor) {
+		Veiculos v = new Veiculos();
+		v.marca = marca;
+		v.modelo = modelo;
+		v.ano = ano;
+		v.numPassageiros = numPassageiros;
+		v.tipoComb = tipoComb;
+		v.capTanqComb = capTanq;
+		v.valor = valor;
+		v.consumoGasolinaCid = gasCid;
+		v.consumoGasolinaEst = gasEst;
+		v.consumoAlcoolCid = alcCid;
+		v.consumoAlcoolEst = alcEst;
+		return v;
+	}
+
+	private static void exibirDetalhesVeiculo(Veiculos v, double km, double valorGasolina, double valorAlcool) {
 		System.out.println(v);
 
-		// Cidade
-		v.exibirAutonomia("cidade", v.consumoCombustivelCid);
-		double autonomiaCid = v.obterAutonomia(v.consumoCombustivelCid);
-		System.out.printf("A autonomia na cidade (via return) é: %.2f km\n", autonomiaCid);
+		boolean usaGasolina = v.consumoGasolinaCid > 0;
+		boolean usaAlcool = v.consumoAlcoolCid > 0;
+		boolean isFlex = usaGasolina && usaAlcool;
 
-		double qtdCombCid = v.calcularCombustivel(kmDesejado, v.consumoCombustivelCid);
-		double tanquesCid = v.calcularQtdTanques(qtdCombCid);
-		double custoCid = v.calcularCustoCombustivel(qtdCombCid, valorGasolina);
+		// ========== Cidade ==========
+		System.out.println("\n>>> 🏙️  CÁLCULOS PARA CIDADE");
 
-		System.out.printf("Para rodar %.2f km na cidade com o %s, precisa abastecer %.2f lts ou %.2f tanque.\n",
-				kmDesejado, v.modelo, qtdCombCid, tanquesCid);
-		System.out.printf("O custo será de R$ %,.2f\n", custoCid);
+		if (usaGasolina) {
+			v.exibirAutonomia("cidade (gasolina)", v.consumoGasolinaCid);
+			double litros = v.calcularCombustivelGasolina(km, v.consumoGasolinaCid);
+			double tanques = v.calcularQtdTanques(litros);
+			double custo = v.calcularCustoGasolina(litros, valorGasolina);
+			System.out.printf("⛽ Para %.1f km: %.2f litros (%.2f tanques) = R$ %,.2f\n", km, litros, tanques, custo);
+		}
 
-		// Estrada
-		v.exibirAutonomia("estrada", v.consumoCombustivelEst);
-		double autonomiaEst = v.obterAutonomia(v.consumoCombustivelEst);
-		System.out.printf("A autonomia na estrada (via return) é: %.2f km\n", autonomiaEst);
+		if (usaAlcool) {
+			v.exibirAutonomia("cidade (álcool)", v.consumoAlcoolCid);
+			double litros = v.calcularCombustivelAlcool(km, v.consumoAlcoolCid);
+			double tanques = v.calcularQtdTanques(litros);
+			double custo = v.calcularCustoAlcool(litros, valorAlcool);
+			System.out.printf("🌽 Para %.1f km: %.2f litros (%.2f tanques) = R$ %,.2f\n", km, litros, tanques, custo);
+		}
 
-		double qtdCombEst = v.calcularCombustivel(kmDesejado, v.consumoCombustivelEst);
-		double tanquesEst = v.calcularQtdTanques(qtdCombEst);
-		double custoEst = v.calcularCustoCombustivel(qtdCombEst, valorGasolina);
+		// Comparação cidade (se for flex)
+		if (isFlex) {
+			System.out.println(v.compararCustos(km, valorGasolina, valorAlcool, "CIDADE", v.consumoGasolinaCid,
+					v.consumoAlcoolCid));
+		}
 
-		System.out.printf("Para rodar %.2f km na estrada com o %s, precisa abastecer %.2f lts ou %.2f tanque.\n",
-				kmDesejado, v.modelo, qtdCombEst, tanquesEst);
-		System.out.printf("O custo será de R$ %,.2f\n\n", custoEst);
+		// ========== Estrada ==========
+
+		System.out.println("\n>>> 🛣️  CÁLCULOS PARA ESTRADA");
+
+		if (usaGasolina) {
+			v.exibirAutonomia("estrada (gasolina)", v.consumoGasolinaEst);
+			double litros = v.calcularCombustivelGasolina(km, v.consumoGasolinaEst);
+			double tanques = v.calcularQtdTanques(litros);
+			double custo = v.calcularCustoGasolina(litros, valorGasolina);
+			System.out.printf("⛽ Para %.1f km: %.2f litros (%.2f tanques) = R$ %,.2f\n", km, litros, tanques, custo);
+		}
+
+		if (usaAlcool) {
+			v.exibirAutonomia("estrada (álcool)", v.consumoAlcoolEst);
+			double litros = v.calcularCombustivelAlcool(km, v.consumoAlcoolEst);
+			double tanques = v.calcularQtdTanques(litros);
+			double custo = v.calcularCustoAlcool(litros, valorAlcool);
+			System.out.printf("🌽 Para %.1f km: %.2f litros (%.2f tanques) = R$ %,.2f\n", km, litros, tanques, custo);
+		}
+
+		// Comparação estrada (se for flex)
+		if (isFlex) {
+			System.out.println(v.compararCustos(km, valorGasolina, valorAlcool, "ESTRADA", v.consumoGasolinaEst,
+					v.consumoAlcoolEst));
+		}
+
+		System.out.println("\n" + "═".repeat(50));
+
 	}
 }
