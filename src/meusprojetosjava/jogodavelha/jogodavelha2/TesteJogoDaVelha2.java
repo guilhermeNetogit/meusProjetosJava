@@ -3,14 +3,14 @@ package meusprojetosjava.jogodavelha.jogodavelha2;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class TesteJogoDaVelha2 {
+public class TesteJogoDaVelha2 {// Eclipse -> Github @guilhermeNetogit 24/03/2026 10:56:21
 
 	private static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
 		System.out.println("╔═════════════════════════════════════╗");
-		System.out.println("║      JOGO DA VELHA V2.0 - Início    ║");
+		System.out.println("║     JOGO DA VELHA V2.0 - Início     ║");
 		System.out.println("╚═════════════════════════════════════╝");
 		System.out.println("\nVocê é o jogador X");
 		System.out.println("Computador é o jogador O");
@@ -22,9 +22,9 @@ public class TesteJogoDaVelha2 {
 			jogarPartida(jogo);
 
 			System.out.println("\n========= PLACAR =========");
-			System.out.println("  Você:        " + jogo.getVitoriasHumano() + " vitórias");
-			System.out.println("  Computador:  " + jogo.getVitoriasComputador() + " vitórias");
-			System.out.println("  Empates:     " + jogo.getEmpates());
+			System.out.println(" Você:       " + jogo.getVitoriasHumano() + " vitórias");
+			System.out.println(" Computador: " + jogo.getVitoriasComputador() + " vitórias");
+			System.out.println(" Empates:    " + jogo.getEmpates());
 
 			System.out.print("\nDeseja jogar novamente? (S/N): ");
 			String resposta = scanner.next().toUpperCase();
@@ -37,15 +37,31 @@ public class TesteJogoDaVelha2 {
 			jogarNovamente = resposta.equals("S");
 		}
 
+		int vitoriasUsuario = jogo.getVitoriasHumano();
+		int vitoriasComputador = jogo.getVitoriasComputador();
+		int empates = jogo.getEmpates();
+		
+		String marcadorUsuario = "";
+		String marcadorComputador = "";
+		String marcadorEmpate = "";
+		
+		if (vitoriasUsuario > vitoriasComputador) {
+			marcadorUsuario = " -> Vencedor";
+		} else if (vitoriasComputador > vitoriasUsuario) {
+			marcadorComputador = " -> Vencedor";
+		} else {
+			marcadorEmpate = " -> Rodada empatada";
+		}
+		
 		System.out.println("\n╔═════════════════════════════════════╗");
 		System.out.println("║      JOGO DA VELHA V2.0 - Fim       ║");
 		System.out.println("╚═════════════════════════════════════╝");
 
-		System.out.println("\n════════ PLACAR FINAL ════════");
-		System.out.println("  Você:        " + jogo.getVitoriasHumano() + " vitória(s)");
-		System.out.println("  Computador:  " + jogo.getVitoriasComputador() + " vitória(s)");
-		System.out.println("  Empates:     " + jogo.getEmpates());
-		System.out.println("══════════════════════════════\n");
+		System.out.println("\n════════════ PLACAR FINAL ════════════");
+		System.out.println(" Você:       " + vitoriasUsuario + " vitória(s)" + marcadorUsuario);
+		System.out.println(" Computador: " + vitoriasComputador + " vitória(s)" + marcadorComputador);
+		System.out.println(" Empates:    " + empates + marcadorEmpate);
+		System.out.println("══════════════════════════════════════\n");
 
 		System.out.println("Obrigado por jogar! 👋");
 		scanner.close();
