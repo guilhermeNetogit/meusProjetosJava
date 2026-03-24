@@ -69,6 +69,28 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 23/03/2026 21:26:0
 		double economia = Math.abs(custoGasolina - custoAlcool);
 		String maisBarato = (custoAlcool < custoGasolina) ? "ÁLCOOL" : "GASOLINA";
 
+		int largura = 48; // número de ═ na borda
+
+		String linhaRodagem     = String.format("║     COMPARATIVO DE CUSTOS - %s", tipoRodagem.toUpperCase());
+		String linhaGasolina    = String.format("║ Gasolina: R$ %,.2f (%d litros)", custoGasolina, (int) Math.ceil(litrosGasolina));
+		String linhaAlcool      = String.format("║ Álcool:   R$ %,.2f (%d litros)", custoAlcool, (int) Math.ceil(litrosAlcool));
+		String linhaRecomendacao = String.format("║ RECOMENDAÇÃO: Abasteça com %s", maisBarato);
+		String linhaEconomia    = String.format("║ Economia: R$ %,.2f", economia);
+
+		// Função que preenche espaços até fechar com ║
+		java.util.function.Function<String, String> fechar = linha ->
+		    linha + " ".repeat(largura - linha.length() + 1) + "║";
+
+		return "\n╔════════════════════════════════════════════════╗" +
+		       "\n" + fechar.apply(linhaRodagem) +
+		       "\n╠════════════════════════════════════════════════╣" +
+		       "\n" + fechar.apply(linhaGasolina) +
+		       "\n" + fechar.apply(linhaAlcool) +
+		       "\n╠════════════════════════════════════════════════╣" +
+		       "\n" + fechar.apply(linhaRecomendacao) +
+		       "\n" + fechar.apply(linhaEconomia) +
+		       "\n╚════════════════════════════════════════════════╝";
+		/*
 		return String.format(
             "\n╔════════════════════════════════════════════════╗" +
             "\n║     COMPARATIVO DE CUSTOS - %s" +
@@ -80,7 +102,7 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 23/03/2026 21:26:0
             "\n║ Economia: R$ %,.2f" +
             "\n╚════════════════════════════════════════════════╝",
 				tipoRodagem.toUpperCase(), custoGasolina, (int) Math.ceil(litrosGasolina), custoAlcool,
-				(int) Math.ceil(litrosAlcool), maisBarato, economia);
+				(int) Math.ceil(litrosAlcool), maisBarato, economia);*/
 	}
 
 	// Array fixo (catálogo de combustíveis possíveis)
@@ -104,13 +126,13 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 23/03/2026 21:26:0
 
 		String s = String.format(
 				  "\n┌────────────────────────────────────────┐" 
-				+ "\n│  Marca:  %-29s │"
-				+ "\n│  Modelo: %-29s │"
-				+ "\n│  Ano:    %-29d │"
+				+ "\n│  Marca:       %-24s │"
+				+ "\n│  Modelo:      %-24s │"
+				+ "\n│  Ano:         %-24d │"
 				+ "\n│  Passageiros: %-24d │"
-				+ "\n│  Valor FIPE: R$ %,-22.2f │"
+				+ "\n│  Valor FIPE:  R$ %,-21.2f │"
 				+ "\n│  Combustivel: %-24s │"
-				+ "\n│  Tanque: %-7.2f litros                │"
+				+ "\n│  Tanque:      %.2f litros%-12s │"
 				+ "\n├────────────────────────────────────────┤"
 				+ "\n│  Consumo Médio                         │" 
 				+ "\n│    Gasolina Cidade:  %5.2f km/l        │"
@@ -118,7 +140,7 @@ public class Veiculos {// Eclipse -> Github @guilhermeNetogit 23/03/2026 21:26:0
 				+ "\n│    Álcool Cidade:    %5.2f km/l        │"
 				+ "\n│    Álcool Estrada:   %5.2f km/l        │"
 				+ "\n└────────────────────────────────────────┘"
-				, marca, modelo, ano, numPassageiros, valor,  combustiveis, capTanqComb
+				, marca, modelo, ano, numPassageiros, valor,  combustiveis, capTanqComb, ""
 				, consumoGasolinaCid, consumoGasolinaEst, consumoAlcoolCid, consumoAlcoolEst);
 
 		return (s);
