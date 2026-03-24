@@ -2,7 +2,7 @@ package meusprojetosjava.contatos.contatos2;
 
 import java.util.Arrays;
 
-public class Contatos2 {// Eclipse -> Github @guilhermeNetogit 20/03/2026 17:19:41
+public class Contatos2 {// Eclipse -> Github @guilhermeNetogit 24/03/2026 20:33:15
 
 	private static int count = 0;
 
@@ -63,14 +63,22 @@ public class Contatos2 {// Eclipse -> Github @guilhermeNetogit 20/03/2026 17:19:
 	}
 
 	// Array fixo (tipo de contato)
-	public static final String[] TIPO_CONTATO = {
-			"Cliente",				  // [0]
-			"Fornecedor",			  // [1]
-			"Funcionário",			  // [2]
-			"Usuário",				  // [3]
-			"Motorista",			  // [4]
-			"Transportadora"		  // [5]
+	public static final String[] TIPO_CONTATO = { "Cliente", // [0]
+			"Fornecedor", 	 // [1]
+			"Funcionário",	 // [2]
+			"Usuário",		 // [3]
+			"Motorista",	 // [4]
+			"Transportadora" // [5]
 	};
+
+	public Contatos2(String[] tipoContato, String nome, String endereco, String[] telefones, String email) {
+
+		this.tipoContato = tipoContato;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.telefones = telefones;
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
