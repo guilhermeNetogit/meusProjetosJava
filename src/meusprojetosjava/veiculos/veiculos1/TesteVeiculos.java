@@ -55,7 +55,7 @@ public class TesteVeiculos {
 		// Menu
 		do {
 			System.out.println("╔══════════════════════════════════╗");
-			System.out.println("║      🚗 Menu de Veículos         ║");
+			System.out.println("║         Menu de Veículos         ║");
 			System.out.println("╠══════════════════════════════════╣");
 			for (int i = 0; i < veiculos.length; i++) {
 				System.out.printf("║ [%d] %-28s ║\n", i + 1, veiculos[i].modelo);
