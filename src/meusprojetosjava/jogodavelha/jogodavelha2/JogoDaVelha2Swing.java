@@ -13,7 +13,7 @@ import java.awt.event.*;
  * vermelho/laranja) - Placar em tempo real - Mensagens de status animadas -
  * DESTAQUE DA LINHA VENCEDORA com bordas coloridas
  */
-public class JogoDaVelha2Swing extends JFrame {// Eclipse -> Github @guilhermeNetogit 24/03/2026 23:38:20
+public class JogoDaVelha2Swing extends JFrame {// Eclipse -> Github @guilhermeNetogit 25/03/2026 10:07:59
 
 	private static final long serialVersionUID = 8208707909256758069L;
 
@@ -84,7 +84,7 @@ public class JogoDaVelha2Swing extends JFrame {// Eclipse -> Github @guilhermeNe
 
 		// Título
 		JLabel titulo = new JLabel("⭕ Jogo da Velha ❌", SwingConstants.CENTER);
-		titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
+		titulo.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24));
 		titulo.setForeground(COR_TEXTO);
 		painel.add(titulo, BorderLayout.NORTH);
 
@@ -131,11 +131,11 @@ public class JogoDaVelha2Swing extends JFrame {// Eclipse -> Github @guilhermeNe
 				BorderFactory.createEmptyBorder(10, 15, 10, 15)));
 
 		JLabel labelTitulo = new JLabel(titulo, SwingConstants.CENTER);
-		labelTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		labelTitulo.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
 		labelTitulo.setForeground(new Color(100, 116, 139));
 
 		JLabel labelValor = new JLabel(valor, SwingConstants.CENTER);
-		labelValor.setFont(new Font("Segoe UI", Font.BOLD, 24));
+		labelValor.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24));
 		labelValor.setForeground(cor);
 
 		card.add(labelTitulo);
@@ -169,13 +169,13 @@ public class JogoDaVelha2Swing extends JFrame {// Eclipse -> Github @guilhermeNe
 
 		// Label de status/vez
 		labelVez = new JLabel("🎯 Clique em 'Nova Partida' para começar", SwingConstants.CENTER);
-		labelVez.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		labelVez.setFont(new Font("Segoe UI Emoji", Font.BOLD, 14));
 		labelVez.setForeground(COR_DESTAQUE);
 		painel.add(labelVez, BorderLayout.NORTH);
 
 		// Botão Nova Partida
 		JButton btnNovaPartida = new JButton("🔄 Nova Partida");
-		btnNovaPartida.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnNovaPartida.setFont(new Font("Segoe UI Emoji", Font.BOLD, 14));
 		btnNovaPartida.setBackground(COR_DESTAQUE);
 		btnNovaPartida.setForeground(Color.WHITE);
 		btnNovaPartida.setFocusPainted(false);
@@ -390,14 +390,14 @@ public class JogoDaVelha2Swing extends JFrame {// Eclipse -> Github @guilhermeNe
 
 		// Destaque visual no placar do líder
 		if (jogo.getVitoriasHumano() > jogo.getVitoriasComputador()) {
-			labelPlacarHumano.setFont(new Font("Segoe UI", Font.BOLD, 28));
-			labelPlacarComputador.setFont(new Font("Segoe UI", Font.BOLD, 24));
+			labelPlacarHumano.setFont(new Font("Segoe UI Emoji", Font.BOLD, 28));
+			labelPlacarComputador.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24));
 		} else if (jogo.getVitoriasComputador() > jogo.getVitoriasHumano()) {
-			labelPlacarHumano.setFont(new Font("Segoe UI", Font.BOLD, 24));
-			labelPlacarComputador.setFont(new Font("Segoe UI", Font.BOLD, 28));
+			labelPlacarHumano.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24));
+			labelPlacarComputador.setFont(new Font("Segoe UI Emoji", Font.BOLD, 28));
 		} else {
-			labelPlacarHumano.setFont(new Font("Segoe UI", Font.BOLD, 24));
-			labelPlacarComputador.setFont(new Font("Segoe UI", Font.BOLD, 24));
+			labelPlacarHumano.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24));
+			labelPlacarComputador.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24));
 		}
 	}
 
