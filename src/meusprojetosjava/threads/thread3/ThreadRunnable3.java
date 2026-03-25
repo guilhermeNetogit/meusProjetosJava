@@ -1,15 +1,15 @@
-package meusprojetosjava.threads.thread2;
+package meusprojetosjava.threads.thread3;
 
-public class MinhaThreadRunnable implements Runnable {// Eclipse -> Github @guilhermeNetogit 25/03/2026 11:37:49
+public class ThreadRunnable3 implements Runnable {
 
 	private String nome;
 	private int tempo;
 
-	public MinhaThreadRunnable(String nome, int tempo) {
+	public ThreadRunnable3(String nome, int tempo) {
 		this.nome = nome;
 		this.tempo = tempo;
-		Thread t = new Thread(this);
-		t.start();
+		// Thread t = new Thread(this);
+		// t.start();
 	}
 
 	@Override
