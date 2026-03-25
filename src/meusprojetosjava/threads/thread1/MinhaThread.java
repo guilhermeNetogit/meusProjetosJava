@@ -1,4 +1,4 @@
-package meusprojetosjava.thread;
+package meusprojetosjava.threads.thread1;
 
 public class MinhaThread extends Thread {// Eclipse -> Github @guilhermeNetogit 25/03/2026 11:02:15
 	private String nome;
