@@ -1,6 +1,6 @@
 package meusprojetosjava.threads.thread3;
 
-public class ThreadRunnable3 implements Runnable {
+public class ThreadRunnable3 implements Runnable {// Eclipse -> Github @guilhermeNetogit 25/03/2026 14:18:20
 
 	private String nome;
 	private int tempo;

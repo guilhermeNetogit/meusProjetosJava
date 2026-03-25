@@ -2,7 +2,7 @@ package meusprojetosjava.threads.thread3;
 
 import meusprojetosjava.threads.thread2.ThreadRunnable;
 
-public class Teste2Thread3 {
+public class Teste2Thread3 {// Eclipse -> Github @guilhermeNetogit 25/03/2026 14:18:29
 
 	public static void main(String[] args) {
 
