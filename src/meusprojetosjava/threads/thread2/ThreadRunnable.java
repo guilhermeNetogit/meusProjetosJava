@@ -1,15 +1,35 @@
 package meusprojetosjava.threads.thread2;
 
-public class MinhaThreadRunnable implements Runnable {// Eclipse -> Github @guilhermeNetogit 25/03/2026 11:37:49
+public class ThreadRunnable implements Runnable {// Eclipse -> Github @guilhermeNetogit 25/03/2026 11:37:49
 
 	private String nome;
 	private int tempo;
+	private Thread t;
 
-	public MinhaThreadRunnable(String nome, int tempo) {
+	public ThreadRunnable(String nome, int tempo) {
 		this.nome = nome;
 		this.tempo = tempo;
-		Thread t = new Thread(this);
+		t = new Thread(this);
 		t.start();
+	}
+
+	public ThreadRunnable(String nome, int tempo, boolean autoStart) {
+		this.nome = nome;
+		this.tempo = tempo;
+		this.t = new Thread(this);
+		if (autoStart) {
+			t.start();
+		}
+	}
+
+	public void start() {
+		if (!t.isAlive()) {
+			t.start();
+		}
+	}
+
+	public boolean isAlive() {
+		return t.isAlive();
 	}
 
 	@Override
