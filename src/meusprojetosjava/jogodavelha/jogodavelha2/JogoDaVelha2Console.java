@@ -3,7 +3,7 @@ package meusprojetosjava.jogodavelha.jogodavelha2;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class TesteJogoDaVelha2 {// Eclipse -> Github @guilhermeNetogit 24/03/2026 10:56:21
+public class JogoDaVelha2Console {// Eclipse -> Github @guilhermeNetogit 24/03/2026 23:38:32
 
 	private static Scanner scanner = new Scanner(System.in);
 
