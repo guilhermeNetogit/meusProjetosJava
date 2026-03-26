@@ -2,7 +2,6 @@ package meusprojetosjava.threads.thread4;
 
 public class TesteThreadSync {// Eclipse -> Github @guilhermeNetogit 25/03/2026 18:30:32
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
 		int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; // 55
