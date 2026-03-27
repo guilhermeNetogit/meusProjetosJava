@@ -1,6 +1,6 @@
 package meusprojetosjava.threads.thread8;
 
-public class ThreadSemaforo implements Runnable {// Eclipse -> Github @guilhermeNetogit 26/03/2026 14:10:47
+public class ThreadSemaforo implements Runnable {// Eclipse -> Github @guilhermeNetogit 27/03/2026 10:20:50
 
 	private CorSemaforo cor;
 	private boolean parar;
@@ -39,7 +39,11 @@ public class ThreadSemaforo implements Runnable {// Eclipse -> Github @guilherme
 				CorSemaforo corAtual = this.cor;
 				int tempo = corAtual.getTempoEspera() / 1000; // converte ms para segundos
 
-				System.out.print(corAtual.name() + "... ");
+				String base = corAtual.name() + "...";
+				String nomeComPontos = base + ".".repeat(Math.max(0, 11 - base.length()));
+
+				System.out.print(nomeComPontos + " ");
+				
 				for (int i = tempo; i >= 0; i--) {
 					System.out.print(i + " ");
 					System.out.flush();
