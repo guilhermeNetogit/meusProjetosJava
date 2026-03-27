@@ -1,8 +1,8 @@
-package meusprojetosjava.stringformatting;
+package meusprojetosjava.stringformatting.charat;
 
 import java.util.Arrays;
 
-public class StringFormat1 {
+public class StringFormatCharAt {// Eclipse -> Github @guilhermeNetogit 27/03/2026 11:47:12
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 
