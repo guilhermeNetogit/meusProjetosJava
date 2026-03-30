@@ -16,7 +16,7 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 29/03/2026 1
 		
 		// primeiro ano bissexto a partir de 1970 foi 1972;
 
-	    long milisEntrada = 1774812907531L;
+	    long milisEntrada = 1774878613020L;
 	    
 	    converterMilisParaData(milisEntrada);
 		
@@ -41,10 +41,10 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 29/03/2026 1
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
 		Date primeiraDt = sdf.parse("28/04/2012 08:50:00:00");
-		//Date segundaDt = sdf.parse("29/03/2026 15:02:00:00"); // data pode ser alterada manualmente;
-		Date terceiraDt = new Date();
+		//Date segundaDt = sdf.parse("24/06/1987 23:53:00:00"); // data pode ser alterada manualmente;
+		Date segundaDt = new Date();
 
-		long diffEmMil = Math.abs(terceiraDt.getTime() - primeiraDt.getTime());
+		long diffEmMil = Math.abs(segundaDt.getTime() - primeiraDt.getTime());
 
 		long dias = TimeUnit.DAYS.convert(diffEmMil, TimeUnit.MILLISECONDS);
 
@@ -58,7 +58,7 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 29/03/2026 1
 		));
 
 		System.out.println("Primeira data: " + primeiraDt.getTime());
-		System.out.println("Segunda data: " + terceiraDt.getTime());
+		System.out.println("Segunda data: " + segundaDt.getTime());
 		System.out.println("Milissegundos: " + diffEmMil);
 		System.out.println("Segundos: " + segundos);
 		System.out.println("Minutos: " + minutos);
@@ -70,7 +70,7 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 29/03/2026 1
 	public static void diferencaDataJava8() {
 		LocalDateTime data1 = LocalDateTime.of(2012, 4, 28, 8, 50);
 		LocalDateTime data2 = LocalDateTime.now();
-		// LocalDateTime data3 = LocalDateTime.of(2012, 4, 28, 8, 51); // para usar uma
+		// LocalDateTime data2 = LocalDateTime.of(2024, 4, 28, 8, 51); // para usar uma
 		// data especifica
 
 		Period periodo = Period.between(data1.toLocalDate(), data2.toLocalDate());
@@ -80,7 +80,7 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 29/03/2026 1
 
 		long segundos = duracao.toSecondsPart();
 		long minutos = duracao.toMinutesPart();
-		long horas = duracao.toHours();
+		long horas = duracao.toHoursPart();
 		int dias = periodo.getDays();
 		int meses = periodo.getMonths();
 		int anos = periodo.getYears();
