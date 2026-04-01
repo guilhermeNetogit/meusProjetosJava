@@ -1,78 +1,146 @@
 package diversos.exoodio.entidade;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * Classe que representa a entidade pedido, qual é a compra dos produtos por um cliente.
- * @author thiago leite https://github.com/tlcdio/LabOOJava/blob/master/src/one/digitalinovation/laboojava/entidade
+ * Classe que representa um pedido de compra no sistema.
+ * <p>
+ * Um pedido está associado a um {@link Cliente} e contém uma lista de
+ * {@link Produto}s adquiridos, além do valor total da compra.
+ * </p>
+ *
+ * @author GitHub guilhermeNetogit
+ * @since 01/04/2026 15:15:22
  */
-
-import java.util.List;
 
 public class Pedido {
 
-	private String codigo;
-	private Cliente cliente;
+	/** Código identificador do pedido */
+    private String codigo;
+
+    /** Cliente responsável pelo pedido */
+    private Cliente cliente;
+
+	/** Lista de produtos incluídos no pedido */
 	private List<Produto> produtos;
+
+	/** Valor total do pedido */
 	private double total;
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
-
+	
+	/**
+     * Construtor padrão.
+     * Inicializa a lista de produtos.
+     */
 	public Pedido() {
 		this.produtos = new ArrayList<>();
 	}
 
-	public String getProdutosComprados () {
-		
-		StringBuilder produtos = new StringBuilder();
-		produtos.append("[");
+	/**
+	 * Retorna o cliente do pedido.
+	 *
+	 * @return cliente associado ao pedido
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * Define o cliente do pedido.
+	 *
+	 * @param cliente cliente a ser associado
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	/**
+	 * Retorna o valor total do pedido.
+	 *
+	 * @return valor total
+	 */
+	public double getTotal() {
+		return total;
+	}
+
+	/**
+     * Define o valor total do pedido.
+     *
+     * @param total valor total a ser atribuído
+     */
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	/**
+     * Retorna o código do pedido.
+     *
+     * @return código identificador
+     */
+	public String getCodigo() {
+		return codigo;
+	}
+
+	/**
+     * Define o código do pedido.
+     *
+     * @param codigo código identificador
+     */
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	/**
+     * Retorna a lista de produtos do pedido.
+     *
+     * @return lista de produtos
+     */
+	public List<Produto> getProdutos() {
+		return Collections.unmodifiableList(produtos);
+	}
+	
+	/**
+     * Define a lista de produtos do pedido.
+     *
+     * @param produtos lista de produtos
+     */
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
+	/**
+     * Retorna uma representação formatada dos produtos comprados.
+     *
+     * @return string com os produtos e suas quantidades
+     */
+	public String getProdutosComprados() {
+
+		StringBuilder produtosStr = new StringBuilder();
+		produtosStr.append("\n[");
 		for (Produto produto : getProdutos()) {
-			produtos.append(produto.toString());
-			produtos.append("\nQtd: ");
-			produtos.append(produto.getQtdneg());
-			produtos.append(" ");
+			produtosStr.append(produto.toString());
+			produtosStr.append(" | Qtd: ");
+			produtosStr.append(produto.getQtdneg());
+			produtosStr.append("\n ");
 		}
-		produtos.append("]");
+		produtosStr.append("]");
 		return produtos.toString();
 	}
 	
+	/**
+     * Retorna uma representação textual do pedido.
+     *
+     * @return dados do pedido formatados
+     */
 	@Override
 	public String toString() {
-		return "\nPedido de Compra\n{codigo=" + codigo
-				+ "\n cliente=" + cliente 
-				+ "\n produtos=" + getProdutosComprados()
-				+ "\n total=" + String.format("R$ %.2f", total)
-				+ "}";
+	    return "\nPedido de Compra {" 
+	        + "\n  codigo  = " + codigo
+	        + "\n  cliente = " + cliente
+	        + "\n  total   = " + String.format("R$ %.2f", total)
+	        + "\n  produtos= " + getProdutosComprados()
+	        + "\n}";
 	}
 	
 }

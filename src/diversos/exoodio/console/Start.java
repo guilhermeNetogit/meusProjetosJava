@@ -3,6 +3,7 @@ package diversos.exoodio.console;
 import java.util.Optional;
 
 import diversos.exoodio.basedados.DataBase;
+import diversos.exoodio.entidade.Caderno;
 import diversos.exoodio.entidade.Cliente;
 import diversos.exoodio.entidade.Cupom;
 import diversos.exoodio.entidade.Livro;
@@ -13,28 +14,48 @@ import diversos.exoodio.negocio.ProdutoNegocio;
 import diversos.exoodio.utilidade.LeitoraDados;
 
 /**
- * Classe responsável por controlar a execução da aplicação.
+ * Classe responsável por controlar a execução da aplicação via console.
+ * <p>
+ * Gerencia o fluxo principal do sistema, incluindo autenticação do cliente,
+ * exibição de menus e delegação de operações para as camadas de negócio.
+ * <p>
  * 
- * @author thiago leite
- *         https://github.com/tlcdio/LabOOJava/tree/master/src/one/digitalinovation/laboojava/console
+ * @author GitHub guilhermeNetogit
+ * @since 01/04/2026 13:49:55
  */
 
 public class Start {
 
+	/** Cliente atualmente logado no sistema */
 	private static Cliente clienteLogado = null;
-
+	
+	/** Instância simulando o banco de dados em memória */
 	private static DataBase banco = new DataBase();
 
+	/** Camada de negócio responsável por operações de cliente */
 	private static ClienteNegocio clienteNegocio = new ClienteNegocio(banco);
+	
+	/** Camada de negócio responsável por operações de pedidos */
 	private static PedidoNegocio pedidoNegocio = new PedidoNegocio(banco);
+	
+	/** Camada de negócio responsável por operações de produtos */
 	private static ProdutoNegocio produtoNegocio = new ProdutoNegocio(banco);
 
 	/**
-	 * Método utilitário para inicializar a aplicação.
+	 * Método main utilizado para inicializar a aplicação.
 	 * 
 	 * @param args Parâmetros que podem ser passados para auxiliar na execução.
 	 */
 
+	/**
+     * Método principal responsável por iniciar a aplicação.
+     * <p>
+     * Controla o fluxo de execução, incluindo autenticação do usuário,
+     * exibição de menu e processamento das opções selecionadas.
+     * </p>
+     *
+     * @param args argumentos de linha de comando (não utilizados)
+     */
 	public static void main(String[] args) {
 
 		System.out.println("Bem vindo ao e-Compras");
@@ -44,6 +65,7 @@ public class Start {
 		boolean executando = true;
 		while (executando) {
 
+			// Processo de login
 			if (clienteLogado == null) {
 				String cpf = "";
 
@@ -51,7 +73,7 @@ public class Start {
 					System.out.print("\nDigite o cpf: ");
 					cpf = LeitoraDados.lerDado().trim();
 
-					// Valida se tem 11 dígitos e só números
+					// Validação básica de CPF (11 dígitos e só números)
 					if (!cpf.matches("\\d{11}")) {
 						System.out.println("CPF inválido! Digite apenas os 11 números sem pontos ou traços.");
 						continue; // volta pro início do while
@@ -75,23 +97,23 @@ public class Start {
 				produtoNegocio.salvar(livro);
 				break;
 			case "2":
-				System.out.println("Digite o código do livro");
-				produtoNegocio.excluir();
+				produtoNegocio.excluirLivro();
 				break;
 			case "3":
-				// TODO Cadastrar Caderno
+				Caderno caderno = LeitoraDados.lerCaderno();
+				produtoNegocio.salvar(caderno);
 				break;
 			case "4":
-				// TODO Excluir Caderno
+				produtoNegocio.excluirCaderno();
 				break;
 			case "5":
 				Pedido pedido = LeitoraDados.lerPedido(banco);
 				Optional<Cupom> cupom = LeitoraDados.lerCupom(banco);
 
 				if (cupom.isPresent()) {
-					pedidoNegocio.salvar(pedido, cupom.get());
+					pedidoNegocio.salvar(pedido, cupom.get(), clienteLogado);
 				} else {
-					pedidoNegocio.salvar(pedido);
+					pedidoNegocio.salvar(pedido, clienteLogado);
 				}
 				break;
 			case "6":
@@ -111,7 +133,6 @@ public class Start {
 				break;
 			case "0":
 				System.out.println("Aplicação encerrada.");
-
 				executando = false;
 				break;
 			default:
@@ -122,6 +143,9 @@ public class Start {
 		LeitoraDados.fecharScanner();
 	}
 
+	/**
+     * Exibe o menu principal da aplicação no console.
+     */
 	public static void exibirMenu() {
 		System.out.println("\nSelecione uma opção:");
 		System.out.println("[1] - Cadastrar Livro");
@@ -140,10 +164,14 @@ public class Start {
 	}
 
 	/**
-	 * Procura o usuário na base de dados.
-	 * 
-	 * @param cpf CPF do usuário que deseja logar na aplicação
-	 */
+     * Realiza a identificação do usuário com base no CPF informado.
+     * <p>
+     * Consulta a base de dados e, caso o cliente exista, realiza o login
+     * no sistema.
+     * </p>
+     *
+     * @param cpf CPF do usuário que deseja acessar o sistema
+     */
 	private static void identificarUsuario(String cpf) {
 
 		Optional<Cliente> resultado = clienteNegocio.consultar(cpf);
