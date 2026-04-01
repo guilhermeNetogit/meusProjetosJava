@@ -1,95 +1,121 @@
 package diversos.exoodio.negocio;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import diversos.exoodio.basedados.DataBase;
+import diversos.exoodio.entidade.Caderno;
+import diversos.exoodio.entidade.Livro;
 import diversos.exoodio.entidade.Produto;
+import diversos.exoodio.utilidade.LeitoraDados;
 
 /**
- * Classe para manipular a entidade {@link Produto}.
- * 
- * @author thiago leite
+ * Classe responsável pelas regras de negócio relacionadas aos produtos.
+ * <p>
+ * Permite cadastrar, consultar, listar e excluir produtos do sistema,
+ * incluindo especializações como {@link Livro} e {@link Caderno}.
+ * </p>
+ *
+ * @author GitHub guilhermeNetogit
+ * @since 01/04/2026 16:10:07
  */
+
 public class ProdutoNegocio {
 
-	/**
-	 * {@inheritDoc}.
-	 */
+	/** Instância do banco de dados em memória */
 	private DataBase bancoDados;
 
 	/**
 	 * Construtor.
 	 * 
-	 * @param banco Banco de dados para ter armazenar e ter acesso os produtos
+	 * @param banco banco de dados contendo os produtos
 	 */
 	public ProdutoNegocio(DataBase banco) {
 		this.bancoDados = banco;
 	}
 
 	/**
-	 * Salva um novo produto(livro ou caderno) na loja.
-	 * 
-	 * @param novoProduto Livro ou caderno que pode ser vendido
-	 */
+     * Salva um novo produto no sistema.
+     * <p>
+     * Gera automaticamente um código único para o produto.
+     * </p>
+     *
+     * @param novoProduto produto a ser cadastrado
+     */
 	public void salvar(Produto novoProduto) {
 
-		String codigo = String.format("PR%04d", bancoDados.getProxCodProd());
-		novoProduto.setCodigo(codigo);
+        String codigo = String.format("PR%04d", bancoDados.getProxCodProd());
+        novoProduto.setCodigo(codigo);
 
-		boolean produtoRepetido = false;
-		for (Produto produto : bancoDados.getProdutos()) {
-			if (produto.getCodigo().equals(novoProduto.getCodigo())) {
-				produtoRepetido = true;
-				System.out.println("Produto já cadastrado.");
-				break;
-			}
-		}
+        bancoDados.adicionarProduto(novoProduto);
+        System.out.println("Produto cadastrado com sucesso!");
+    }
 
-		if (!produtoRepetido) {
-			this.bancoDados.adicionarProduto(novoProduto);
-			System.out.println("Produto cadastrado com sucesso!");
+	/**
+     * Exclui apenas produtos do tipo {@link Livro}.
+     */
+	public void excluirLivro() {
+		List<Produto> livros = bancoDados.getProdutos().stream().filter(p -> p instanceof Livro)
+				.collect(Collectors.toList());
+
+		if (livros.isEmpty()) {
+			System.out.println("Não existem livros cadastrados.");
+			return;
 		}
+		excluir(livros);
 	}
 
 	/**
-	 * Exclui um produto pelo código de cadastro.
-	 * 
-	 * @param codigo Código de cadastro do produto
-	 */
-	public void excluir() {
+     * Exclui apenas produtos do tipo {@link Caderno}.
+     */
+	public void excluirCaderno() {
+    List<Produto> cadernos = bancoDados.getProdutos().stream()
+        .filter(p -> p instanceof Caderno)
+        .collect(Collectors.toList());
 
-		if (bancoDados.getProdutos().isEmpty()) {
-			System.out.println("Não existem produtos cadastrados.");
-			return;
-		}
+    if (cadernos.isEmpty()) {
+        System.out.println("Não existem cadernos cadastrados.");
+        return;
+    }
+    excluir(cadernos);
+}
+	
+	/**
+     * Exibe uma lista de produtos e permite ao usuário selecionar
+     * qual deseja excluir.
+     *
+     * @param lista lista de produtos filtrados
+     */
+	private void excluir(List<Produto> lista) {
 
 		System.out.println("Digite a opção que deseja excluir:\n");
 
 		// Exibir lista numerada
-		for (int i = 0; i < bancoDados.getProdutos().size(); i++) {
-			Produto produto = bancoDados.getProdutos().get(i);
+		for (int i = 0; i < lista.size(); i++) {
+			Produto produto = lista.get(i);
 			System.out.printf("[%d] %s - %s%n", i + 1, produto.getCodigo(), produto.getNome());
 		}
 
 		try {
 			System.out.print("\nOpção: ");
-			int opcao = Integer.parseInt(diversos.exoodio.utilidade.LeitoraDados.lerDado());
+			int opcao = Integer.parseInt(LeitoraDados.lerDado());
 
 			int indice = opcao - 1;
 
-			if (indice >= 0 && indice < bancoDados.getProdutos().size()) {
+			if (indice >= 0 && indice < lista.size()) {
 
-				Produto produto = bancoDados.getProdutos().get(indice);
+				Produto produto = lista.get(indice);
 
 				// CONFIRMAÇÃO
 				System.out.println("\nDeseja realmente excluir o seguinte item?");
 				System.out.printf("Produto: %s (%s)%n", produto.getNome(), produto.getCodigo());
 				System.out.print("(s/n): ");
 
-				String confirmacao = diversos.exoodio.utilidade.LeitoraDados.lerDado();
+				String confirmacao = LeitoraDados.lerDado();
 
 				if (confirmacao.equalsIgnoreCase("s")) {
-					bancoDados.removerProduto(indice);
+					bancoDados.removerProduto(bancoDados.getProdutos().indexOf(produto));
 					System.out.println("Produto excluído com sucesso!");
 				} else {
 					System.out.println("Operação cancelada.");
@@ -105,35 +131,29 @@ public class ProdutoNegocio {
 	}
 
 	/**
-	 * Obtem um produto a partir de seu código de cadastro.
-	 * 
-	 * @param codigo Código de cadastro do produto
-	 * @return Optional indicando a existência ou não do Produto
-	 */
+     * Consulta um produto pelo código.
+     *
+     * @param codigo código do produto
+     * @return {@link Optional} contendo o produto, se encontrado
+     */
 	public Optional<Produto> consultar(String codigo) {
 
-		for (Produto produto : bancoDados.getProdutos()) {
-
-			if (produto.getCodigo().equalsIgnoreCase(codigo)) {
-				return Optional.of(produto);
-			}
-		}
-
-		return Optional.empty();
-	}
+        return bancoDados.getProdutos().stream()
+                .filter(p -> p.getCodigo().equalsIgnoreCase(codigo))
+                .findFirst();
+    }
 
 	/**
-	 * Lista todos os produtos cadastrados.
+	 * Lista todos os produtos cadastrados no sistema.
 	 */
 	public void listarTodos() {
 
 		if (bancoDados.getProdutos().isEmpty()) {
 			System.out.println("Não existem produtos cadastrados");
-		} else {
-
-			for (Produto produto : bancoDados.getProdutos()) {
-				System.out.println(produto.toString());
-			}
+			return;
+		}
+		for (Produto produto : bancoDados.getProdutos()) {
+			System.out.println(produto.toString());
 		}
 	}
 }

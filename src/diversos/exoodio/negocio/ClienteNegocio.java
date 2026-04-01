@@ -2,19 +2,28 @@ package diversos.exoodio.negocio;
 
 import diversos.exoodio.basedados.DataBase;
 import diversos.exoodio.entidade.Cliente;
-
 import java.util.Optional;
+
+/**
+ * Classe responsável pelas regras de negócio relacionadas aos clientes.
+ * <p>
+ * Permite consultar clientes cadastrados no sistema com base no CPF,
+ * além de possibilitar futuras operações como cadastro e exclusão.
+ * </p>
+ *
+ * @author GitHub guilhermeNetogit
+ * @since 01/04/2026 15:39:40
+ */
 
 public class ClienteNegocio {
 	
-    /**
-     * {@inheritDoc}.
-     */
+	/** Instância do banco de dados em memória */
     private DataBase bancoDados;
 
     /**
-     * Construtor.
-     * @param banco Banco de dados para ter acesso aos clientes cadastrados
+     * Construtor da classe.
+     *
+     * @param banco banco de dados contendo os clientes
      */
     public ClienteNegocio(DataBase banco) {
         this.bancoDados = banco;
@@ -23,27 +32,45 @@ public class ClienteNegocio {
     /**
      * Consulta o cliente pelo seu CPF.
      * @param cpf CPF de um cliente
-     * @return O cliente que possuir o CPF passado.
+     * 
+     * @return {@link Optional} contendo o cliente, se encontrado
      */
     public Optional<Cliente> consultar(String cpf) {
 
-        if (bancoDados.getCliente().getCpf().equals(cpf)) {
-            return Optional.of(bancoDados.getCliente());
-        } else {
-            return Optional.empty();
-        }
+    	return bancoDados.getClientes()
+                .stream()
+                .filter(c -> c.getCpf().equalsIgnoreCase(cpf))
+                .findFirst();
     }
 
     /**
-     * Cadastra um novo cliente.
-     * @param cliente Novo cliente que terá acesso a aplicação
+     * Cadastra um novo cliente no sistema.
+     * <p>
+     * (Funcionalidade ainda não implementada)
+     * </p>
+     *
+     * @param cliente cliente a ser cadastrado
      */
-    //TODO Fazer a inclusão de cliente
-
+    // TODO Implementar cadastro de cliente
+    /*public void cadastrar(Cliente cliente) {
+    bancoDados.getClientes().add(cliente); // ⚠️ só funciona se remover unmodifiable
+	}
+	*/
+    
     /**
-     * Exclui um cliente específico.
-     * @param cpf CPF do cliente
+     * Exclui um cliente com base no CPF informado.
+     * <p>
+     * (Funcionalidade ainda não implementada)
+     * </p>
+     *
+     * @param cpf CPF do cliente a ser removido
      */
-    //TODO Fazer a exclusão de cliente
+    // TODO Implementar exclusão de cliente
+    /*
+     * public void excluir(String cpf) {
+    bancoDados.getClientes()
+        .removeIf(c -> c.getCpf().equals(cpf));
+	}
+     */
 
 }

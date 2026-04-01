@@ -1,32 +1,51 @@
 package diversos.exoodio.negocio;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import diversos.exoodio.basedados.DataBase;
+import diversos.exoodio.entidade.Cliente;
 import diversos.exoodio.entidade.Cupom;
 import diversos.exoodio.entidade.Pedido;
 import diversos.exoodio.entidade.Produto;
 
 /**
- * Classe para manipular a entidade {@link Pedido}.
- * @author thiago leite
+ * Classe responsável pelas regras de negócio relacionadas aos pedidos.
+ * <p>
+ * Realiza operações como cadastro, exclusão, listagem e cálculo do valor total
+ * dos pedidos, aplicando regras como descontos e frete.
+ * </p>
+ *
+ * @author GitHub guilhermeNetogit
+ * @since 01/04/2026 15:27:15
  */
+
 public class PedidoNegocio {
 
-    /**
-     * {@inheritDoc}.
-     */
+	/** Instância do banco de dados em memória */
     private DataBase bancoDados;
 
     /**
      * Construtor.
-     * @param banco Banco de dados para ter armazenar e ter acesso os pedidos
+     * 
+     * @param banco banco de dados utilizado para persistência dos pedidos
      */
     public PedidoNegocio(DataBase banco) {
         this.bancoDados = banco;
     }
 
+    /**
+     * Calcula o valor total de um pedido.
+     * <p>
+     * O cálculo considera o frete de cada produto e aplica desconto
+     * caso um cupom seja informado.
+     * </p>
+     *
+     * @param produtos lista de produtos do pedido
+     * @param cupom cupom de desconto (opcional)
+     * @return valor total calculado
+     */
     private double calcularTotal(List<Produto> produtos, Cupom cupom) {
 
         double total = 0.0;
@@ -44,26 +63,32 @@ public class PedidoNegocio {
 
     /**
      * Salva um novo pedido sem cupom de desconto.
-     * @param novoPedido Pedido a ser armazenado
+     *
+     * @param novoPedido pedido a ser armazenado
+     * @param cliente cliente responsável pelo pedido
      */
-    public void salvar(Pedido novoPedido) {
-        salvar(novoPedido, null);
+    public void salvar(Pedido novoPedido, Cliente cliente) {
+        salvar(novoPedido, null, cliente);
     }
 
     /**
      * Salva um novo pedido com cupom de desconto.
-     * @param novoPedido Pedido a ser armazenado
-     * @param cupom Cupom de desconto a ser utilizado
+     *
+     * @param novoPedido pedido a ser armazenado
+     * @param cupom cupom de desconto aplicado
+     * @param cliente cliente responsável pelo pedido
      */
-    public void salvar(Pedido novoPedido, Cupom cupom) {
+    public void salvar(Pedido novoPedido, Cupom cupom, Cliente cliente) {
     	
         LocalDate hoje = LocalDate.now();
-        String codigo = String.format("PED%02d%2d%4d%04d"
-        		, hoje.getMonthValue(), hoje.getDayOfMonth()
-        		, hoje.getYear(), bancoDados.getPedidos().size() + 1);
+        String codigo = String.format("PED%02d%02d%s%04d"
+        		, hoje.getMonthValue()
+        		, hoje.getDayOfMonth()
+        		, hoje.format(DateTimeFormatter.ofPattern("yy"))
+        		, bancoDados.getPedidos().size() + 1);
     	
         novoPedido.setCodigo(codigo);
-        novoPedido.setCliente(bancoDados.getCliente());
+        novoPedido.setCliente(cliente);
         novoPedido.setTotal(calcularTotal(novoPedido.getProdutos(), cupom));
         bancoDados.adicionarPedido(novoPedido);
         System.out.println("Pedido cadastrado com sucesso!");
@@ -71,43 +96,44 @@ public class PedidoNegocio {
     }
 
     /**
-     * Exclui um pedido a partir de seu código de rastreio.
-     * @param codigo Código do pedido
+     * Exclui um pedido com base no código informado.
+     *
+     * @param codigo código identificador do pedido
      */
-    public void excluir(String codigo) {
+	public void excluir(String codigo) {
 
-        int pedidoExclusao = -1;
-        for (int i = 0; i < bancoDados.getPedidos().size(); i++) {
+		int indiceRemocao = -1;
+		for (int i = 0; i < bancoDados.getPedidos().size(); i++) {
 
-            Pedido pedido = bancoDados.getPedidos().get(i);
-            
-            if (pedido.getCodigo().equals(codigo)) {
-                pedidoExclusao = i;
-                break;
-            }
-        }
+			Pedido pedido = bancoDados.getPedidos().get(i);
 
-        if (pedidoExclusao != -1) {
-            bancoDados.removerPedido(pedidoExclusao);
-            System.out.println("Pedido excluído com sucesso.");
-        } else {
-            System.out.println("Pedido inexistente.");
-        }
-    }
+			if (pedido.getCodigo().equals(codigo)) {
+				indiceRemocao = i;
+				break;
+			}
+		}
 
-    /**
-     * Lista todos os pedidos realizados.
-     */
-    public void listarTodos() {
+		if (indiceRemocao != -1) {
+			bancoDados.removerPedido(indiceRemocao);
+			System.out.println("Pedido excluído com sucesso.");
+		} else {
+			System.out.println("Pedido inexistente.");
+		}
+	}
 
-        if (bancoDados.getPedidos().size() == 0) {
-            System.out.println("Não existem pedidos cadastrados");
-        } else {
+	/**
+	 * Lista todos os pedidos confirmados no sistema.
+	 */
+	public void listarTodos() {
 
-            for (Pedido pedido: bancoDados.getPedidos()) {
-                System.out.println(pedido.toString());
-            }
-        }
-    }
+		if (bancoDados.getPedidos().isEmpty()) {
+			System.out.println("Não existem pedidos confirmados");
+			return;
+		}
+
+		for (Pedido pedido : bancoDados.getPedidos()) {
+			System.out.println(pedido.toString());
+		}
+	}
 
 }
