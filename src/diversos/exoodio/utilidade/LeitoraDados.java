@@ -87,6 +87,7 @@ public final class LeitoraDados {
 		Pedido pedido = new Pedido();
 
 		String opcao = "s";
+		
 		do {
 
 			System.out.println("Digite o código do produto(livro/Caderno)");
@@ -122,7 +123,7 @@ public final class LeitoraDados {
 	public static Optional<Cupom> lerCupom(DataBase banco) {
 
 		System.out.println(
-				"Caso queira utilizar algum cupom escolha entre: CUPOM2, CUPOM5, CUPOM7. Se não desejar, deixe em branco.");
+				"Caso queira utilizar algum cupom escolha entre: CUPOM5, CUPOM10, CUPOM15. Se não desejar, deixe em branco.");
 
 		String desconto = lerDado();
 

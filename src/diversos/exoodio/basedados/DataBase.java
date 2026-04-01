@@ -37,9 +37,9 @@ public class DataBase {
         this.cliente = new Cliente("Abilio Borges", "48510698392");
 
         this.cupons = new ArrayList<>();
-        cupons.add(new Cupom("CUPOM2", 2));
         cupons.add(new Cupom("CUPOM5", 5));
-        cupons.add(new Cupom("CUPOM7", 7));
+        cupons.add(new Cupom("CUPOM10", 10));
+        cupons.add(new Cupom("CUPOM15", 15));
           
     }
 
