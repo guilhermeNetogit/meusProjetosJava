@@ -45,15 +45,26 @@ public class Start {
 		while (executando) {
 
 			if (clienteLogado == null) {
-
-				System.out.println("Digite o cpf:");
-
 				String cpf = "";
-				cpf = LeitoraDados.lerDado();
 
-				identificarUsuario(cpf);
+				while (clienteLogado == null) {
+					System.out.print("\nDigite o cpf: ");
+					cpf = LeitoraDados.lerDado().trim();
+
+					// Valida se tem 11 dígitos e só números
+					if (!cpf.matches("\\d{11}")) {
+						System.out.println("CPF inválido! Digite apenas os 11 números sem pontos ou traços.");
+						continue; // volta pro início do while
+					}
+
+					// CPF tem formato válido, tenta identificar
+					identificarUsuario(cpf);
+
+					if (clienteLogado == null) {
+						System.out.println("CPF não cadastrado. Tente novamente...");
+					}
+				}
 			}
-
 			exibirMenu();
 
 			opcao = LeitoraDados.lerDado();
@@ -92,7 +103,7 @@ public class Start {
 				produtoNegocio.listarTodos();
 				break;
 			case "8":
-				// TODO Listar todos os Pedidos
+				pedidoNegocio.listarTodos();
 				break;
 			case "9":
 				System.out.println(String.format("Volte sempre %s!", clienteLogado.getNome()));
@@ -100,7 +111,7 @@ public class Start {
 				break;
 			case "0":
 				System.out.println("Aplicação encerrada.");
-				
+
 				executando = false;
 				break;
 			default:
@@ -110,8 +121,8 @@ public class Start {
 		}
 		LeitoraDados.fecharScanner();
 	}
-	
-	public static void exibirMenu () {
+
+	public static void exibirMenu() {
 		System.out.println("\nSelecione uma opção:");
 		System.out.println("[1] - Cadastrar Livro");
 		System.out.println("[2] - Excluir Livro");
@@ -144,7 +155,7 @@ public class Start {
 			clienteLogado = cliente;
 		} else {
 			System.out.println("Usuário não cadastrado.");
-			System.exit(0);
+
 		}
 	}
 

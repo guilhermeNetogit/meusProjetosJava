@@ -1,5 +1,6 @@
 package diversos.exoodio.negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import diversos.exoodio.basedados.DataBase;
@@ -34,7 +35,7 @@ public class PedidoNegocio {
         }
 
         if (cupom != null) {
-            return  total * (1 - cupom.getDesconto());
+            return  total * (1 - cupom.getDesconto()/100.0);
         } else {
             return  total;
         }
@@ -55,16 +56,18 @@ public class PedidoNegocio {
      * @param cupom Cupom de desconto a ser utilizado
      */
     public void salvar(Pedido novoPedido, Cupom cupom) {
-
-        //Definir padrão código
-        //Pegar data do dia corrente
-        //Formatar código
-
-        //Setar código no pedido
-        //Setar cliente no pedido
-        //Calcular e set total
-        //Adicionar no banco
-        //Mensagem
+    	
+        LocalDate hoje = LocalDate.now();
+        String codigo = String.format("PED%02d%2d%4d%04d"
+        		, hoje.getMonthValue(), hoje.getDayOfMonth()
+        		, hoje.getYear(), bancoDados.getPedidos().size() + 1);
+    	
+        novoPedido.setCodigo(codigo);
+        novoPedido.setCliente(bancoDados.getCliente());
+        novoPedido.setTotal(calcularTotal(novoPedido.getProdutos(), cupom));
+        bancoDados.adicionarPedido(novoPedido);
+        System.out.println("Pedido cadastrado com sucesso!");
+    
     }
 
     /**
@@ -95,6 +98,16 @@ public class PedidoNegocio {
     /**
      * Lista todos os pedidos realizados.
      */
-    //TODO Método de listar todos os pedidos
+    public void listarTodos() {
+
+        if (bancoDados.getPedidos().size() == 0) {
+            System.out.println("Não existem pedidos cadastrados");
+        } else {
+
+            for (Pedido pedido: bancoDados.getPedidos()) {
+                System.out.println(pedido.toString());
+            }
+        }
+    }
 
 }

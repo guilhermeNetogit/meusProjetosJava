@@ -42,11 +42,14 @@ public class Livro extends Produto {
 
 	@Override
 	public String toString() {
-		return "Livro \n{nome='" + nome
+		return "Livro \n{nome=" + nome
 				+ ", gênero=" + genero
 				+ ", código()=" + getCodigo()
 				+ ", preço()=" + getPreco()
 				+ "}";
 	}
 
+	public void consultarLivro() {
+		System.out.println("Lista de livros em construção...");
+	}
 }
