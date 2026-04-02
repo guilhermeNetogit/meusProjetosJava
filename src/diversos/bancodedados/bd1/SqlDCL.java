@@ -1,4 +1,4 @@
-package diversos.bancodedados;
+package diversos.bancodedados.bd1;
 
 public interface SqlDCL {
 	
