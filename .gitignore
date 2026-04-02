@@ -1,4 +1,3 @@
-# ========== SISTEMA SOLAR JAVA ==========
 # Criado por: [GUilherme Neto] [guilhermeNetoGit]
 # Data: 18/01/2026
 
@@ -33,3 +32,6 @@ logs/
 target/
 build/
 out/
+
+# 7. PROPRIEDADES DE DB'S
+db.properties
