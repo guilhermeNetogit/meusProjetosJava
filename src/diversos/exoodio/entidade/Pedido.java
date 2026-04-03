@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author GitHub guilhermeNetogit
  * @since 01/04/2026 15:15:22
+ * @version 02/04/2026 21:00
  */
 
 public class Pedido {
@@ -109,6 +110,23 @@ public class Pedido {
 		this.produtos = produtos;
 	}
 	
+	/**
+     * Adiciona um novo produto à lista de itens do pedido.
+     * <p>
+     * Este método permite a inclusão controlada de produtos, mantendo o 
+     * encapsulamento da lista interna de produtos do pedido.
+     * </p>
+     * 
+     * @param produto O objeto {@link Produto} que será incluído no pedido.
+     *                Não deve ser nulo.
+     */
+	public void adicionarProduto(Produto produto) {
+		if (this.produtos == null) {
+			this.produtos = new ArrayList<>();
+		}
+		this.produtos.add(produto);
+	}
+
 	/**
      * Retorna uma representação formatada dos produtos comprados.
      *

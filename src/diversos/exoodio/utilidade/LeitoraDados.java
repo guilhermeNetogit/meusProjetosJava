@@ -22,6 +22,7 @@ import diversos.exoodio.negocio.ProdutoNegocio;
  *
  * @author GitHub guilhermeNetogit
  * @since 01/04/2026 15:51:13
+ * @version 02/04/2026 21:00
  */
 
 public final class LeitoraDados {
@@ -130,7 +131,7 @@ public final class LeitoraDados {
 
 				produto.setQtdneg(Integer.parseInt(quantidade));
 
-				pedido.getProdutos().add(produto);
+				pedido.adicionarProduto(produto);
 			} else {
 				System.out.println("Produto inexistente. Escolha um produto válido");
 			}
