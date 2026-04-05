@@ -143,7 +143,7 @@ public class Pedido {
 			produtosStr.append("\n ");
 		}
 		produtosStr.append("]");
-		return produtos.toString();
+		return produtosStr.toString();
 	}
 	
 	/**
