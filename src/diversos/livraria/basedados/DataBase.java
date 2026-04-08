@@ -1,13 +1,13 @@
-package diversos.exoodio.basedados;
+package diversos.livraria.basedados;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import diversos.exoodio.entidade.Cliente;
-import diversos.exoodio.entidade.Cupom;
-import diversos.exoodio.entidade.Pedido;
-import diversos.exoodio.entidade.Produto;
+import diversos.livraria.entidade.Cliente;
+import diversos.livraria.entidade.Cupom;
+import diversos.livraria.entidade.Pedido;
+import diversos.livraria.entidade.Produto;
 
 /**
  * Classe responsável por simular um banco de dados em memória (apenas em runtime).

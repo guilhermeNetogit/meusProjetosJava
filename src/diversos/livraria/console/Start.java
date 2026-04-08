@@ -1,17 +1,17 @@
-package diversos.exoodio.console;
+package diversos.livraria.console;
 
 import java.util.Optional;
 
-import diversos.exoodio.basedados.DataBase;
-import diversos.exoodio.entidade.Caderno;
-import diversos.exoodio.entidade.Cliente;
-import diversos.exoodio.entidade.Cupom;
-import diversos.exoodio.entidade.Livro;
-import diversos.exoodio.entidade.Pedido;
-import diversos.exoodio.negocio.ClienteNegocio;
-import diversos.exoodio.negocio.PedidoNegocio;
-import diversos.exoodio.negocio.ProdutoNegocio;
-import diversos.exoodio.utilidade.LeitoraDados;
+import diversos.livraria.basedados.DataBase;
+import diversos.livraria.entidade.Caderno;
+import diversos.livraria.entidade.Cliente;
+import diversos.livraria.entidade.Cupom;
+import diversos.livraria.entidade.Livro;
+import diversos.livraria.entidade.Pedido;
+import diversos.livraria.negocio.ClienteNegocio;
+import diversos.livraria.negocio.PedidoNegocio;
+import diversos.livraria.negocio.ProdutoNegocio;
+import diversos.livraria.utilidade.LeitoraDados;
 
 /**
  * Classe responsável por controlar a execução da aplicação via console.

@@ -1,4 +1,4 @@
-package diversos.exoodio.entidade.constantes;
+package diversos.livraria.entidade.constantes;
 
 /**
  * Enumeração que representa os gêneros de livros disponíveis no sistema.

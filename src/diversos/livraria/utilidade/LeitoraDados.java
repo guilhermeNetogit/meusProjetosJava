@@ -1,17 +1,17 @@
-package diversos.exoodio.utilidade;
+package diversos.livraria.utilidade;
 
 import java.util.Optional;
 import java.util.Scanner;
 
-import diversos.exoodio.basedados.DataBase;
-import diversos.exoodio.entidade.Caderno;
-import diversos.exoodio.entidade.Cupom;
-import diversos.exoodio.entidade.Livro;
-import diversos.exoodio.entidade.Pedido;
-import diversos.exoodio.entidade.Produto;
-import diversos.exoodio.entidade.constantes.Genero;
-import diversos.exoodio.entidade.constantes.Tipo;
-import diversos.exoodio.negocio.ProdutoNegocio;
+import diversos.livraria.basedados.DataBase;
+import diversos.livraria.entidade.Caderno;
+import diversos.livraria.entidade.Cupom;
+import diversos.livraria.entidade.Livro;
+import diversos.livraria.entidade.Pedido;
+import diversos.livraria.entidade.Produto;
+import diversos.livraria.entidade.constantes.Genero;
+import diversos.livraria.entidade.constantes.Tipo;
+import diversos.livraria.negocio.ProdutoNegocio;
 
 /**
  * Classe utilitária responsável pela leitura de dados via console.

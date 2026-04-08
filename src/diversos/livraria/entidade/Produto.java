@@ -1,4 +1,4 @@
-package diversos.exoodio.entidade;
+package diversos.livraria.entidade;
 
 /**
  * Classe abstrata que representa um produto da loja.

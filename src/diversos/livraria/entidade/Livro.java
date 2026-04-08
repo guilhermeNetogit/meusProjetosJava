@@ -1,6 +1,6 @@
-package diversos.exoodio.entidade;
+package diversos.livraria.entidade;
 
-import diversos.exoodio.entidade.constantes.Genero;
+import diversos.livraria.entidade.constantes.Genero;
 
 /**
  * Classe que representa um livro no sistema.
