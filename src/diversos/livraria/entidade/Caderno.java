@@ -1,6 +1,6 @@
-package diversos.exoodio.entidade;
+package diversos.livraria.entidade;
 
-import diversos.exoodio.entidade.constantes.Tipo;
+import diversos.livraria.entidade.constantes.Tipo;
 
 /**
  * Classe que representa um caderno no sistema.

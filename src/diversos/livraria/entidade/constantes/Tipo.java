@@ -1,4 +1,4 @@
-package diversos.exoodio.entidade.constantes;
+package diversos.livraria.entidade.constantes;
 
 /**
  * Enumeração que representa os tipos de caderno disponíveis no sistema.

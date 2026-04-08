@@ -1,14 +1,14 @@
-package diversos.exoodio.negocio;
+package diversos.livraria.negocio;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import diversos.exoodio.basedados.DataBase;
-import diversos.exoodio.entidade.Caderno;
-import diversos.exoodio.entidade.Livro;
-import diversos.exoodio.entidade.Produto;
-import diversos.exoodio.utilidade.LeitoraDados;
+import diversos.livraria.basedados.DataBase;
+import diversos.livraria.entidade.Caderno;
+import diversos.livraria.entidade.Livro;
+import diversos.livraria.entidade.Produto;
+import diversos.livraria.utilidade.LeitoraDados;
 
 /**
  * Classe responsável pelas regras de negócio relacionadas aos produtos.
