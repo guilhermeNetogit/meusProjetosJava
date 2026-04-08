@@ -1,14 +1,14 @@
-package diversos.exoodio.negocio;
+package diversos.livraria.negocio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import diversos.exoodio.basedados.DataBase;
-import diversos.exoodio.entidade.Cliente;
-import diversos.exoodio.entidade.Cupom;
-import diversos.exoodio.entidade.Pedido;
-import diversos.exoodio.entidade.Produto;
+import diversos.livraria.basedados.DataBase;
+import diversos.livraria.entidade.Cliente;
+import diversos.livraria.entidade.Cupom;
+import diversos.livraria.entidade.Pedido;
+import diversos.livraria.entidade.Produto;
 
 /**
  * Classe responsável pelas regras de negócio relacionadas aos pedidos.

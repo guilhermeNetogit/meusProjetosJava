@@ -1,4 +1,4 @@
-package diversos.exoodio.entidade;
+package diversos.livraria.entidade;
 
 /**
  * Classe que representa um cupom de desconto no sistema.

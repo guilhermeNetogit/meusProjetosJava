@@ -1,8 +1,9 @@
-package diversos.exoodio.negocio;
+package diversos.livraria.negocio;
 
-import diversos.exoodio.basedados.DataBase;
-import diversos.exoodio.entidade.Cliente;
 import java.util.Optional;
+
+import diversos.livraria.basedados.DataBase;
+import diversos.livraria.entidade.Cliente;
 
 /**
  * Classe responsável pelas regras de negócio relacionadas aos clientes.

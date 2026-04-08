@@ -1,4 +1,4 @@
-package diversos.exoodio.entidade;
+package diversos.livraria.entidade;
 
 import java.util.ArrayList;
 import java.util.Collections;
