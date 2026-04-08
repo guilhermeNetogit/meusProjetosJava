@@ -1,4 +1,4 @@
-package diversos.impostoderenda.ir2;
+package diversos.impostoderenda.irdinamico;
 
 public abstract class Contribuinte2 {// Eclipse -> Github @guilhermeNetogit 15/03/2026 22:30:45
 

@@ -1,4 +1,4 @@
-package diversos.impostoderenda.ir2;
+package diversos.impostoderenda.irdinamico;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,7 +10,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
-public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/2026 20:43:34
+/**
+ * Classe principal do simulador de Imposto de Renda.
+ * Suporta seleção do ano-base (2025 ou 2026) antes de calcular.
+ *
+ * @author GitHub guilhermeNetogit
+ * @since 16/03/2026 20:43:34
+ * @version 07/04/2026 14:01:48
+ */
+
+public class TesteImpostoRenda2 {
 
 	public static void main(String[] args) {
 
@@ -21,64 +30,19 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 		List<PessoaFisica2> pessoasFisicas = new ArrayList<>();
 
 		// Cadastro de Pessoas Jurídicas
-		PessoaJuridica2 pj1 = new PessoaJuridica2();
-		pj1.setNome("Empresa Pessoa Jurídica 1");
-		pj1.setCnpj("44.379.462/0001-37");
-		pj1.setRendaBruta(15350);
-
-		PessoaJuridica2 pj2 = new PessoaJuridica2();
-		pj2.setNome("Empresa Pessoa Jurídica 2");
-		pj2.setCnpj("17.686.485/0001-11");
-		pj2.setRendaBruta(20000.99);
-
-		PessoaJuridica2 pj3 = new PessoaJuridica2();
-		pj3.setNome("Empresa Pessoa Jurídica 3");
-		pj3.setCnpj("66.905.259/0001-90");
-		pj3.setRendaBruta(50000);
-
-		PessoaJuridica2 pj4 = new PessoaJuridica2();
-		pj4.setNome("Empresa Pessoa Jurídica 4");
-		pj4.setCnpj("35.244.591/0001-27");
-		pj4.setRendaBruta(150000);
-
-		pessoasJuridicas.add(pj1);
-		pessoasJuridicas.add(pj2);
-		pessoasJuridicas.add(pj3);
+		pessoasJuridicas.add(criarPJ("Empresa Pessoa Jurídica 1", "44.379.462/0001-37", 15350.00));
+		pessoasJuridicas.add(criarPJ("Empresa Pessoa Jurídica 2", "17.686.485/0001-11", 20000.99));
+		pessoasJuridicas.add(criarPJ("Empresa Pessoa Jurídica 3", "66.905.259/0001-90", 50000.00));
+		pessoasJuridicas.add(criarPJ("Empresa Pessoa Jurídica 4", "35.244.591/0001-27", 150000.00));
 
 		// Cadastro de Pessoas Físicas
-		PessoaFisica2 pf1 = new PessoaFisica2();
-		pf1.setNome("Pessoa Física 1");
-		pf1.setCpf("307.961.650-25");
-		pf1.setRendaBruta(2428.80);// 2428.95
-
-		PessoaFisica2 pf2 = new PessoaFisica2();
-		pf2.setNome("Pessoa Física 2");
-		pf2.setCpf("681.816.970-81");
-		pf2.setRendaBruta(3585.51);
-
-		PessoaFisica2 pf3 = new PessoaFisica2();
-		pf3.setNome("Pessoa Física 3");
-		pf3.setCpf("321.861.300-09");
-		pf3.setRendaBruta(6592.9);
-
-		PessoaFisica2 pf4 = new PessoaFisica2();
-		pf4.setNome("Pessoa Física 4");
-		pf4.setCpf("187.550.887-71");
-		pf4.setRendaBruta(42192.71);
-
-		PessoaFisica2 pf5 = new PessoaFisica2();
-		pf5.setNome("Pessoa Física 5");
-		pf5.setCpf("298.661.998-82");
-		pf5.setRendaBruta(4192.71);
-
-		pessoasFisicas.add(pf1);
-		pessoasFisicas.add(pf2);
-		pessoasFisicas.add(pf3);
-		pessoasFisicas.add(pf4);
-		pessoasFisicas.add(pf5);
+		pessoasFisicas.add(criarPF("Pessoa Física 1", "307.961.650-25", 2428.80));
+		pessoasFisicas.add(criarPF("Pessoa Física 2", "681.816.970-81", 3585.51));
+		pessoasFisicas.add(criarPF("Pessoa Física 3", "321.861.300-09", 6592.90));
+		pessoasFisicas.add(criarPF("Pessoa Física 4", "187.550.887-71", 42192.71));
+		pessoasFisicas.add(criarPF("Pessoa Física 5", "298.661.998-82", 4192.71));
 
 		int opcaoTipoPessoa;
-		Contribuinte2 contribuinteSelecionado = null;
 
 		do {
 			// Menu de seleção de tipo de pessoa
@@ -90,41 +54,80 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 			System.out.println("[2] Imposto de Renda Pessoa Jurídica (IRPJ)");
 			System.out.println("[0] Sair do sistema");
 			System.out.print("\nOpção selecionada: ");
-			opcaoTipoPessoa = scanner.nextInt();
+			opcaoTipoPessoa = lerInt(scanner);
 			scanner.nextLine(); // limpa buffer
 
 			switch (opcaoTipoPessoa) {
-			case 1:
-				contribuinteSelecionado = escolherPessoaFisica(scanner, pessoasFisicas);
+
+			case 1: {
+				// 1. Escolhe o ano-base
+				RegrasFiscais regras = escolherAnoPF(scanner);
+				if (regras == null)
+					break; // voltou ao menu
+
+				// 2. Escolhe o contribuinte e preenche os dados
+				PessoaFisica2 pf = escolherPessoaFisica(scanner, pessoasFisicas);
+				if (pf == null)
+					break;
+
+				// 3. Injeta as regras e gera o relatório
+				pf.setRegras(regras);
+				String relatorio = pf.gerarRelatorio();
+				System.out.println(relatorio);
+
+				perguntarSalvar(scanner, relatorio, pf.getNome());
+				pausar(scanner);
 				break;
-			case 2:
-				contribuinteSelecionado = escolherPessoaJuridica(scanner, pessoasJuridicas);
+			}
+
+			case 2: {
+				PessoaJuridica2 pj = escolherPessoaJuridica(scanner, pessoasJuridicas);
+				if (pj == null)
+					break;
+
+				String relatorio = pj.gerarRelatorio();
+				System.out.println(relatorio);
+
+				perguntarSalvar(scanner, relatorio, pj.getNome());
+				pausar(scanner);
 				break;
+			}
+
 			case 0:
 				System.out.println("\nEncerrando atendimento...");
 				scanner.close();
 				return; // encerra o programa
+
 			default:
 				System.out.println("\nOpção inválida. Tente novamente.\n");
-				continue; // volta ao início do do-while
 			}
 
-			if (contribuinteSelecionado != null) {
-
-				String relatorio = contribuinteSelecionado.gerarRelatorio();
-				System.out.println(relatorio);
-
-				// NOVO: Pergunta se deseja salvar
-				System.out.print("Deseja salvar este relatório em arquivo? (S/N): ");
-				String salvar = scanner.nextLine().trim().toUpperCase();
-
-				if (salvar.equals("S")) {
-					salvarRelatorioArquivo(relatorio, contribuinteSelecionado.getNome());
-				}
-
-				pausar(scanner);
-			}
 		} while (opcaoTipoPessoa != 0);
+	}
+
+	// Seleção do ano-base (somente para PF por enquanto)
+
+	private static RegrasFiscais escolherAnoPF(Scanner scanner) {
+		while (true) {
+			System.out.println("\n--- Selecione o ano-base ---");
+			System.out.println("[1] 2025");
+			System.out.println("[2] 2026");
+			System.out.println("[0] Voltar");
+			System.out.print("\nOpção: ");
+			int op = lerInt(scanner);
+			scanner.nextLine();
+
+			switch (op) {
+			case 1:
+				return RegrasFiscais.de2025();
+			case 2:
+				return RegrasFiscais.de2026();
+			case 0:
+				return null;
+			default:
+				System.out.println("Opção inválida.");
+			}
+		}
 	}
 
 	// Método para escolher uma Pessoa Física (mostra toda a lista de CPF's)
@@ -139,16 +142,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 			System.out.println("\n[0] Voltar ao menu principal");
 			System.out.print("\nEscolha o código da pessoa física (1 a " + lista.size() + "): \n");
 
-			int codigo;
-
-			try {
-				codigo = scanner.nextInt();
-			} catch (Exception e) {
-				scanner.nextLine(); // limpa entrada inválida
-				System.out.println("Entrada inválida. Digite apenas números.");
-				continue;
-			}
-
+			int codigo = lerInt(scanner);
 			scanner.nextLine();
 
 			if (codigo == 0) {
@@ -164,6 +158,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 
 			// Solicita a renda bruta, permitindo Enter para usar o valor cadastrado
 			double renda;
+
 			while (true) {
 				System.out.print("Digite a renda bruta para " + original.getNome()
 						+ "\n(ou Enter para usar a renda cadastrada): R$ ");
@@ -226,14 +221,7 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 			System.out.println("\n[0] Voltar ao menu principal");
 			System.out.print("Escolha o código da pessoa jurídica (1 a " + lista.size() + "): ");
 
-			int codigo;
-			try {
-				codigo = scanner.nextInt();
-			} catch (Exception e) {
-				scanner.nextLine(); // limpa entrada inválida
-				System.out.println("Entrada inválida. Digite um número.");
-				continue;
-			}
+			int codigo = lerInt(scanner);
 			scanner.nextLine();
 
 			if (codigo == 0) {
@@ -260,6 +248,32 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 			nova.setRendaBruta(faturamento);
 
 			return nova;
+		}
+	}
+
+	// Utilitários
+
+	private static void perguntarSalvar(Scanner scanner, String relatorio, String nome) {
+		System.out.print("Deseja salvar este relatório em arquivo? (S/N): ");
+		String salvar = scanner.nextLine().trim().toUpperCase();
+		if (salvar.equals("S")) {
+			salvarRelatorioArquivo(relatorio, nome);
+		}
+	}
+
+	private static void pausar(Scanner scanner) {
+		System.out.println("Pressione Enter para continuar...");
+		scanner.nextLine();
+	}
+
+	private static int lerInt(Scanner scanner) {
+		while (true) {
+			try {
+				return scanner.nextInt();
+			} catch (Exception e) {
+				scanner.nextLine();
+				System.out.print("Entrada inválida. Digite um número: ");
+			}
 		}
 	}
 
@@ -302,11 +316,6 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 	 * return nova; }
 	 */
 
-	private static void pausar(Scanner scanner) {
-		System.out.println("Pressione Enter para continuar...");
-		scanner.nextLine();
-	}
-
 	private static void salvarRelatorioArquivo(String conteudoRelatorio, String nomeContribuinte) {
 		// Cria um nome de arquivo único com data e hora para não sobrescrever
 		LocalDateTime agora = LocalDateTime.now();
@@ -331,4 +340,19 @@ public class TesteImpostoRenda2 {// Eclipse -> Github @guilhermeNetogit 16/03/20
 		}
 	}
 
+	private static PessoaFisica2 criarPF(String nome, String cpf, double renda) {
+		PessoaFisica2 pf = new PessoaFisica2();
+		pf.setNome(nome);
+		pf.setCpf(cpf);
+		pf.setRendaBruta(renda);
+		return pf;
+	}
+
+	private static PessoaJuridica2 criarPJ(String nome, String cnpj, double renda) {
+		PessoaJuridica2 pj = new PessoaJuridica2();
+		pj.setNome(nome);
+		pj.setCnpj(cnpj);
+		pj.setRendaBruta(renda);
+		return pj;
+	}
 }
