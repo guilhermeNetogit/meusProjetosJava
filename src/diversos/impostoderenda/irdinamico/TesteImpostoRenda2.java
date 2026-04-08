@@ -36,11 +36,11 @@ public class TesteImpostoRenda2 {
 		pessoasJuridicas.add(criarPJ("Empresa Pessoa Jurídica 4", "35.244.591/0001-27", 150000.00));
 
 		// Cadastro de Pessoas Físicas
-		pessoasFisicas.add(criarPF("Pessoa Física 1", "307.961.650-25", 2428.80));
-		pessoasFisicas.add(criarPF("Pessoa Física 2", "681.816.970-81", 3585.51));
-		pessoasFisicas.add(criarPF("Pessoa Física 3", "321.861.300-09", 6592.90));
-		pessoasFisicas.add(criarPF("Pessoa Física 4", "187.550.887-71", 42192.71));
-		pessoasFisicas.add(criarPF("Pessoa Física 5", "298.661.998-82", 4192.71));
+		pessoasFisicas.add(criarPF("Pessoa Física 1", "227.713.996-36", 2428.80));
+		pessoasFisicas.add(criarPF("Pessoa Física 2", "637.077.666-16", 3585.51));
+		pessoasFisicas.add(criarPF("Pessoa Física 3", "045.769.806-37", 6592.90));
+		pessoasFisicas.add(criarPF("Pessoa Física 4", "463.007.586-05", 42192.71));
+		pessoasFisicas.add(criarPF("Pessoa Física 5", "591.353.956-72", 4192.71));
 
 		int opcaoTipoPessoa;
 

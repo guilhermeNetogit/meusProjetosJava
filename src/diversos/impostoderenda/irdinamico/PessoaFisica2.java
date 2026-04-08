@@ -1,16 +1,16 @@
 package diversos.impostoderenda.irdinamico;
 
 /**
- * Representa uma Pessoa Física contribuinte do IRPF.
- * O cálculo de INSS e IR é delegado ao objeto {@link RegrasFiscais},
- * que encapsula as tabelas e alíquotas de cada ano-base.
+ * Representa uma Pessoa Física contribuinte do IRPF. O cálculo de INSS e IR é
+ * delegado ao objeto {@link RegrasFiscais}, que encapsula as tabelas e
+ * alíquotas de cada ano-base.
  *
- * Para calcular com regras de 2025: setRegras(RegrasFiscais.de2025())
- * Para calcular com regras de 2026: setRegras(RegrasFiscais.de2026())
+ * Para calcular com regras de 2025: setRegras(RegrasFiscais.de2025()) Para
+ * calcular com regras de 2026: setRegras(RegrasFiscais.de2026())
  *
  * @author GitHub guilhermeNetogit
  * @since 16/03/2026 20:43:58
- * @version 07/04/2026 20:18:35
+ * @version 08/04/2026 13:43:35
  */
 
 public class PessoaFisica2 extends Contribuinte2 {
@@ -22,7 +22,7 @@ public class PessoaFisica2 extends Contribuinte2 {
 	private double irCalculado;
 	private double inssCalculado;
 	private double baseUtilizada;
-	private int    qtdDependentes;
+	private int qtdDependentes;
 	private RegrasFiscais regras = null;
 
 	public String getCpf() {
@@ -51,12 +51,11 @@ public class PessoaFisica2 extends Contribuinte2 {
 
 	public double calcularInss() {
 
-		if (regras == null) throw new IllegalStateException(
-                "RegrasFiscais não configurada. Chame setRegras() antes de calcular.");
+		if (regras == null)
+			throw new IllegalStateException("RegrasFiscais não configurada. Chame setRegras() antes de calcular.");
 		double renda = getRendaBruta();
 		this.inssCalculado = regras.calcularInss(renda);
 		this.faixaInss = regras.faixaInss(renda);
-		System.out.println("DEBUG faixaInss = [" + faixaInss + "]"); // <-- adiciona isso
 		return this.inssCalculado;
 	}
 
@@ -70,30 +69,28 @@ public class PessoaFisica2 extends Contribuinte2 {
 		// Opção 1: Desconto legal (INSS + dependentes)
 		double descontoLegal = inss + totalDep;
 		double baseLegal = renda - descontoLegal;
-		double baseLegalRelatorio = Math.max(0, baseLegal);
-		double impostoLegal = regras.calcularIr(baseLegal);
-		String faixaLegal = regras.faixaIr(baseLegal);
+		double impostoLegal = regras.calcularIr(renda, baseLegal);
+		String faixaLegal = regras.faixaIr(renda, baseLegal);
 
 		// Opção 2: Desconto simplificado
 		double descontoSimplificado = regras.descontoSimplificado;
 		double baseSimplificada = renda - descontoSimplificado;
-		double baseSimplificadaRelatorio = Math.max(0, baseSimplificada);
-		double impostoSimplificado = regras.calcularIr(baseSimplificada);
-		String faixaSimplificada = regras.faixaIr(baseSimplificada);
+		double impostoSimplificado = regras.calcularIr(renda, baseSimplificada);
+		String faixaSimplificada = regras.faixaIr(renda, baseSimplificada);
 
 		// Escolhe o menor imposto (desempate: maior desconto)
 
 		boolean usaLegal = descontoLegal > descontoSimplificado;
 
 		if (usaLegal) {
-			baseUtilizada = baseLegalRelatorio;
+			baseUtilizada = Math.max(0, baseLegal);
 			faixaIr = faixaLegal;
 			tipoDescontoIr = String.format("Dedução calculada (INSS: R$ %,.2f + Dep.: R$ %,.2f): totalizando R$ %,.2f",
 					inss, totalDep, descontoLegal);
 			irCalculado = impostoLegal;
 
 		} else {
-			baseUtilizada = baseSimplificadaRelatorio;
+			baseUtilizada = Math.max(0, baseSimplificada);
 			faixaIr = faixaSimplificada;
 			tipoDescontoIr = String.format("Desconto Simplificado R$ %,.2f", descontoSimplificado);
 			irCalculado = impostoSimplificado;
@@ -103,11 +100,11 @@ public class PessoaFisica2 extends Contribuinte2 {
 	}
 
 	public double getAliquotaEfetivaInss() {
-		return (getRendaBruta() == 0) ? 0 : (this.inssCalculado / this.getRendaBruta()) * 100;
+		return (getRendaBruta() == 0) ? 0 : (inssCalculado / getRendaBruta()) * 100;
 	}
 
 	public double getAliquotaEfetivaIr() {
-		return (getRendaBruta() == 0) ? 0 : (this.irCalculado / this.getRendaBruta()) * 100;
+		return (getRendaBruta() == 0) ? 0 : (irCalculado / getRendaBruta()) * 100;
 	}
 
 	// Método especial para gerar a explicação do cálculo
@@ -115,6 +112,9 @@ public class PessoaFisica2 extends Contribuinte2 {
 	public String gerarRelatorio() {
 
 		calcularIR();
+
+		double irBruto = regras.calcularIrBruto(getRendaBruta(), baseUtilizada);
+		double redutor = regras.obterRedutorTransicao(rendaBruta);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("--------------------------------------------------------------------\n");
@@ -129,7 +129,13 @@ public class PessoaFisica2 extends Contribuinte2 {
 		sb.append("\nResumo Financeiro\n");
 		sb.append(String.format("%-20s R$ %,.2f\n", "Desconto INSS:", inssCalculado));
 		sb.append(String.format("%-20s %s\n", "Desconto IRPF:", tipoDescontoIr));
-		sb.append(String.format("%-20s R$ %,.2f\n", "Imposto de Renda pagar:", irCalculado));
+
+		if (redutor > 0) {
+			sb.append(String.format("%-20s R$ %,.2f (R$ %,.2f imposto total - R$ %,.2f redução)\n",
+					"Imposto de Renda pagar:", irCalculado, irBruto, redutor));
+		} else {
+			sb.append(String.format("%-20s R$ %,.2f\n", "Imposto de Renda pagar:", irCalculado));
+		}
 
 		sb.append(String.format("\nDetalhamento: \n"));
 		sb.append(String.format("  ◦ Base INSS: R$ %,.2f%n", getRendaBruta()));
