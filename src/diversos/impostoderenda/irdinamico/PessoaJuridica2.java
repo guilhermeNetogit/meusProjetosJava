@@ -1,4 +1,4 @@
-package diversos.impostoderenda.ir2;
+package diversos.impostoderenda.irdinamico;
 
 public class PessoaJuridica2 extends Contribuinte2 {// Eclipse -> Github @guilhermeNetogit 16/03/2026 20:43:41
 
