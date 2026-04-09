@@ -26,8 +26,8 @@
 | De 3.751,06 até 4.664,68 | 22,5% | 675,49                 | 205,56 |
 | Acima de 4.664,68     | 27,5%   | 908,73                 | (X - 4.664,69) |
 
-*Rendimentos previdenciários isentos para maiores de 65 anos: R$ 1.903,98*
-*Dedução mensal por dependente: R$ 189,59*
+*Rendimentos previdenciários isentos para maiores de 65 anos: R$ 1.903,98*  
+*Dedução mensal por dependente: R$ 189,59*  
 *Limite mensal de desconto simplificado: R$ 607,20*
 
 ---
@@ -39,7 +39,7 @@
 | Até 5.000,00                | Isento                | 319,89            |
 | De 5.000,01 até 7.350,00    | Redução Progressiva   | 978,62 – (0,133145 × renda mensal) |
 
-### 🧮 Fórmula de Cálculo
+## 🧮 Fórmula de Cálculo
 
 ((Renda Mensal - INSS) × Alíquota) - Dedução - (978,62 - 0,133145 × Renda Mensal)
 
@@ -48,9 +48,7 @@
 ## 💡 Desconto Simplificado
 
 - **Valor mensal (2025/2026):** R$ 607,20  
-- **Equivalente a:** 25% de R$ 2.428,80  
-
----
+- **Equivalente a:** 25% de R$ 2.428,80
 
 ---
 
@@ -68,6 +66,8 @@ Utilizar o maior valor entre:
 (INSS + quantidade de dependentes × 189,59)
 
 ou
+
+---
 
 Desconto simplificado (R$ 607,20)
 
@@ -93,4 +93,4 @@ Desconto simplificado (R$ 607,20)
 | De 2.793,89 até 4.190,83 | 12,0%	  | 106,59                 | 167,63 |
 | De 4.190,84 até 8.157,41 | 14,0%	  | 190,40                 | 555,32 |
 
-:octocat:	:octocat: :octocat:
+:octocat:
