@@ -1,4 +1,4 @@
-package meusprojetosjava.dateformatting;
+package diversos.dateformatting;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
