@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class TesteVeiculos {
 
-	public static void main(String[] args) {// Eclipse -> Github @guilhermeNetogit 23/03/2026 21:25:07
+	public static void main(String[] args) {// Eclipse -> GitHub @guilhermeNetogit 11/06/2026 09:41:46
 
 		Scanner scanner = new Scanner(System.in);
 
 		// ========== Cadastros dos Veículos ==========
 		Veiculos onix = criarVeiculo("Chevrolet", "Onix Joy 1.0", 2019, 5, new String[] { Veiculos.TIPO_COMB[2] }, 54,
-				12.9, 15, 8.9, 10.8, 50000);
+				12.9, 15.6, 8.9, 10.8, 50000);
 
 		Veiculos fusca = criarVeiculo("Volkswagen", "Fusca 1300", 1970, 5, new String[] { Veiculos.TIPO_COMB[0] }, 41,
 				8, 11.5, 0, 0, 32000);
