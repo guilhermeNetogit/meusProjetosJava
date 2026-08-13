@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -30,7 +31,7 @@ import java.util.concurrent.TimeUnit;
  * @version 22/04/2026 12:27:53
  */
 
-public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 28/03/2026 18:49:28
+public class DiferencaDatas {// Eclipse -> GitHub @guilhermeNetogit 13/08/2026 13:12:16
 	
 	/**
 	 * Método principal responsável por executar todos os exemplos
@@ -77,11 +78,16 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 28/03/2026 1
 	public static void diferencaDataAteJava7() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
-		Date primeiraDt = sdf.parse("28/04/2012 08:50:00:00");
+		Date primeiraDt = new Date();
 		// Date segundaDt = sdf.parse("24/06/1987 23:53:00:00"); // data pode ser alterada manualmente;
-		Date segundaDt = new Date();
+		Date segundaDt = sdf.parse("28/04/2012 08:50:00:00");
+		
+		SimpleDateFormat formatador = new SimpleDateFormat("EEEE dd/MM/yyyy HH:mm:ss", Locale.forLanguageTag("pt-BR"));
+		
+		String primeiraDtFormatado = formatador.format(primeiraDt);
+		String segundaDtFormatado = formatador.format(segundaDt);
 
-		long diffEmMil = Math.abs(segundaDt.getTime() - primeiraDt.getTime());
+		long diffEmMil = Math.abs(primeiraDt.getTime() - segundaDt.getTime());
 
 		long dias = TimeUnit.DAYS.convert(diffEmMil, TimeUnit.MILLISECONDS);
 
@@ -94,8 +100,11 @@ public class DiferencaDatas {// Eclipse -> Github @guilhermeNetogit 28/03/2026 1
 		long segundos = (long) (diffEmMil / (1000 /** 60 * 24 */
 		));
 
-		System.out.println("Primeira data: " + primeiraDt.getTime());
-		System.out.println("Segunda data: " + segundaDt.getTime());
+		System.out.println("Primeira data: " + primeiraDtFormatado);
+		System.out.println("Segunda data: " + segundaDtFormatado);
+		System.out.println();
+		System.out.println("Primeira data(miliseg): " + primeiraDt.getTime());
+		System.out.println("Segunda data(miliseg): " + segundaDt.getTime());
 		System.out.println("Milissegundos: " + diffEmMil);
 		System.out.println("Segundos: " + segundos);
 		System.out.println("Minutos: " + minutos);
