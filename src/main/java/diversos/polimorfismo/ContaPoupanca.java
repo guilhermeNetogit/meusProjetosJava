@@ -2,7 +2,7 @@ package diversos.polimorfismo;
 
 import java.time.LocalDate;
 
-public class ContaPoupanca extends ContaBancaria {
+public class ContaPoupanca extends ContaBancaria { // Eclipse -> GitHub @guilhermeNetogit 14/08/2026 11:13:59
 
 	private int diaRendimento;
 	private LocalDate ultimoRendimento;
@@ -17,8 +17,7 @@ public class ContaPoupanca extends ContaBancaria {
 
 	@Override
 	public String toString() {
-		String cabecalho = super.toString()
-				+ "\n Dia Rendimento: " + diaRendimento
+		String cabecalho = super.toString() + "\nDia Rendimento: " + diaRendimento
 				+ "\n-------------------------------------";
 		return cabecalho;
 	}
@@ -28,7 +27,7 @@ public class ContaPoupanca extends ContaBancaria {
 		double taxaRendimento = 0.005; // ou pode receber como parâmetro, se preferir
 
 		// Verifica se hoje é dia de rendimento E se o último rendimento não foi hoje
-		if (hoje.getDayOfMonth() == this.diaRendimento && !hoje.equals(ultimoRendimento)) {
+		if (hoje.getDayOfMonth() >= this.diaRendimento && !rendimentoJaPagoHoje(hoje)) {
 			double rendimento = this.getSaldo() * taxaRendimento;
 			this.depositar(rendimento);
 			this.ultimoRendimento = hoje; // marca que aplicou hoje
@@ -38,16 +37,20 @@ public class ContaPoupanca extends ContaBancaria {
 	}
 
 	public boolean hojeEDiaDeRendimento(LocalDate hoje) {
-		return hoje.getDayOfMonth() == this.diaRendimento;
+		return hoje.getDayOfMonth() >= this.diaRendimento;
 	}
 
 	public boolean rendimentoJaPagoHoje(LocalDate hoje) {
-		return hoje.equals(ultimoRendimento);
+		if (ultimoRendimento == null) {
+			return false;
+		}
+		return ultimoRendimento.getMonth() == hoje.getMonth() && ultimoRendimento.getYear() == hoje.getYear();
+
 	}
 
 	@Override
 	public void consultarSaldo() {
-		
+
 		LocalDate hoje = LocalDate.now(); // chamada única
 		super.consultarSaldo(); // exibe o saldo antes de qualquer rendimento
 
