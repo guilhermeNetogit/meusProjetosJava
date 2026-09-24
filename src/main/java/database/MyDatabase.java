@@ -62,9 +62,10 @@ public class MyDatabase {
 		/**
          * Query SQL para buscar dados de campos específicos da tabela.
          */		
-		String sql = "SELECT PRO.CODPROD, DESCRPROD, EANGTIN, CODVOL, DTCREATED, DTALTER, CONTROLE, ESTOQUE "
-				+ "FROM TGFPRO PRO"
-				+ "	LEFT JOIN TGFEST EST ON EST.CODPROD = PRO.CODPROD";
+		String sql = "SELECT PRO.CODPROD, DESCRPROD, EANGTIN, CODVOL, DTCREATED, DTALTER, CONTROLE, ESTOQUE, NOMEUSU "
+				+ "FROM TGFPRO PRO "
+				+ "LEFT JOIN TGFEST EST ON EST.CODPROD = PRO.CODPROD "
+				+ "LEFT JOIN TSIUSU USU ON USU.CODUSU = PRO.CODUSUINC";
 
 		/** Formato de exibição das colunas de data e hora */
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -99,7 +100,8 @@ public class MyDatabase {
                     dataInc != null ? sdf.format(dataInc) : "null",
                     dataAlt != null ? sdf.format(dataAlt) : "null",
                     rs.getString("CONTROLE"),
-                    rs.getString("ESTOQUE")
+                    rs.getString("ESTOQUE"),
+                    rs.getString("NOMEUSU")
                     
                 });
 			}
@@ -117,7 +119,8 @@ public class MyDatabase {
 					"Data Cadastro".length(),
 					"Data Alteração".length(),
 					"CONTROLE".length(),
-					"ESTOQUE".length()
+					"ESTOQUE".length(),
+					"NOMEUSU".length()
 					};
 				
 				for (String[] row : rows) {
@@ -133,8 +136,8 @@ public class MyDatabase {
              * Cada coluna recebe alinhamento à esquerda com a largura exata ({@code %-Ns}).
              */
 			String sfmt = String.format(
-					"%%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds%%n",
-					w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7]);
+					"%%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds%%n",
+					w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8]);
 			
 			
 			/**
@@ -148,18 +151,19 @@ public class MyDatabase {
 					   + "-".repeat(w[4]) + "-+-"
 					   + "-".repeat(w[5]) + "-+-"
 					   + "-".repeat(w[6]) + "-+-"
-					   + "-".repeat(w[7]) + "-";
+					   + "-".repeat(w[7]) + "-+-"
+					   + "-".repeat(w[8]) + "-";
 			
 			/** Imprime cabeçalho com os nomes das colunas */
 			System.out.println("\n📦 Produtos Cadastrados:\n");
 			System.out.printf(sfmt, 
-					"ID", "Nome", "EAN", "UN", "Data Cadastro", "Data Alteração", "Controle", "Estoque");
+					"ID", "Nome", "EAN", "UN", "Data Cadastro", "Data Alteração", "Controle", "Estoque", "Usuário Inc.");
 			System.out.println(sep);
 			
 			/** Imprime as linhas de produtos com formatação alinhada */
 			for (String[] row : rows) {
 				System.out.printf(sfmt,
-						row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+						row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]);
 			}
 
 		} catch (SQLException e) {
