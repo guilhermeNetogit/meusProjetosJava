@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author GitHub guilhermeNetogit
  * @since 02/04/2026 19:55:48
- * @version 2.0 03/04/2026 16:07
+ * @version 2.1 07/10/2026 11:53
  */
 
 public class MyDatabase {
@@ -62,7 +62,7 @@ public class MyDatabase {
 		/**
          * Query SQL para buscar dados de campos específicos da tabela.
          */		
-		String sql = "SELECT PRO.CODPROD, DESCRPROD, EANGTIN, CODVOL, DTCREATED, DTALTER, CONTROLE, ESTOQUE, NOMEUSU "
+		String sql = "SELECT PRO.CODPROD, DESCRPROD, EANGTIN, CODVOL, CONTROLE, ESTOQUE, PRO.ATIVO, DTCREATED, DTALTER, NOMEUSU "
 				+ "FROM TGFPRO PRO "
 				+ "LEFT JOIN TGFEST EST ON EST.CODPROD = PRO.CODPROD "
 				+ "LEFT JOIN TSIUSU USU ON USU.CODUSU = PRO.CODUSUINC";
@@ -85,6 +85,9 @@ public class MyDatabase {
 			List<String[]> rows = new ArrayList<>();
 			
 			while (rs.next()) {
+				
+				Boolean ativo = (Boolean) rs.getObject("ATIVO");
+				String ativoStr = (ativo == null) ? "-" : (ativo ? "Sim" : "Não");
 
 				Timestamp dataInc = rs.getTimestamp("DTCREATED");
 				// String dataIncFormatada = (dataInc != null) ? sdf.format(dataInc) : "null";
@@ -97,10 +100,11 @@ public class MyDatabase {
                     rs.getString("DESCRPROD"),
                     rs.getString("EANGTIN"),
                     rs.getString("CODVOL"),
-                    dataInc != null ? sdf.format(dataInc) : "null",
-                    dataAlt != null ? sdf.format(dataAlt) : "null",
                     rs.getString("CONTROLE"),
                     rs.getString("ESTOQUE"),
+                    ativoStr,
+                    dataInc != null ? sdf.format(dataInc) : "null",
+                    dataAlt != null ? sdf.format(dataAlt) : "null",
                     rs.getString("NOMEUSU")
                     
                 });
@@ -115,11 +119,12 @@ public class MyDatabase {
 					"ID".length(), 
 					"Nome".length(), 
 					"EAN".length(), 
-					"UN".length(), 
-					"Data Cadastro".length(),
-					"Data Alteração".length(),
+					"UN".length(),
 					"CONTROLE".length(),
 					"ESTOQUE".length(),
+					"ATIVO".length(),
+					"Data Cadastro".length(),
+					"Data Alteração".length(),
 					"NOMEUSU".length()
 					};
 				
@@ -136,8 +141,8 @@ public class MyDatabase {
              * Cada coluna recebe alinhamento à esquerda com a largura exata ({@code %-Ns}).
              */
 			String sfmt = String.format(
-					"%%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds%%n",
-					w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8]);
+					"%%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds | %%-%ds%%n",
+					w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8], w[9]);
 			
 			
 			/**
@@ -152,18 +157,19 @@ public class MyDatabase {
 					   + "-".repeat(w[5]) + "-+-"
 					   + "-".repeat(w[6]) + "-+-"
 					   + "-".repeat(w[7]) + "-+-"
-					   + "-".repeat(w[8]) + "-";
+					   + "-".repeat(w[8]) + "-+-"
+					   + "-".repeat(w[9]) + "-";
 			
 			/** Imprime cabeçalho com os nomes das colunas */
 			System.out.println("\n📦 Produtos Cadastrados:\n");
 			System.out.printf(sfmt, 
-					"ID", "Nome", "EAN", "UN", "Data Cadastro", "Data Alteração", "Controle", "Estoque", "Usuário Inc.");
+					"ID", "Nome", "EAN", "UN", "Controle", "Estoque", "Ativo", "Data Cadastro", "Data Alteração", "Usuário Inc.");
 			System.out.println(sep);
 			
 			/** Imprime as linhas de produtos com formatação alinhada */
 			for (String[] row : rows) {
 				System.out.printf(sfmt,
-						row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]);
+						row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9]);
 			}
 
 		} catch (SQLException e) {
