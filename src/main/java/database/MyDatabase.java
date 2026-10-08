@@ -86,6 +86,12 @@ public class MyDatabase {
 			
 			while (rs.next()) {
 				
+				String controle = rs.getString("CONTROLE");
+				String controleStr = (controle == null || controle.trim().isEmpty()) ? "-" : controle.trim();
+				
+				int estoque = rs.getInt("ESTOQUE");
+				String estoqueStr = rs.wasNull() ? "0" : String.valueOf(estoque);
+				
 				Boolean ativo = (Boolean) rs.getObject("ATIVO");
 				String ativoStr = (ativo == null) ? "-" : (ativo ? "Sim" : "Não");
 
@@ -100,8 +106,8 @@ public class MyDatabase {
                     rs.getString("DESCRPROD"),
                     rs.getString("EANGTIN"),
                     rs.getString("CODVOL"),
-                    rs.getString("CONTROLE"),
-                    rs.getString("ESTOQUE"),
+                    controleStr,
+                    estoqueStr,
                     ativoStr,
                     dataInc != null ? sdf.format(dataInc) : "null",
                     dataAlt != null ? sdf.format(dataAlt) : "null",
@@ -163,7 +169,7 @@ public class MyDatabase {
 			/** Imprime cabeçalho com os nomes das colunas */
 			System.out.println("\n📦 Produtos Cadastrados:\n");
 			System.out.printf(sfmt, 
-					"ID", "Nome", "EAN", "UN", "Controle", "Estoque", "Ativo", "Data Cadastro", "Data Alteração", "Usuário Inc.");
+					"ID", "Descrição do Produto", "EAN", "UN", "Controle", "Estoque", "Ativo", "Data Cadastro", "Data Alteração", "Usuário Inc.");
 			System.out.println(sep);
 			
 			/** Imprime as linhas de produtos com formatação alinhada */
